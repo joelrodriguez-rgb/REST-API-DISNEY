@@ -17,11 +17,16 @@ public interface IPersonajeService {
 
 	/* BUSQUEDAS */
 
-	Personaje getFirstByPersonajeNameIgnoreCase(String name);
+	Personaje getByNameIgnoreCase(String name);
 	
 	List<String> getMovieByPersonajeId(Integer id);
 
 	/* FILTROS */
 
+	List<Personaje> getByYear(Integer year);
+	
+	List<Personaje> getByWeight(Double weight);
+	
+	List<Personaje> getByMovie(String title);
 
 }

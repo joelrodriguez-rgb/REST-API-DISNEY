@@ -14,7 +14,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	@Autowired
 	private IPersonajeRepository personajeRepo;
 
-	/* FUNCIONES CRUD */
+	/** FUNCIONES CRUD */
 	@Override
 	public List<Personaje> getAllPersonaje() {
 		return personajeRepo.findAll();
@@ -35,10 +35,10 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		personajeRepo.deleteById(id);
 	}
 
-	/***** BUSQUEDA ******/
+	/**BUSQUEDA */
 	@Override
-	public Personaje getFirstByPersonajeNameIgnoreCase(String name) {
-		return personajeRepo.findFirstByPersonajeNameIgnoreCase(name);
+	public Personaje getByNameIgnoreCase(String name) {
+		return personajeRepo.findByNameIgnoreCase(name);
 	}
 
 	@Override
@@ -46,6 +46,22 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		return personajeRepo.findMovieByPersonajeId(id);
 	}
 
-	/******* FILTROS ********/
+
+	/** FILTROS */
+	
+	@Override
+	public List<Personaje> getByYear(Integer year) {
+		return personajeRepo.findByYear(year);
+	}
+
+	@Override
+	public List<Personaje> getByWeight(Double weight) {
+		return personajeRepo.findByWeight(weight);
+	}
+
+	@Override
+	public List<Personaje> getByMovie(String title) {
+		return personajeRepo.findByMovie(title);
+	}
 
 }

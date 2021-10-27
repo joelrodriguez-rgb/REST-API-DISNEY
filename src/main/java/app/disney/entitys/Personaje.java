@@ -15,17 +15,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "personaje")
+@Table(name = "personajes")
 public class Personaje {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "personaje_name")
-	private String personajeName;
+	@Column(name = "name")
+	private String name;
 
-	@Column(name = "img_personage")
+	@Column(name = "img_personaje")
 	private String imgPersonaje;
 
 	@Column(name = "year")
@@ -35,61 +35,61 @@ public class Personaje {
 	private Double weight;
 
 	@ManyToMany(cascade = {CascadeType.MERGE , CascadeType.PERSIST})
-	@JoinTable(name = "personaje_mos", joinColumns = @JoinColumn(name = "personaje_id"), inverseJoinColumns = @JoinColumn(name = "mos_id"))
-	private List<MovieOrSerie> listMOS;
+	@JoinTable(name = "personaje_mov", joinColumns = @JoinColumn(name = "personaje_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
+	private List<Movie> listMovie;
 
 	public Personaje() {
 	}
 
-	public Personaje(String personajeName, String imgPersonaje, Integer year, Double weight,
-			List<MovieOrSerie> listMOS) {
-		this.personajeName = personajeName;
+	public Personaje(String name, String imgPersonaje, Integer year, Double weight,
+			List<Movie> listMovie) {
+		this.name = name;
 		this.imgPersonaje = imgPersonaje;
 		this.year = year;
 		this.weight = weight;
-		this.listMOS = listMOS;
+		this.listMovie = listMovie;
 	}
 
-	public Personaje(String personajeName, String imgPersonaje, Integer year, Double weight, MovieOrSerie mos) {
-		this.personajeName = personajeName;
+	public Personaje(String name, String imgPersonaje, Integer year, Double weight, Movie movie) {
+		this.name = name;
 		this.imgPersonaje = imgPersonaje;
 		this.year = year;
 		this.weight = weight;
 
-		List<MovieOrSerie> list = new ArrayList<>();
-		list.add(mos);
-		this.listMOS.add(mos);
+		List<Movie> list = new ArrayList<>();
+		list.add(movie);
+		this.listMovie.add(movie);
 	}
 
 	// contructor para probar jpa sin lista de peliculas
-	public Personaje(String personajeName, Integer year, Double weight, MovieOrSerie mos) {
-		this.personajeName = personajeName;
+	public Personaje(String name, Integer year, Double weight, Movie movie) {
+		this.name = name;
 		this.year = year;
 		this.weight = weight;
 
-		List<MovieOrSerie> list = new ArrayList<MovieOrSerie>();
-		list.add(mos);
-		this.listMOS = list;
+		List<Movie> list = new ArrayList<Movie>();
+		list.add(movie);
+		this.listMovie = list;
 	}
 	
 	// contructor para probar jpa con lista de peliculas sin imagen
-	public Personaje(String personajeName, Integer year, Double weight, List<MovieOrSerie> listMOS) {
-		this.personajeName = personajeName;
+	public Personaje(String name, Integer year, Double weight, List<Movie> listMovie) {
+		this.name = name;
 		this.year = year;
 		this.weight = weight;
-		this.listMOS = listMOS;
+		this.listMovie = listMovie;
 	}
 
 	
 	
 	
 
-	public String getpersonajeName() {
-		return personajeName;
+	public String getName() {
+		return name;
 	}
 
-	public void setpersonajeName(String personajeName) {
-		this.personajeName = personajeName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getImgPersonaje() {
@@ -116,12 +116,12 @@ public class Personaje {
 		this.weight = weight;
 	}
 
-	public List<MovieOrSerie> getListMOS() {
-		return listMOS;
+	public List<Movie> getlistMovie() {
+		return listMovie;
 	}
 
-	public void setListMOS(List<MovieOrSerie> listMOS) {
-		this.listMOS = listMOS;
+	public void setlistMovie(List<Movie> listMovie) {
+		this.listMovie = listMovie;
 	}
 
 	public Integer getId() {
@@ -151,10 +151,10 @@ public class Personaje {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (personajeName == null) {
-			if (other.personajeName != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!personajeName.equals(other.personajeName))
+		} else if (!name.equals(other.name))
 			return false;
 		if (weight == null) {
 			if (other.weight != null)
@@ -171,8 +171,8 @@ public class Personaje {
 
 	@Override
 	public String toString() {
-		return "Personage [id=" + id + ", personajeName=" + personajeName + ", year=" + year + ", weight=" + weight
-				+ ", listMOS=" + listMOS + "]";
+		return "Personage [id=" + id + ", name=" + name + ", year=" + year + ", weight=" + weight
+				+ ", listMovie=" + listMovie + "]";
 	}
 
 }

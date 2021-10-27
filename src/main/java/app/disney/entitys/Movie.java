@@ -15,15 +15,15 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "movie_or_serie")
-public class MovieOrSerie {
+@Table(name = "movies")
+public class Movie {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "img_mos")
-	private String imgMOS;
+	@Column(name = "img_mov")
+	private String imgMovie;
 
 	@Column(name = "title")
 	private String title;
@@ -40,12 +40,12 @@ public class MovieOrSerie {
 	private Gender gender;
 	
 
-	public MovieOrSerie() {
+	public Movie() {
 	}
 
-	public MovieOrSerie(String imgMOS, String title, LocalDate creationDate, Integer qualification, Gender gender) {
+	public Movie(String imgMovie, String title, LocalDate creationDate, Integer qualification, Gender gender) {
 		super();
-		this.imgMOS = imgMOS;
+		this.imgMovie = imgMovie;
 		this.title = title;
 		this.creationDate = creationDate;
 		this.qualification = qualification;
@@ -53,7 +53,7 @@ public class MovieOrSerie {
 	}
 	
 	//contructor para probar jpa
-	public MovieOrSerie( String title, LocalDate creationDate, Integer qualification, Gender gender) {
+	public Movie( String title, LocalDate creationDate, Integer qualification, Gender gender) {
 		this.title = title;
 		this.creationDate = creationDate;
 		this.qualification = qualification;
@@ -70,12 +70,12 @@ public class MovieOrSerie {
 		this.id = id;
 	}
 
-	public String getImgMOS() {
-		return imgMOS;
+	public String getimgMovie() {
+		return imgMovie;
 	}
 
-	public void setImgMOS(String imgMOS) {
-		this.imgMOS = imgMOS;
+	public void setimgMovie(String imgMovie) {
+		this.imgMovie = imgMovie;
 	}
 
 	public String getTitle() {
@@ -123,7 +123,7 @@ public class MovieOrSerie {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MovieOrSerie other = (MovieOrSerie) obj;
+		Movie other = (Movie) obj;
 		if (creationDate == null) {
 			if (other.creationDate != null)
 				return false;
@@ -154,7 +154,7 @@ public class MovieOrSerie {
 
 	@Override
 	public String toString() {
-		return "MovieOrSerie [id=" + id + ", title=" + title + ", creationDate=" + creationDate + ", qualification="
+		return "Movie[id=" + id + ", title=" + title + ", creationDate=" + creationDate + ", qualification="
 				+ qualification + ", gender=" + gender + "]";
 	}
 	

@@ -11,11 +11,20 @@ import app.disney.entitys.Personaje;
 @Repository
 public interface IPersonajeRepository extends JpaRepository<Personaje, Integer> {
 
-
-	@Query(value ="SELECT mov.title FROM personaje_mos pmov, movie_or_serie mov "
-			+ "WHERE pmov.mos_id = mov.id "
-			+ "AND pmov.personaje_id = ?1", nativeQuery = true)
+	@Query(value = "SELECT mov.title FROM personaje_mov pmov, movies mov " 
+	             + "WHERE pmov.movie_id = mov.id "
+			     + "AND pmov.personaje_id = ?1", nativeQuery = true)
 	List<String> findMovieByPersonajeId(Integer personajeID);
-	
-	Personaje findFirstByPersonajeNameIgnoreCase(String name);
+
+	Personaje findByNameIgnoreCase(String name);
+
+	List<Personaje> findByYear(Integer year);
+
+	List<Personaje> findByWeight(Double weight);
+
+	@Query(value = "SELECT * FROM personajes pj, personaje_mov pmov, movies mov" 
+	             +" WHERE pj.id = pmov.personaje_id "
+		         + "AND mov.id = pmov.movie_id " 
+	             + "AND mov.title = ?1 ", nativeQuery = true)
+	List<Personaje> findByMovie(String title);
 }

@@ -1,48 +1,41 @@
 package app.disney;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import app.disney.entitys.Gender;
-import app.disney.entitys.MovieOrSerie;
+import app.disney.entitys.Movie;
 import app.disney.entitys.Personaje;
 import app.disney.repository.IGenderRepository;
-import app.disney.repository.IMosRepository;
+import app.disney.repository.IMovieRepository;
 import app.disney.repository.IPersonajeRepository;
-
 @SpringBootTest
-@RunWith(value = SpringRunner.class)
 @TestPropertySource(locations = "classpath:application.properties")
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @Transactional
-public class QuerysTest {
+class QuerysTestPersonaje {
 
 	@Autowired
 	private IPersonajeRepository personajeRepo;
 
 	@Autowired
-	private IMosRepository mosRepo;
+	private IMovieRepository movieRepo;
 
 	@Autowired
 	private IGenderRepository genderRepo;
-
-	@Autowired
-	private EntityManager entityManager;
 
 
 	// carga de base de pruebas
@@ -57,58 +50,69 @@ public class QuerysTest {
 		genderRepo.save(gen3);
 
 		LocalDate date1 = LocalDate.of(2003, 6, 20);
-		MovieOrSerie mov1 = new MovieOrSerie();
-		mov1.setTitle("la Bella y la Bestia");
-		mov1.setCreationDate(date1);
-		mov1.setQualification(3);
-		mov1.setGender(genderRepo.findByGenderName("dibujo"));
-		entityManager.merge(mov1);
+		Movie mov1 = new Movie("la Bella y la Bestia", date1, 3, genderRepo.findByGenderName("dibujo"));
+		movieRepo.save(mov1);
 
 		LocalDate date2 = LocalDate.of(2008, 5, 4);
-		MovieOrSerie mov2 = new MovieOrSerie();
-		mov2.setTitle("la Bella y la Bestia 2");
-		mov2.setCreationDate(date2);
-		mov2.setQualification(5);
-		mov2.setGender(genderRepo.findByGenderName("dibujo"));
-		entityManager.merge(mov2);
+		Movie mov2 = new Movie("la Bella y la Bestia 2", date2, 5, genderRepo.findByGenderName("dibujo"));
+		movieRepo.save(mov2);
 
-		List<MovieOrSerie> listMos = mosRepo.findAll();
+		LocalDate date3 = LocalDate.of(2015, 9, 15);
+		Movie mov3 = new Movie("la lampara de Aladin", date3, 5, genderRepo.findByGenderName("animado"));
+		movieRepo.save(mov3);
+
+		List<Movie> listMos = new ArrayList<>();
+		listMos.add(movieRepo.findByTitleIgnoreCase("la bella y la bestia"));
+		listMos.add(movieRepo.findByTitleIgnoreCase("la bella y la bestia 2"));
 
 		Personaje bestia = new Personaje("Bestia", 35, 120.0, listMos);
-		entityManager.merge(bestia);
+		personajeRepo.save(bestia);
 
 		Personaje bella = new Personaje("Bella", 25, 60.0, listMos);
-		entityManager.merge(bella);
+		personajeRepo.save(bella);
 
-
+		Personaje aladin = new Personaje("Aladin", 35, 60.0, movieRepo.findByTitleIgnoreCase("la lampara de aladin"));
+		personajeRepo.save(aladin);
 	}
 
-	/** QUERYS DE PERSONAJES */
 
 	@Test // List<String> findMovieByPersonajeId(Integer personajeID);
 	void testFindFirstByPersonajeNameIgnoreCase() {
 
-		assertEquals("Bestia", personajeRepo.findFirstByPersonajeNameIgnoreCase("BesTiA").getpersonajeName());
-		assertEquals("Bella", personajeRepo.findFirstByPersonajeNameIgnoreCase("BELLA").getpersonajeName());
+		assertEquals("Bestia", personajeRepo.findByNameIgnoreCase("BesTiA").getName());
+		assertEquals("Bella", personajeRepo.findByNameIgnoreCase("BELLA").getName());
 	}
 
 	@Test // Personaje findFirstByPersonajeNameIgnoreCase(String name);
 	void testFindMovieByPersonajeId() {
 
-		Integer idBestia = personajeRepo.findFirstByPersonajeNameIgnoreCase("bestia").getId();
-		Integer idBella = personajeRepo.findFirstByPersonajeNameIgnoreCase("bella").getId();
+		Integer idBestia = personajeRepo.findByNameIgnoreCase("bestia").getId();
+		Integer idBella = personajeRepo.findByNameIgnoreCase("bella").getId();
 
 		List<String> listMovieByBestia = personajeRepo.findMovieByPersonajeId(idBestia);
 		List<String> listMovieByBella = personajeRepo.findMovieByPersonajeId(idBella);
 
 		assertEquals(false, listMovieByBestia.isEmpty());
 		assertEquals(false, listMovieByBella.isEmpty());
+
+	}
+
+	@Test
+	void testFindByYear() {
+		List<Personaje> listPersonajeByYear = personajeRepo.findByYear(35);
+		assertEquals(false, listPersonajeByYear.isEmpty());
+	}
+
+	@Test
+	void testFindByMovie() {
+		List<Personaje> listPersonajes = personajeRepo.findByMovie("la bella y la bestia");
+		assertEquals(false, listPersonajes.isEmpty());
 	}
 
 	@AfterEach
 	void deleteAllDb() {
 		personajeRepo.deleteAll();
-		mosRepo.deleteAll();
+		movieRepo.deleteAll();
 		genderRepo.deleteAll();
 	}
 

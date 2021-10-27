@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>list characters</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous">
+</head>
+<div class="container my-3">
+	<nav
+		class="navbar navbar-expand-sm navbar-light bg-light justify-content-center">
+		<ul>
+			<li class="nav-item">
+				<a
+					class="nav-link"
+					href="/index">DISNEY HOME</a>
+			</li>
+			<li class="nav-item">
+				<a
+					class="nav-link"
+					href="/characters">LIST CHARACTERS</a>
+			</li>
+		</ul>
+	</nav>
+</div>
+<body>
+
+	<div class="container">
+		<table
+			class="table"
+			th:object="${personaje}">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Year</th>
+					<th>Weight</th>
+					<th>Imagen</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="*{name}"></td>
+					<td th:text="*{year}"></td>
+					<td th:text="*{weight}"></td>
+					<td>
+						<img
+							th:src="@{'/imgCharacters/' + *{imgPersonaje}}"
+							th:alt="*{imgPersonaje}"
+							width="60"
+							height="60" />
+
+					</td>
+
+				</tr>
+			</tbody>
+		</table>
+
+		<label for="listMovies"> LIST MOVIES ASOCIATES</label>
+		<div
+			class="container"
+			th:each="movie : ${moviesAsociate}"
+			name="listMovies">
+			<div class="row">
+				<ul>
+					<il th:text="${movie}"></il>
+				</ul>
+			</div>
+		</div>
+
+
+	</div>
+
+</body>
+</html>

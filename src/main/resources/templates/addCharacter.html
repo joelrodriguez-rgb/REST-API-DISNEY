@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>create new Character</title>
+<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+		crossorigin="anonymous"
+>
+</head>
+<body>
+		<form
+				class="form-group"
+				action="@{/characters}"
+				method="POST"
+				th:object="${personage}"
+		>
+				<label for="name">NAME:</label>
+				<input
+						class="row sm-3"
+						type="text"
+						th:field="*{personageName}"
+						name="name"
+				/>
+				<label for="img">IMG</label>
+				<input
+						class="row"
+						type="file"
+						th:filed="*{imgPersonage}"
+						name="img"
+				/>
+				<label for="year">YEAR</label>
+				<input
+						class="row"
+						type="number"
+						th:field="*{year}"
+						name="year"
+				/>
+				<label for="weight">WEIGHT</label>
+				<input
+						class="row"
+						type="number"
+						th:field="*{weight}"
+						name="weight"
+				/>
+
+				<label for="movies">SELECT MOVIES</label>
+
+				<select
+						multiple
+						th:each="movie: ${movies}"
+				>
+						<option
+								value="${movie.title}"
+								th:text="${movie.title}"
+						></option>
+				</select>
+
+				<br />
+
+
+				<a th:href="@{/characters/createMovie}"> ADD NEW MOVIE </a>
+
+				<br />
+				<input type="submit" />
+		</form>
+</body>
+</html>

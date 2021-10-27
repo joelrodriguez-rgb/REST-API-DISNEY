@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>list characters</title>
+<link
+   href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+   rel="stylesheet"
+   integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+   crossorigin="anonymous">
+</head>
+<body>
+
+   <a th:href="@{/characters/addCharacter}"
+      class="btn btn-primary btn-sm mb-3">Add Character</a>
+      
+   <div class="container">
+      <table class="table" th:object="${personages}">
+         <thead>
+            <th>Name</th>
+            <th>Year</th>
+            <th>Weight</th>
+            <th>Imagen</th>
+         </thead>
+         <tbody>
+            <tr th:each="personage: ${personages}">
+               <td th:text="${personage.personageName}"></td>
+               <td th:text="${personage.year}"></td>
+               <td th:text="${personage.weight}"></td>
+               <td th:field = "${personage.imgPersonage}"></td> 
+               <td>
+                  <a
+                     th:href="@{/characters/editCharacter/{id}(id=${personage.id})}">
+                     EDIT </a>
+                  <a th:href="@{/characters/{id}(id=${personage.id})}">
+                     DELETE </a>
+                  <a
+                     th:href="@{/characters/detailCharacter/{id}(id=${personage.id})}">
+                     DETAIL </a>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+</body>
+</html>

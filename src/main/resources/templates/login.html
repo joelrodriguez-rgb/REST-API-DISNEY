@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>login</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="container py-4">
+		<div class="card border-primary text-center">
+			<div class="card-header">Sing in</div>
+			<div class="card-body text-center">
+				<form method="POST" th:action="@{/validate}">
+					<div class="form-grup col-sm-6">
+						<input
+							type="text"
+							name="userName"
+							class="form-control"
+							placeholder="user name" />
+					</div>
+					<div class="form-grup col-sm-6">
+						<input
+							type="password"
+							name="password"
+							class="form-control"
+							placeholder="password" />
+					</div>
+					<div class="form-grup col-sm-6">
+						<div>
+							<button
+								type="submit"
+								class="btn-primary"
+								>SING IN</button>
+						</div>
+					</div>
+				</form>
+				<div >
+					<button
+						type="button"
+						th:action="@{/createUser}"
+						class="btn-primary">Create User</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -5,9 +5,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -22,6 +24,7 @@ import app.disney.entitys.Personaje;
 import app.disney.service.IMovieService;
 import app.disney.service.IPersonajeService;
 
+@Controller
 public class charactersController {
 	@Autowired
 	private IPersonajeService personajeService;
@@ -29,11 +32,18 @@ public class charactersController {
 	@Autowired
 	private IMovieService movieService;
 
-	@GetMapping("/characters")
-	public String listCharacter(Model model) {
+	@GetMapping("/characters" )
+	public String listCharacter(ModelMap model) {
+		Personaje buscarPersonaje = new Personaje();
 		model.addAttribute("personajes", personajeService.getAllPersonaje());
+		model.addAttribute("searchPersonajeName", buscarPersonaje);
+		return "characters";
+	}
+	
+	@GetMapping("/search")
+	public String personajeName(@RequestParam("name")String name ,Model model) {
+		model.addAttribute("personajes", personajeService.getByNameIgnoreCase(name));
 		return "/characters";
-
 	}
 
 	@GetMapping("/characters/addCharacter")
@@ -85,10 +95,9 @@ public class charactersController {
 
 		if (!imagen.isEmpty()) {saveImg(imagen);}
 		personaje.setImgPersonaje(imagen.getOriginalFilename());
-
-		List<Movie> listMovieSave = new ArrayList<Movie>();
-		listMovieTitle.forEach(mov -> listMovieSave.add(movieService.getByTitleIgnoreCase(mov)));
-		personaje.setlistMovie(listMovieSave);
+		
+		
+		personaje.setlistMovie(saveListMovies(listMovieTitle));
 		
 		
 		personajeService.savePersonaje(personaje);
@@ -103,11 +112,9 @@ public class charactersController {
 		
 
 		
-		List<Movie> listMovieSave = new ArrayList<Movie>();
-		listMovieTitle.forEach(mov -> listMovieSave.add(movieService.getByTitleIgnoreCase(mov)));
-		personaje.setlistMovie(listMovieSave);
-
-
+		personaje.setlistMovie(saveListMovies(listMovieTitle));
+			
+		
 		Personaje personajeExisting = personajeService.getPersonajeById(id);
 		personajeExisting.setId(id);
 		personajeExisting.setName(personaje.getName());
@@ -121,8 +128,9 @@ public class charactersController {
 	}
 	
 	
+	
 	public void saveImg(MultipartFile imagen) {
-		Path directorioImagenes = Paths.get("src//main//resources//static/imgCharacters");
+		Path directorioImagenes = Paths.get("src//main//resources/imgCharacters");
 		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
 
 		try {
@@ -132,5 +140,14 @@ public class charactersController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	public List<Movie> saveListMovies(List<String> listMovieTitle) {
+		
+		List<Movie> listMovieSave = new ArrayList<Movie>();
+		listMovieTitle.forEach(mov -> listMovieSave.add(movieService.getByTitleIgnoreCase(mov)));
+		
+		return listMovieSave;
 	}
 }

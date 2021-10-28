@@ -61,28 +61,6 @@ public class Personaje {
 		this.listMovie.add(movie);
 	}
 
-	// contructor para probar jpa sin lista de peliculas
-	public Personaje(String name, Integer year, Double weight, Movie movie) {
-		this.name = name;
-		this.year = year;
-		this.weight = weight;
-
-		List<Movie> list = new ArrayList<Movie>();
-		list.add(movie);
-		this.listMovie = list;
-	}
-	
-	// contructor para probar jpa con lista de peliculas sin imagen
-	public Personaje(String name, Integer year, Double weight, List<Movie> listMovie) {
-		this.name = name;
-		this.year = year;
-		this.weight = weight;
-		this.listMovie = listMovie;
-	}
-
-	
-	
-	
 
 	public String getName() {
 		return name;

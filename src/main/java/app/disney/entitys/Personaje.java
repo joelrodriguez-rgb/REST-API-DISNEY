@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "personajes")
@@ -23,8 +25,11 @@ public class Personaje {
 	private Integer id;
 
 	@Column(name = "name")
+	@NotEmpty(message = "Este campo no puede estar vacio")
+	@NotBlank(message = "Este campo no puede estar en blanco")
 	private String name;
 
+	
 	@Column(name = "img_personaje")
 	private String imgPersonaje;
 
@@ -34,15 +39,14 @@ public class Personaje {
 	@Column(name = "weight")
 	private Double weight;
 
-	@ManyToMany(cascade = {CascadeType.MERGE , CascadeType.PERSIST})
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinTable(name = "personaje_mov", joinColumns = @JoinColumn(name = "personaje_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
 	private List<Movie> listMovie;
 
 	public Personaje() {
 	}
 
-	public Personaje(String name, String imgPersonaje, Integer year, Double weight,
-			List<Movie> listMovie) {
+	public Personaje(String name, String imgPersonaje, Integer year, Double weight, List<Movie> listMovie) {
 		this.name = name;
 		this.imgPersonaje = imgPersonaje;
 		this.year = year;
@@ -61,6 +65,27 @@ public class Personaje {
 		this.listMovie.add(movie);
 	}
 
+	public Personaje(String name, Integer year, Double weight, List<Movie> listMovie) {
+		this.name = name;
+		this.imgPersonaje = imgPersonaje;
+		this.year = year;
+		this.weight = weight;
+		this.listMovie = listMovie;
+	}
+	
+	public Personaje(String name, Integer year, Double weight, Movie movie) {
+		this.name = name;
+		this.imgPersonaje = imgPersonaje;
+		this.year = year;
+		this.weight = weight;
+
+		List<Movie> list = new ArrayList<>();
+		list.add(movie);
+		this.listMovie.add(movie);
+	}
+	
+	
+	
 
 	public String getName() {
 		return name;
@@ -149,8 +174,8 @@ public class Personaje {
 
 	@Override
 	public String toString() {
-		return "Personage [id=" + id + ", name=" + name + ", year=" + year + ", weight=" + weight
-				+ ", listMovie=" + listMovie + "]";
+		return "Personage [id=" + id + ", name=" + name + ", year=" + year + ", weight=" + weight + ", listMovie="
+				+ listMovie + "]";
 	}
 
 }

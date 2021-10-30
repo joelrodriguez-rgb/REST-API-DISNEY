@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:frament="head">
+<meta charset="UTF-8">
+<title>DISNEY APP</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous">
+</head>
+
+<body>
+
+
+	<header th:frament="header">
+		<div class="container my-3">
+			<nav
+				class="navbar navbar-expand-sm navbar-light bg-light justify-content-center">
+				<ul>
+					<li class="nav-item"><a
+						class="nav-link"
+						th:href="@{/index}">DISNEY HOME</a></li>
+
+					<li class="nav-item"><a
+						class="nav-link"
+						th:href="@{/characters}">LIST CHARACTERS</a></li>
+
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<footer
+		th:frament="head"
+		cass="container"></footer>
+</body>
+</html>

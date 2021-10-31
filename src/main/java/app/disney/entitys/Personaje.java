@@ -37,7 +37,7 @@ public class Personaje {
 	private Integer year;
 
 	@Column(name = "weight")
-	private Double weight;
+	private Integer weight;
 
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinTable(name = "personaje_mov", joinColumns = @JoinColumn(name = "personaje_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
@@ -46,7 +46,7 @@ public class Personaje {
 	public Personaje() {
 	}
 
-	public Personaje(String name, String imgPersonaje, Integer year, Double weight, List<Movie> listMovie) {
+	public Personaje(String name, String imgPersonaje, Integer year, Integer weight, List<Movie> listMovie) {
 		this.name = name;
 		this.imgPersonaje = imgPersonaje;
 		this.year = year;
@@ -54,7 +54,7 @@ public class Personaje {
 		this.listMovie = listMovie;
 	}
 
-	public Personaje(String name, String imgPersonaje, Integer year, Double weight, Movie movie) {
+	public Personaje(String name, String imgPersonaje, Integer year, Integer weight, Movie movie) {
 		this.name = name;
 		this.imgPersonaje = imgPersonaje;
 		this.year = year;
@@ -65,23 +65,29 @@ public class Personaje {
 		this.listMovie.add(movie);
 	}
 
-	public Personaje(String name, Integer year, Double weight, List<Movie> listMovie) {
+	public Personaje(String name, Integer year, Integer weight, List<Movie> listMovie) {
 		this.name = name;
-		this.imgPersonaje = imgPersonaje;
 		this.year = year;
 		this.weight = weight;
 		this.listMovie = listMovie;
 	}
 	
-	public Personaje(String name, Integer year, Double weight, Movie movie) {
+	public Personaje(String name, Integer year, Integer weight, Movie movie) {
 		this.name = name;
-		this.imgPersonaje = imgPersonaje;
 		this.year = year;
 		this.weight = weight;
 
 		List<Movie> list = new ArrayList<>();
 		list.add(movie);
 		this.listMovie.add(movie);
+	}
+	
+	
+	public Personaje(String name, Integer year, Integer weight, String movie) {
+		this.name = name;
+		this.year = year;
+		this.weight = weight;
+
 	}
 	
 	
@@ -111,11 +117,11 @@ public class Personaje {
 		this.year = year;
 	}
 
-	public Double getWeight() {
+	public Integer getWeight() {
 		return weight;
 	}
 
-	public void setWeight(Double weight) {
+	public void setWeight(Integer weight) {
 		this.weight = weight;
 	}
 
@@ -140,37 +146,7 @@ public class Personaje {
 		return this.id;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Personaje other = (Personaje) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (weight == null) {
-			if (other.weight != null)
-				return false;
-		} else if (!weight.equals(other.weight))
-			return false;
-		if (year == null) {
-			if (other.year != null)
-				return false;
-		} else if (!year.equals(other.year))
-			return false;
-		return true;
-	}
+
 
 	@Override
 	public String toString() {

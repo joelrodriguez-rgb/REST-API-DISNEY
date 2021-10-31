@@ -1,18 +1,16 @@
 package app.disney.controller;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +20,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
+
 import app.disney.entitys.Movie;
 import app.disney.entitys.Personaje;
+import app.disney.repository.IPersonajeRepository;
 import app.disney.service.IMovieService;
 import app.disney.service.IPersonajeService;
+import app.disney.specification.PersonajeSpecification;
 
 @Controller
 public class charactersController {
@@ -34,36 +35,32 @@ public class charactersController {
 
 	@Autowired
 	private IMovieService movieService;
+	
+	@Autowired
+	private IPersonajeRepository personajeRepo;
+
+	@Autowired
+	private PersonajeSpecification spec;
 
 	@GetMapping("/characters")
 	@ResponseStatus(value = HttpStatus.OK)
-	public String listPersonaje(@RequestParam(value = "name", required = false) String name,
+	public String listPersonaje( @RequestParam(value = "name", required = false) String name,
 			                     @RequestParam(value = "year", required = false) Integer year,
 			                     @RequestParam(value = "weight", required = false) Integer weight,
 			                     @RequestParam(value = "title", required = false) String movie,
-			                      Model model) {
+			                      ModelMap model) {
 		
-		
-		if (name != null ) {
-				model.addAttribute("personajes", personajeService.getByNameIgnoreCase(name));
-				model.addAttribute("movies", movieService.getAllMovie());
+	
+		Personaje personajeSpec = new Personaje(name,year,weight,movie);
 				
-		}else if (year != null) {
-			model.addAttribute("personajes", personajeService.getByYear(year));
-			model.addAttribute("movies", movieService.getAllMovie());
-			
-		}else if (weight != null) {
-			model.addAttribute("personajes", personajeService.getByWeight(weight.doubleValue()));
-			model.addAttribute("movies", movieService.getAllMovie());
-			
-		}else if (movie != null) {
-			model.addAttribute("personajes", personajeService.getByMovie(movie));
-			model.addAttribute("movies", movieService.getAllMovie());
-			
-		}else if (name == null && year == null && weight == null && movie == null ) {
-			model.addAttribute("personajes", personajeService.getAllPersonaje());
+		if (!personajeRepo.findAll(spec.getAllBySpec(personajeSpec)).isEmpty()) {
+					model.addAttribute("personajes",personajeRepo.findAll(spec.getAllBySpec(personajeSpec)));
+					model.addAttribute("movies", movieService.getAllMovie());
+		}else {
+			model.addAttribute("personajes",personajeRepo.findAll());
 			model.addAttribute("movies", movieService.getAllMovie());
 		}
+		
 		
 		return "characters";
 	}
@@ -104,7 +101,7 @@ public class charactersController {
 	
 
 	@PostMapping("/saveCharacter")
-	@ResponseStatus(value = HttpStatus.CREATED)
+//@ResponseStatus(value = HttpStatus.CREATED)
 	public String saveStudent(@ModelAttribute("personaje") @Valid Personaje personaje,
 			BindingResult result,
 			@RequestParam("file") MultipartFile imagen,

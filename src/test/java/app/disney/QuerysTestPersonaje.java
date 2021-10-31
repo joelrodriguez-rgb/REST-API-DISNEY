@@ -65,13 +65,13 @@ class QuerysTestPersonaje {
 		listMos.add(movieRepo.findByTitleIgnoreCase("la bella y la bestia"));
 		listMos.add(movieRepo.findByTitleIgnoreCase("la bella y la bestia 2"));
 
-		Personaje bestia = new Personaje("Bestia", 35, 120.0, listMos);
+		Personaje bestia = new Personaje("Bestia", 35, 120, listMos);
 		personajeRepo.save(bestia);
 
-		Personaje bella = new Personaje("Bella", 25, 60.0, listMos);
+		Personaje bella = new Personaje("Bella", 25, 60, listMos);
 		personajeRepo.save(bella);
 
-		Personaje aladin = new Personaje("Aladin", 35, 60.0, movieRepo.findByTitleIgnoreCase("la lampara de aladin"));
+		Personaje aladin = new Personaje("Aladin", 35, 60,  movieRepo.findByTitleIgnoreCase("la lampara de aladin"));
 		personajeRepo.save(aladin);
 	}
 

@@ -1,6 +1,7 @@
 package app.disney.entitys;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,7 +30,6 @@ public class Personaje {
 	@NotBlank(message = "Este campo no puede estar en blanco")
 	private String name;
 
-	
 	@Column(name = "img_personaje")
 	private String imgPersonaje;
 
@@ -59,9 +59,6 @@ public class Personaje {
 		this.imgPersonaje = imgPersonaje;
 		this.year = year;
 		this.weight = weight;
-
-		List<Movie> list = new ArrayList<>();
-		list.add(movie);
 		this.listMovie.add(movie);
 	}
 
@@ -71,26 +68,26 @@ public class Personaje {
 		this.weight = weight;
 		this.listMovie = listMovie;
 	}
-	
+
 	public Personaje(String name, Integer year, Integer weight, Movie movie) {
 		this.name = name;
 		this.year = year;
 		this.weight = weight;
-
-		List<Movie> list = new ArrayList<>();
-		list.add(movie);
-		this.listMovie.add(movie);
+		this.listMovie = new ArrayList<>(Arrays.asList(movie));
 	}
 	
-	
-	public Personaje(String name, Integer year, Integer weight, String movie) {
+
+	public Personaje(String name, Integer year, Integer weight) {
 		this.name = name;
 		this.year = year;
 		this.weight = weight;
-
 	}
 	
 	
+	public void addMovie(Movie movie) {
+		
+		this.listMovie = new ArrayList<>(Arrays.asList(movie));
+	}
 	
 
 	public String getName() {
@@ -145,8 +142,6 @@ public class Personaje {
 	public int hashCode() {
 		return this.id;
 	}
-
-
 
 	@Override
 	public String toString() {

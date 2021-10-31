@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -43,24 +44,26 @@ public class charactersController {
 	private PersonajeSpecification spec;
 
 	@GetMapping("/characters")
-	@ResponseStatus(value = HttpStatus.OK)
 	public String listPersonaje( @RequestParam(value = "name", required = false) String name,
 			                     @RequestParam(value = "year", required = false) Integer year,
 			                     @RequestParam(value = "weight", required = false) Integer weight,
-			                     @RequestParam(value = "title", required = false) String movie,
+			                     @RequestParam(value = "title", required = false) Movie movie,
 			                      ModelMap model) {
 		
 	
 		Personaje personajeSpec = new Personaje(name,year,weight,movie);
-				
-		if (!personajeRepo.findAll(spec.getAllBySpec(personajeSpec)).isEmpty()) {
-					model.addAttribute("personajes",personajeRepo.findAll(spec.getAllBySpec(personajeSpec)));
-					model.addAttribute("movies", movieService.getAllMovie());
-		}else {
+		
+		
+		if (name == null &&
+		    year == null &&
+            weight == null &&
+            movie == null ) {
 			model.addAttribute("personajes",personajeRepo.findAll());
 			model.addAttribute("movies", movieService.getAllMovie());
+		}else {
+				model.addAttribute("personajes",personajeRepo.findAll(spec.getAllBySpec(personajeSpec)));
+					model.addAttribute("movies", movieService.getAllMovie());
 		}
-		
 		
 		return "characters";
 	}

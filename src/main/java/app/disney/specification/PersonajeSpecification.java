@@ -3,11 +3,14 @@ package app.disney.specification;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Predicate;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import app.disney.entitys.Movie;
 import app.disney.entitys.Personaje;
 
 @Component
@@ -26,6 +29,10 @@ public class PersonajeSpecification {
 				
 			}else if(personaje.getWeight() != null) {
 				predicates.add(criteriaBuilder.equal(root.get("weight"), personaje.getWeight()));
+				
+			}else if (!personaje.getlistMovie().isEmpty()) {
+				 Join<Object, Object> movieJoin = root.join("listMovie");  
+				 predicates.add(criteriaBuilder.equal(movieJoin.get("title"), personaje.getlistMovie().get(0).getTitle()));
 			}
 			
 			return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

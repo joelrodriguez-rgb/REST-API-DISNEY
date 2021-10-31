@@ -60,7 +60,6 @@ public class Movie {
 		this.gender = gender;
 	}
 	
-	
 
 	public Integer getId() {
 		return id;

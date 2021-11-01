@@ -82,13 +82,7 @@ public class Personaje {
 		this.year = year;
 		this.weight = weight;
 	}
-	
-	
-	public void addMovie(Movie movie) {
 		
-		this.listMovie = new ArrayList<>(Arrays.asList(movie));
-	}
-	
 
 	public String getName() {
 		return name;

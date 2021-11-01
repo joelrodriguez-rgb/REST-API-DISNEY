@@ -51,8 +51,7 @@ public class charactersController {
 			                      ModelMap model) {
 		
 	
-		Personaje personajeSpec = new Personaje(name,year,weight,movie);
-		
+	
 		
 		if (name == null &&
 		    year == null &&
@@ -61,8 +60,9 @@ public class charactersController {
 			model.addAttribute("personajes",personajeRepo.findAll());
 			model.addAttribute("movies", movieService.getAllMovie());
 		}else {
+			    Personaje personajeSpec = new Personaje(name,year,weight,movie);
 				model.addAttribute("personajes",personajeRepo.findAll(spec.getAllBySpec(personajeSpec)));
-					model.addAttribute("movies", movieService.getAllMovie());
+				model.addAttribute("movies", movieService.getAllMovie());
 		}
 		
 		return "characters";

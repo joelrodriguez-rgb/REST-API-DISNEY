@@ -1,70 +1,125 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>list characters</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-	crossorigin="anonymous">
-</head>
-<div class="container my-3">
-	<nav
-		class="navbar navbar-expand-sm navbar-light bg-light justify-content-center">
-		<ul>
-			<li class="nav-item">
-				<a
-					class="nav-link"
-					href="/index">DISNEY HOME</a>
-			</li>
-		</ul>
-	</nav>
-</div>
-
+<html xlmns:th="http://www.thymeleaf.com">
+<head th:replace="layout/layout :: head"></head>
+<header th:replace="layout/layout :: header"></header>
 
 <body>
-
-
 
 	<div class="container">
 		<a
 			th:href="@{/characters/addCharacter}"
 			class="btn btn-primary btn-sm mb-3">Add Character</a>
+
+		<form
+			th:action="@{/characters}"
+			method="GET">
+			<div class="input-group mb-3">
+				<button
+					type="submit"
+					class="btn btn-outline-dark">Buscar por nombre</button>
+				<input
+					type="text"
+					class="form-control"
+					placeholder="enter name"
+					aria-label="Example text with button addon"
+					aria-describedby="button-addon1"
+					name="name">
+			</div>
+		</form>
+
+
+		<form
+			th:action="@{/characters}"
+			method="GET">
+			<div class="input-group mb-3">
+				<button
+					type="submit"
+					class="btn btn-outline-dark">Filtrar por edad</button>
+				<input
+					type="number"
+					class="form-control"
+					placeholder="years"
+					aria-label="Example text with button addon"
+					aria-describedby="button-addon1"
+					name="year">
+			</div>
+		</form>
+
+		<form
+			th:action="@{/characters}"
+			method="GET">
+			<div class="input-group mb-3">
+				<button
+					type="submit"
+					class="btn btn-outline-dark">Filtrar por peso</button>
+				<input
+					type="number"
+					class="form-control"
+					placeholder="weight"
+					aria-label="Example text with button addon"
+					aria-describedby="button-addon1"
+					name="weight">
+			</div>
+		</form>
+
+
+		<form
+			th:action="@{/characters}"
+			method="GET">
+			<div class="input-group mb-3">
+				<button
+					type="submit"
+					class="btn btn-outline-dark">Filtrar por peliculas</button>
+				<div>
+					<select name="title">
+						<option
+							th:each="movie: ${movies}"
+							th:text="${movie.title}"
+							name="title"
+							th:value="movie">
+					</select>
+				</div>
+			</div>
+		</form>
+
+
+
 		<table
 			class="table"
 			th:object="${personajes}">
+
 			<thead>
 				<th>Name</th>
 				<th>Imagen</th>
 				<th>Operation</th>
 			</thead>
+
 			<tbody>
 				<tr th:each="personaje: ${personajes}">
+
+					<!-- name -->
 					<td th:text="${personaje.name}"></td>
-					<td>
-						<img
-							th:src="@{'/imgCharacters/' + ${personaje.imgPersonaje}}"
-							th:alt="${personaje.imgPersonaje}"
-							width="60"
-							height="60" />
-					</td>
+
+					<!-- imagen -->
+					<td><img
+						th:src="@{'/imgCharacters/' + ${personaje.imgPersonaje}}"
+						th:alt="${personaje.imgPersonaje}"
+						width="60"
+						height="60" /></td>
+
+					<!-- operacion -->
 					<td
 						class="btn-group "
-						role="group">
-						<a
-							th:href="@{/characters/editCharacter/{id}(id=${personaje.id})}"
-							type="button"
-							class="btn btn-success"> EDIT </a>
-						<a
-							th:href="@{/characters/{id}(id=${personaje.id})}"
-							type="button"
-							class="btn btn-danger"> DELETE </a>
-						<a
-							th:href="@{/characters/detailCharacter/{id}(id=${personaje.id})}"
-							type="button"
-							class="btn btn-info"> DETAIL </a>
-					</td>
+						role="group"><a
+						th:href="@{/characters/editCharacter/{id}(id=${personaje.id})}"
+						type="button"
+						class="btn btn-success"> EDIT </a> <a
+						th:href="@{/characters/{id}(id=${personaje.id})}"
+						type="button"
+						class="btn btn-danger"> DELETE </a> <a
+						th:href="@{/characters/detailCharacter/{id}(id=${personaje.id})}"
+						type="button"
+						class="btn btn-info"> DETAIL </a></td>
 				</tr>
 			</tbody>
 		</table>

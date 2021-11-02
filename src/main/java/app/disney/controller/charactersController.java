@@ -33,12 +33,13 @@ import app.disney.specification.PersonajeSpecification;
 public class charactersController {
 	@Autowired
 	private IPersonajeService personajeService;
+	
+	@Autowired
+	private IPersonajeRepository personajeRepo;
 
 	@Autowired
 	private IMovieService movieService;
 	
-	@Autowired
-	private IPersonajeRepository personajeRepo;
 
 	@Autowired
 	private PersonajeSpecification spec;
@@ -47,21 +48,19 @@ public class charactersController {
 	public String listPersonaje( @RequestParam(value = "name", required = false) String name,
 			                     @RequestParam(value = "year", required = false) Integer year,
 			                     @RequestParam(value = "weight", required = false) Integer weight,
-			                     @RequestParam(value = "title", required = false) Movie movie,
+			                     @RequestParam(value = "title", required = false) String movieTitle,
 			                      ModelMap model) {
-		
-	
 	
 		
 		if (name == null &&
 		    year == null &&
             weight == null &&
-            movie == null ) {
-			model.addAttribute("personajes",personajeRepo.findAll());
+            movieTitle == null ) {
+			model.addAttribute("personajes",personajeService.getAllPersonaje());
 			model.addAttribute("movies", movieService.getAllMovie());
 		}else {
-			    Personaje personajeSpec = new Personaje(name,year,weight,movie);
-				model.addAttribute("personajes",personajeRepo.findAll(spec.getAllBySpec(personajeSpec)));
+			    Personaje personajeSpec = new Personaje(name,year,weight,new Movie(movieTitle));
+				model.addAttribute("personajes",personajeService.getAllPersonaje(spec.getAllBySpec(personajeSpec)));
 				model.addAttribute("movies", movieService.getAllMovie());
 		}
 		

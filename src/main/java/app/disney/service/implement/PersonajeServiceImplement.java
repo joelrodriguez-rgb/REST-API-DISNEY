@@ -3,6 +3,7 @@ package app.disney.service.implement;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import app.disney.entitys.Personaje;
@@ -19,7 +20,12 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	public List<Personaje> getAllPersonaje() {
 		return personajeRepo.findAll();
 	}
-
+	
+	@Override
+	public List<Personaje> getAllPersonaje(Specification<Personaje> spec) {
+		return personajeRepo.findAll(spec);
+	}
+	
 	@Override
 	public Personaje savePersonaje(Personaje Personaje) {
 		return personajeRepo.save(Personaje);
@@ -63,5 +69,6 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	public List<Personaje> getByMovie(String title) {
 		return personajeRepo.findByMovie(title);
 	}
+
 
 }

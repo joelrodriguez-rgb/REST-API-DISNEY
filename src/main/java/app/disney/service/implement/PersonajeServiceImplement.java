@@ -53,22 +53,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	}
 
 
-	/** FILTROS */
-	
-	@Override
-	public List<Personaje> getByYear(Integer year) {
-		return personajeRepo.findByYear(year);
-	}
 
-	@Override
-	public List<Personaje> getByWeight(Double weight) {
-		return personajeRepo.findByWeight(weight);
-	}
-
-	@Override
-	public List<Personaje> getByMovie(String title) {
-		return personajeRepo.findByMovie(title);
-	}
 
 
 }

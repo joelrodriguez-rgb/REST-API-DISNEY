@@ -4,13 +4,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import app.disney.DTO.MovieDTO;
+import app.disney.DTO.PersonajeDTO;
+import app.disney.DTO.SearchPersonajeDTO;
 import app.disney.entitys.Movie;
 import app.disney.entitys.Personaje;
 import app.disney.repository.IPersonajeRepository;
@@ -31,6 +33,10 @@ import app.disney.specification.PersonajeSpecification;
 
 @Controller
 public class charactersController {
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	@Autowired
 	private IPersonajeService personajeService;
 	
@@ -59,8 +65,14 @@ public class charactersController {
 			model.addAttribute("personajes",personajeService.getAllPersonaje());
 			model.addAttribute("movies", movieService.getAllMovie());
 		}else {
-			    Personaje personajeSpec = new Personaje(name,year,weight,new Movie(movieTitle));
-				model.addAttribute("personajes",personajeService.getAllPersonaje(spec.getAllBySpec(personajeSpec)));
+			    MovieDTO movieDTO = new MovieDTO(movieTitle);
+			    SearchPersonajeDTO searchPersonajeDTO = new SearchPersonajeDTO(name, year, weight,movieDTO);
+			    Personaje personajeSpec = modelMapper.map(searchPersonajeDTO, Personaje.class);
+			    
+				model.addAttribute("personajes",personajeService.getAllPersonaje(spec.getAllBySpec(personajeSpec))
+						.stream()
+						.map(personajes -> modelMapper.map(personajes, PersonajeDTO.class))
+						.collect(Collectors.toList()));
 				model.addAttribute("movies", movieService.getAllMovie());
 		}
 		
@@ -103,7 +115,6 @@ public class charactersController {
 	
 
 	@PostMapping("/saveCharacter")
-//@ResponseStatus(value = HttpStatus.CREATED)
 	public String saveStudent(@ModelAttribute("personaje") @Valid Personaje personaje,
 			BindingResult result,
 			@RequestParam("file") MultipartFile imagen,

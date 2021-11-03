@@ -52,15 +52,7 @@ public class Movie {
 		this.gender = gender;
 	}
 	
-	//contructor para probar jpa
-	public Movie( String title, LocalDate creationDate, Integer qualification, Gender gender) {
-		this.title = title;
-		this.creationDate = creationDate;
-		this.qualification = qualification;
-		this.gender = gender;
-	}
-	
-	public Movie( String title) {
+	public Movie(String title) {
 		this.title = title;
 	}
 	

@@ -9,9 +9,6 @@ import app.disney.entitys.Personaje;
 public interface IPersonajeService {
 
 	/* FUNCIONES CRUD */
-	List<Personaje> getAllPersonaje();
-	
-	List<Personaje> getAllPersonaje(Specification<Personaje> spec);
 
 	Personaje savePersonaje(Personaje Personaje);
 
@@ -20,17 +17,14 @@ public interface IPersonajeService {
 	void deletePersonajeById(Integer id);
 
 	/* BUSQUEDAS */
+	
+	List<Personaje> getAllPersonaje();
+	
+	List<Personaje> getAllPersonaje(Specification<Personaje> spec);
 
 	Personaje getByNameIgnoreCase(String name);
 	
 	List<String> getMovieByPersonajeId(Integer id);
 
-	/* FILTROS */
-
-	List<Personaje> getByYear(Integer year);
-	
-	List<Personaje> getByWeight(Double weight);
-	
-	List<Personaje> getByMovie(String title);
 
 }

@@ -8,12 +8,13 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import app.disney.entitys.Movie;
+import app.disney.DTO.SearchPersonajeDTO;
 import app.disney.entitys.Personaje;
 
 @Repository
 public interface IPersonajeRepository extends JpaRepository<Personaje, Integer>,JpaSpecificationExecutor<Personaje> {
-
+	
+	
 	List<Personaje> findAll(Specification<Personaje> spec);
 	
 	@Query(value = "SELECT mov.title FROM personaje_mov pmov, movies mov " 

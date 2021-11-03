@@ -46,46 +46,35 @@ public class Personaje {
 	public Personaje() {
 	}
 
-	public Personaje(String name, String imgPersonaje, Integer year, Integer weight, List<Movie> listMovie) {
-		this.name = name;
-		this.imgPersonaje = imgPersonaje;
-		this.year = year;
-		this.weight = weight;
-		this.listMovie = listMovie;
-	}
-
-	public Personaje(String name, String imgPersonaje, Integer year, Integer weight, Movie movie) {
-		this.name = name;
-		this.imgPersonaje = imgPersonaje;
-		this.year = year;
-		this.weight = weight;
-		this.listMovie.add(movie);
-	}
-
-	public Personaje(String name, Integer year, Integer weight, List<Movie> listMovie) {
-		this.name = name;
-		this.year = year;
-		this.weight = weight;
-		this.listMovie = listMovie;
-	}
-
-	public Personaje(String name, Integer year, Integer weight, Movie movie) {
-		this.name = name;
-		this.year = year;
-		this.weight = weight;
-		this.listMovie = new ArrayList<>(Arrays.asList(movie));
-	}
-	
-
-	public Personaje(String name, Integer year, Integer weight) {
-		this.name = name;
-		this.year = year;
-		this.weight = weight;
-	}
-	
-	public Personaje(Movie movie) {
-		this.listMovie = new ArrayList<>(Arrays.asList(movie));
-	}
+	// contructor full parametros
+		public Personaje(Integer id, String name, String imgPersonaje, Integer year, Integer weight,
+				List<Movie> listMovie) {
+			super();
+			this.id = id;
+			this.name = name;
+			this.imgPersonaje = imgPersonaje;
+			this.year = year;
+			this.weight = weight;
+			this.listMovie = listMovie;
+		}
+		
+		// constructor con 1 sola pelicula asociada
+		public Personaje(String name, String imgPersonaje, Integer year, Integer weight, Movie movie) {
+			this.name = name;
+			this.imgPersonaje = imgPersonaje;
+			this.year = year;
+			this.weight = weight;
+			this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
+		}
+		
+		// constructor con 1 sola pelicula asociada
+		public Personaje(String name, Integer year, Integer weight, Movie movie) {
+			this.name = name;
+			this.year = year;
+			this.weight = weight;
+			this.listMovie= new ArrayList<Movie>(Arrays.asList(movie));
+		}
+		
 		
 
 	public String getName() {

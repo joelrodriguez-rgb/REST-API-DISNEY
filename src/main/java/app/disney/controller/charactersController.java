@@ -30,6 +30,7 @@ import app.disney.repository.IPersonajeRepository;
 import app.disney.service.IMovieService;
 import app.disney.service.IPersonajeService;
 import app.disney.specification.PersonajeSpecification;
+import lombok.Setter;
 
 @Controller
 public class charactersController {

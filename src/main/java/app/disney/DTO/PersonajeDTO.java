@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import app.disney.entitys.Movie;
 import lombok.Data;
 
 @Data
@@ -15,30 +14,30 @@ public class PersonajeDTO {
 	private String imgPersonaje;
 	private Integer year;
 	private Integer weight;
-	private List<Movie> listMovie;
+	private List<MovieDTO> listMovieDTO;
 	
 	public PersonajeDTO() {}
 	
 	
 	// contructor full parametros
 	public PersonajeDTO(Integer id, String name, String imgPersonaje, Integer year, Integer weight,
-			List<Movie> listMovie) {
+			List<MovieDTO> listMovieDTO) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.imgPersonaje = imgPersonaje;
 		this.year = year;
 		this.weight = weight;
-		this.listMovie = listMovie;
+		this.listMovieDTO = listMovieDTO;
 	}
 	
 	// constructor con 1 sola pelicula asociada
-	public PersonajeDTO(String name, String imgPersonaje, Integer year, Integer weight, Movie movie) {
+	public PersonajeDTO(String name, String imgPersonaje, Integer year, Integer weight, MovieDTO MovieDTO) {
 		this.name = name;
 		this.imgPersonaje = imgPersonaje;
 		this.year = year;
 		this.weight = weight;
-		this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
+		this.listMovieDTO = new ArrayList<MovieDTO>(Arrays.asList(MovieDTO));
 	}
 	
 	
@@ -75,11 +74,11 @@ public class PersonajeDTO {
 	public void setWeight(Integer weight) {
 		this.weight = weight;
 	}
-	public List<Movie> getListMovie() {
-		return listMovie;
+	public List<MovieDTO> getListMovieDTO() {
+		return listMovieDTO;
 	}
-	public void setListMovie(List<Movie> listMovie) {
-		this.listMovie = listMovie;
+	public void setListMovieDTO(List<MovieDTO> listMovieDTO) {
+		this.listMovieDTO = listMovieDTO;
 	}
 	
 	

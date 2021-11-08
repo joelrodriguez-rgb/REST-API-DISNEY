@@ -17,6 +17,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "personajes")
 public class Personaje {

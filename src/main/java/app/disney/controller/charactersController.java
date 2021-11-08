@@ -47,7 +47,6 @@ public class charactersController {
 	@Autowired
 	private IMovieService movieService;
 	
-
 	@Autowired
 	private PersonajeSpecification spec;
 
@@ -63,8 +62,14 @@ public class charactersController {
 		    year == null &&
             weight == null &&
             movieTitle == null ) {
-			model.addAttribute("personajes",personajeService.getAllPersonaje());
-			model.addAttribute("movies", movieService.getAllMovie());
+			model.addAttribute("personajes",personajeService.getAllPersonaje()
+					.stream()
+					.map(personajes -> modelMapper.map(personajes, PersonajeDTO.class))
+					.collect(Collectors.toList()));
+			model.addAttribute("movies", movieService.getAllMovie()
+					.stream()
+					.map(movies -> modelMapper.map(movies, MovieDTO.class))
+					.collect(Collectors.toList()));
 		}else {
 			    MovieDTO movieDTO = new MovieDTO(movieTitle);
 			    SearchPersonajeDTO searchPersonajeDTO = new SearchPersonajeDTO(name, year, weight,movieDTO);
@@ -74,7 +79,10 @@ public class charactersController {
 						.stream()
 						.map(personajes -> modelMapper.map(personajes, PersonajeDTO.class))
 						.collect(Collectors.toList()));
-				model.addAttribute("movies", movieService.getAllMovie());
+				model.addAttribute("movies", movieService.getAllMovie()
+						.stream()
+						.map(movies -> modelMapper.map(movies, MovieDTO.class))
+						.collect(Collectors.toList()));
 		}
 		
 		return "characters";
@@ -84,17 +92,26 @@ public class charactersController {
 	@GetMapping("/characters/addCharacter")
 	public String addCharacter(ModelMap model) {
 
-		Personaje personaje = new Personaje();
-		model.addAttribute("personaje", personaje);
-		model.addAttribute("movies", movieService.getAllMovie());
+		PersonajeDTO personajeDTO = new PersonajeDTO();
+		model.addAttribute("personaje", personajeDTO);
+		model.addAttribute("movies", movieService.getAllMovie()
+				.stream()
+				.map(movies -> modelMapper.map(movies, MovieDTO.class))
+				.collect(Collectors.toList()));
 
 		return "addCharacter";
 	}
 
 	@GetMapping("/characters/editCharacter/{id}")
 	public String editCharacter(@PathVariable Integer id, ModelMap model) {
-		model.addAttribute("personaje", personajeService.getPersonajeById(id));
-		model.addAttribute("movies", movieService.getAllMovie());
+		
+		PersonajeDTO personajeDTObyID = modelMapper.map(personajeService.getPersonajeById(id), PersonajeDTO.class);
+		
+		model.addAttribute("personaje", personajeDTObyID);
+		model.addAttribute("movies", movieService.getAllMovie()
+				.stream()
+				.map(movies -> modelMapper.map(movies, MovieDTO.class))
+				.collect(Collectors.toList()));
 		return "editCharacter";
 	}
 
@@ -116,10 +133,12 @@ public class charactersController {
 	
 
 	@PostMapping("/saveCharacter")
-	public String saveStudent(@ModelAttribute("personaje") @Valid Personaje personaje,
+	public String saveStudent(@ModelAttribute("personaje") @Valid PersonajeDTO personajeDTO,
 			BindingResult result,
 			@RequestParam("file") MultipartFile imagen,
 			@RequestParam("title") List<String> listMovieTitle) {
+		
+		Personaje personaje = modelMapper.map(personajeDTO, Personaje.class);
 
 		if (result.hasErrors()) {
 			return "addCharacter";

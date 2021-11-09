@@ -63,10 +63,7 @@ public class charactersController {
 		    year == null &&
             weight == null &&
             movieTitle == null ) {
-			model.addAttribute("personajes",personajeService.getAllPersonaje()
-					.stream()
-					.map(personajes -> modelMapper.map(personajes, PersonajeDTO.class))
-					.collect(Collectors.toList()));
+			model.addAttribute("personajes",personajeService.convertListToDTO(personajeService.getAllPersonaje()));
 			model.addAttribute("movies", movieService.getAllMovie()
 					.stream()
 					.map(movies -> modelMapper.map(movies, MovieDTO.class))
@@ -76,10 +73,7 @@ public class charactersController {
 			    SearchPersonajeDTO searchPersonajeDTO = new SearchPersonajeDTO(name, year, weight,movieDTO);
 			    Personaje personajeSpec = modelMapper.map(searchPersonajeDTO, Personaje.class);
 			    
-				model.addAttribute("personajes",personajeService.getAllPersonaje(spec.getAllBySpec(personajeSpec))
-						.stream()
-						.map(personajes -> modelMapper.map(personajes, PersonajeDTO.class))
-						.collect(Collectors.toList()));
+				model.addAttribute("personajes",personajeService.convertListToDTO(personajeService.getAllPersonaje(spec.getAllBySpec(personajeSpec))));
 				model.addAttribute("movies", movieService.getAllMovie()
 						.stream()
 						.map(movies -> modelMapper.map(movies, MovieDTO.class))
@@ -150,11 +144,11 @@ public class charactersController {
 		}
 
 		if (!imagen.isEmpty()) {
-			saveImg(imagen);
+			personajeService.saveImg(imagen);
 		}
 		personaje.setImgPersonaje(imagen.getOriginalFilename());
 
-		personaje.setListMovie(getListMovies(listMovieTitle));
+		personaje.setListMovie(personajeService.getListMovies(listMovieTitle));
 
 		personajeService.savePersonaje(personaje);
 		return "redirect:/characters";
@@ -170,7 +164,7 @@ public class charactersController {
 			return "editCharacter/{id}";
 		}
 
-		personajeDTO.setListMovieDTO(getListMovies(listMovieTitle)
+		personajeDTO.setListMovieDTO(personajeService.getListMovies(listMovieTitle)
 				.stream()
 				.map(listMovie -> modelMapper.map(listMovie, MovieDTO.class))
 				.collect(Collectors.toList()));
@@ -189,24 +183,4 @@ public class charactersController {
 		return "redirect:/characters";
 	}
 
-	public void saveImg(MultipartFile imagen) {
-		Path directorioImagenes = Paths.get("src//main//resources//static/imgCharacters");
-		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-
-		try {
-			byte[] bytesImg = imagen.getBytes();
-			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-			Files.write(rutaCompleta, bytesImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public List<Movie> getListMovies(List<String> listMovieTitle) {
-
-		List<Movie> listMovieSave = new ArrayList<Movie>();
-		listMovieTitle.forEach(mov -> listMovieSave.add(movieService.getByTitleIgnoreCase(mov)));
-
-		return listMovieSave;
-	}
 }

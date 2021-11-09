@@ -1,20 +1,38 @@
 package app.disney.service.implement;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import app.disney.DTO.PersonajeDTO;
+import app.disney.entitys.Movie;
 import app.disney.entitys.Personaje;
 import app.disney.repository.IPersonajeRepository;
+import app.disney.service.IMovieService;
 import app.disney.service.IPersonajeService;
 
 @Service
 public class PersonajeServiceImplement implements IPersonajeService {
 	@Autowired
 	private IPersonajeRepository personajeRepo;
+	
+	@Autowired
+	private IMovieService movieService;
 
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	/** FUNCIONES CRUD */
 	@Override
 	public List<Personaje> getAllPersonaje() {
@@ -50,6 +68,42 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	@Override
 	public List<String> getMovieByPersonajeId(Integer id) {
 		return personajeRepo.findMovieByPersonajeId(id);
+	}
+
+	
+	////////////////////////////////////////
+	@Override
+	public void saveImg(MultipartFile imagen) {
+		Path directorioImagenes = Paths.get("src//main//resources//static/imgCharacters");
+		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+
+		try {
+			byte[] bytesImg = imagen.getBytes();
+			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+			Files.write(rutaCompleta, bytesImg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public List<Movie> getListMovies(List<String> listMovieTitle) {
+		List<Movie> listMovieSave = new ArrayList<Movie>();
+		listMovieTitle.forEach(mov -> listMovieSave.add(movieService.getByTitleIgnoreCase(mov)));
+
+		return listMovieSave;
+	}
+
+	@Override
+	public List<PersonajeDTO> convertListToDTO(List<Personaje> listPersonajes) {
+		
+		List<PersonajeDTO> listPersonajeDTO =  listPersonajes
+				.stream()
+				.map(personajes -> modelMapper.map(personajes, PersonajeDTO.class))
+				.collect(Collectors.toList());
+		
+		return  listPersonajeDTO;
 	}
 
 

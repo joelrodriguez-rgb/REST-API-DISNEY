@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.Getter;
@@ -30,8 +31,6 @@ public class Personaje {
 	private Integer id;
 
 	@Column(name = "name")
-	@NotEmpty(message = "Este campo no puede estar vacio")
-	@NotBlank(message = "Este campo no puede estar en blanco")
 	private String name;
 
 	@Column(name = "img_personaje")
@@ -44,7 +43,9 @@ public class Personaje {
 	private Integer weight;
 
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-	@JoinTable(name = "personaje_mov", joinColumns = @JoinColumn(name = "personaje_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
+	@JoinTable(name = "personaje_mov"
+	, joinColumns = @JoinColumn(name = "personaje_id")
+	, inverseJoinColumns = @JoinColumn(name = "movie_id"))
 	private List<Movie> listMovie;
 
 	public Personaje() {
@@ -113,11 +114,11 @@ public class Personaje {
 		this.weight = weight;
 	}
 
-	public List<Movie> getlistMovie() {
+	public List<Movie> getListMovie() {
 		return listMovie;
 	}
 
-	public void setlistMovie(List<Movie> listMovie) {
+	public void setListMovie(List<Movie> listMovie) {
 		this.listMovie = listMovie;
 	}
 

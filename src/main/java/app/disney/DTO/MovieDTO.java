@@ -6,7 +6,6 @@ import app.disney.entitys.Gender;
 import lombok.Data;
 
 
-@Data
 public class MovieDTO {
 	
 	

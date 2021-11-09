@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -133,10 +134,10 @@ public class charactersController {
 	
 
 	@PostMapping("/saveCharacter")
-	public String saveStudent(@ModelAttribute("personaje") @Valid PersonajeDTO personajeDTO,
-			BindingResult result,
-			@RequestParam("file") MultipartFile imagen,
-			@RequestParam("title") List<String> listMovieTitle) {
+	public String saveStudent(@ModelAttribute("personaje") @Valid PersonajeDTO personajeDTO
+			,BindingResult result
+			,@RequestParam(value = "file", required = false) MultipartFile imagen
+			,@RequestParam(value = "title", required = false) List<String> listMovieTitle) {
 		
 		Personaje personaje = modelMapper.map(personajeDTO, Personaje.class);
 
@@ -153,7 +154,7 @@ public class charactersController {
 		}
 		personaje.setImgPersonaje(imagen.getOriginalFilename());
 
-		personaje.setlistMovie(getListMovies(listMovieTitle));
+		personaje.setListMovie(getListMovies(listMovieTitle));
 
 		personajeService.savePersonaje(personaje);
 		return "redirect:/characters";
@@ -161,17 +162,28 @@ public class charactersController {
 
 	@PostMapping("/editCharacter/{id}")
 	public String saveChangesPersonaje(@PathVariable Integer id,
-			@ModelAttribute("personaje") Personaje personaje,
-			@RequestParam("title") List<String> listMovieTitle) {
+			@ModelAttribute("personaje") @Valid PersonajeDTO personajeDTO
+			,BindingResult result
+			,@RequestParam("title") List<String> listMovieTitle) {
+		
+		if (result.hasErrors()) {
+			return "editCharacter/{id}";
+		}
 
-		personaje.setlistMovie(getListMovies(listMovieTitle));
+		personajeDTO.setListMovieDTO(getListMovies(listMovieTitle)
+				.stream()
+				.map(listMovie -> modelMapper.map(listMovie, MovieDTO.class))
+				.collect(Collectors.toList()));
 
 		Personaje personajeExisting = personajeService.getPersonajeById(id);
 		personajeExisting.setId(id);
-		personajeExisting.setName(personaje.getName());
-		personajeExisting.setYear(personaje.getYear());
-		personajeExisting.setWeight(personaje.getWeight());
-		personajeExisting.setlistMovie(personaje.getlistMovie());
+		personajeExisting.setName(personajeDTO.getName());
+		personajeExisting.setYear(personajeDTO.getYear());
+		personajeExisting.setWeight(personajeDTO.getWeight());
+		personajeExisting.setListMovie(personajeDTO.getListMovieDTO()
+				                                    .stream()
+				                                    .map(listMovieDTO -> modelMapper.map(listMovieDTO,Movie.class))
+				                                    .collect(Collectors.toList()));
 
 		personajeService.savePersonaje(personajeExisting);
 		return "redirect:/characters";

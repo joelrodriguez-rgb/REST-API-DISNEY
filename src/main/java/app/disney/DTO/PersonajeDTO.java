@@ -4,16 +4,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 
-@Data
 public class PersonajeDTO {
 	
 	private Integer id;
+	@NotEmpty(message = "Este campo no puede estar vacio")
+	@NotBlank(message = "Este campo no puede estar en blanco")
 	private String name;
+	
 	private String imgPersonaje;
+	
+	@NotNull
 	private Integer year;
+	
+	@NotNull
 	private Integer weight;
+	
 	private List<MovieDTO> listMovieDTO;
 	
 	public PersonajeDTO() {}
@@ -40,9 +51,6 @@ public class PersonajeDTO {
 		this.listMovieDTO = new ArrayList<MovieDTO>(Arrays.asList(MovieDTO));
 	}
 	
-	
-	
-
 	
 	public Integer getId() {
 		return id;

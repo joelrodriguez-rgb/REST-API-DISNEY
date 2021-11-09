@@ -20,8 +20,7 @@
 						<div class="form-group">
 
 							<!--  Name -->
-							<label>Character Name</label>
-							<input
+							<label>Character Name</label> <input
 								class="form-control"
 								type="text"
 								name="Name"
@@ -29,12 +28,10 @@
 								th:field="*{name}" />
 							<div
 								class="form-text text-danger"
-								th:if="${#fields.hasErrors('name')}"
 								th:errors="*{name}"></div>
 
 							<!-- year-->
-							<label>Character year</label>
-							<input
+							<label>Character year</label> <input
 								class="form-control"
 								type="number"
 								min="1"
@@ -43,27 +40,22 @@
 								th:field="*{year}" />
 							<div
 								class="form-text text-danger"
-								th:if="${#fields.hasErrors('year')}"
 								th:errors="*{year}"></div>
 
 
 							<!-- weight -->
-							<label>Character weight</label>
-							<input
+							<label>Character weight</label> <input
 								class="form-control"
 								type="number"
 								min="1"
 								name="weight"
-								placeholder="enter character weightl"
 								th:field="*{weight}" />
 							<div
 								class="form-text text-danger"
-								th:if="${#fields.hasErrors('weight')}"
 								th:errors="*{weight}"></div>
 
 							<!-- IMAGEN -->
-							<label for="file">IMGEN</label>
-							<input
+							<label for="file">IMGEN</label> <input
 								class="form-control"
 								type="file"
 								name="file" />
@@ -81,6 +73,9 @@
 										th:value="${movie.title}">
 								</select>
 							</div>
+							<div
+							class="form-text text-danger"
+							 th:errors="*{listMovieDTO}"></div>
 
 
 							<!-- BTN -->

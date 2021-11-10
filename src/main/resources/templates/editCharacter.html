@@ -15,16 +15,12 @@
 	<nav
 		class="navbar navbar-expand-sm navbar-light bg-light justify-content-center">
 		<ul>
-			<li class="nav-item">
-				<a
-					class="nav-link"
-					href="/index">DISNEY HOME</a>
-			</li>
-			<li class="nav-item">
-				<a
-					class="nav-link"
-					href="/characters">LIST CHARACTERS</a>
-			</li>
+			<li class="nav-item"><a
+				class="nav-link"
+				href="/index">DISNEY HOME</a></li>
+			<li class="nav-item"><a
+				class="nav-link"
+				href="/characters">LIST CHARACTERS</a></li>
 		</ul>
 	</nav>
 	<body>
@@ -44,31 +40,45 @@
 							<div class="form-group">
 
 								<!-- Name -->
-								<label> Name</label>
-								<input
+								<label> Name</label> <input
 									class="form-control"
 									type="text"
 									name="name"
 									placeholder="enter  name"
 									th:field="*{name}" />
+								<div
+									class="form-text text-danger"
+									th:errors="*{name}"></div>
 
 								<!--Year -->
-								<label>Character year</label>
-								<input
+								<label>Character year</label> <input
 									class="form-control"
 									type="number"
 									name="year"
 									placeholder="enter year"
 									th:field="*{year}" />
+								<div
+									class="form-text text-danger"
+									th:errors="*{year}"></div>
+
 
 								<!--Weight -->
-								<label>Character Weight</label>
-								<input
+								<label>Character Weight</label> <input
 									class="form-control"
 									type="number"
 									name="weight"
 									placeholder="enter weight"
 									th:field="*{weight}" />
+								<div
+									class="form-text text-danger"
+									th:errors="*{weight}"></div>
+
+
+								<!-- IMAGEN -->
+								<label for="file">IMGEN</label> <input
+									class="form-control"
+									type="file"
+									name="file" />
 
 
 								<!-- MOVIES -->
@@ -86,6 +96,9 @@
 											th:value="${movie.title}">
 									</select>
 								</div>
+								<div
+									class="form-text text-danger"
+									th:errors="*{listMovieDTO}"></div>
 
 								<!-- BTN -->
 								<div class="footer-boody">

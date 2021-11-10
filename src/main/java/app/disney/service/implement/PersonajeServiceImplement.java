@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -89,19 +88,19 @@ public class PersonajeServiceImplement implements IPersonajeService {
 
 	@Override
 	public List<Movie> getListMovies(List<String> listMovieTitle) {
-		List<Movie> listMovieSave = new ArrayList<Movie>();
-		listMovieTitle.forEach(mov -> listMovieSave.add(movieService.getByTitleIgnoreCase(mov)));
+		List<Movie> listMovie = new ArrayList<Movie>();
+		listMovieTitle.forEach(mov -> listMovie.add(movieService.getByTitleIgnoreCase(mov)));
 
-		return listMovieSave;
+		return listMovie;
 	}
 
 	@Override
 	public List<PersonajeDTO> convertListToDTO(List<Personaje> listPersonajes) {
 		
 		List<PersonajeDTO> listPersonajeDTO =  listPersonajes
-				.stream()
-				.map(personajes -> modelMapper.map(personajes, PersonajeDTO.class))
-				.collect(Collectors.toList());
+				                               .stream()
+				                               .map(personajes -> modelMapper.map(personajes, PersonajeDTO.class))
+				                               .collect(Collectors.toList());
 		
 		return  listPersonajeDTO;
 	}

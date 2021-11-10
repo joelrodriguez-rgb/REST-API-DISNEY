@@ -2,7 +2,7 @@ package app.disney.service;
 
 import java.util.List;
 
-
+import app.disney.DTO.MovieDTO;
 import app.disney.entitys.Movie;
 
 public interface IMovieService {
@@ -22,5 +22,10 @@ public interface IMovieService {
 	/*FILTROS*/
 	
 	List<Movie> getByGender(String gender);
+	
+	/////////////////////////////////////////
+	List<MovieDTO> convertListToDTO (List<Movie> listMovies);
+	
+	List<Movie> convertListToModel(List<MovieDTO> listMovieDTO);
 
 }

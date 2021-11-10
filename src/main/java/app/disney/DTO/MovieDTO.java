@@ -3,7 +3,6 @@ package app.disney.DTO;
 import java.time.LocalDate;
 
 import app.disney.entitys.Gender;
-import lombok.Data;
 
 
 public class MovieDTO {

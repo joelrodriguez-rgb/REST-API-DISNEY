@@ -3,6 +3,7 @@ package app.disney.DTO;
 import java.time.LocalDate;
 
 import app.disney.entitys.Gender;
+import app.disney.entitys.Movie;
 
 
 public class MovieDTO {
@@ -38,6 +39,15 @@ public class MovieDTO {
 		this.qualification = qualification;
 		this.gender = gender;
 	}
+	
+	public MovieDTO( Movie movie) {
+		this.id = movie.getId();
+		this.imgMovie = movie.getimgMovie();
+		this.creationDate = movie.getCreationDate();
+		this.gender = movie.getGender();
+		this.qualification = movie.getQualification();
+	}
+	
 
 	public Integer getId() {
 		return id;

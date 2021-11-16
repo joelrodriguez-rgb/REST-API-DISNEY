@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xlmns:th="http://www.thymeleaf.com">
+<head th:replace="layout/layoutMovies :: head"></head>
+<header th:replace="layout/layoutMovies :: header"></header>
+<body>
+
+	<div class="container">
+	
+			<form
+			th:action="@{/movies}"
+			method="GET">
+			<div class="input-group mb-3">
+				<button
+					type="submit"
+					class="btn btn-outline-dark">Filtrar por titulo</button>
+				<div>
+					<select name="id">
+						<option
+							th:each="movie: ${movies}"
+							th:text="${movie.title}"
+							name="id"
+							th:value="*{movie.id}">
+					</select>
+				</div>
+			</div>
+		</form>
+	
+	
+	
+	
+	
+	
+	
+		<table
+			class="table"
+			th:object="${movies}">
+
+			<thead>
+				<th>Title</th>
+				<th>Imagen</th>
+				<th>Creation Date</th>
+			</thead>
+
+			<tbody>
+				<tr th:each="movie: ${movies}">
+
+					<!-- name -->
+					<td th:text="${movie.title}"></td>
+
+					<!-- imagen -->
+					<td><img
+						th:src="@{'/imgMovies/' + ${movie.imgMovie}}"
+						th:alt="${movie.imgMovie}"
+						width="60"
+						height="60" /></td>
+
+					<!-- operacion -->
+					<td
+						class="btn-group "
+						role="group"><a
+						th:href="@{/movies/editMovie/{id}(id=${movie.id})}"
+						type="button"
+						class="btn btn-success"> EDIT </a> <a
+						th:href="@{/movies/{id}(id=${movie.id})}"
+						type="button"
+						class="btn btn-danger"> DELETE </a> <a
+						th:href="@{/movies/detailMovie/{id}(id=${movie.id})}"
+						type="button"
+						class="btn btn-info"> DETAIL </a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</body>
+</html>

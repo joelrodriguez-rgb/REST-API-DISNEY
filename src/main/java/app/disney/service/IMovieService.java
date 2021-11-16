@@ -22,10 +22,15 @@ public interface IMovieService {
 	/*FILTROS*/
 	
 	List<Movie> getByGender(String gender);
+
 	
 	/////////////////////////////////////////
-	List<MovieDTO> convertListToDTO (List<Movie> listMovies);
+
+	List<Movie> mappingListToModel(List<MovieDTO> listDTO);
+
+	List<MovieDTO> mappingListToDTO(List<Movie> listModel);
+
 	
-	List<Movie> convertListToModel(List<MovieDTO> listMovieDTO);
+
 
 }

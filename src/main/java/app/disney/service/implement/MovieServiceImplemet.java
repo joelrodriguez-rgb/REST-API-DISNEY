@@ -17,7 +17,7 @@ public class MovieServiceImplemet implements IMovieService {
 
 	@Autowired
 	private IMovieRepository movieRepository;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
@@ -55,28 +55,32 @@ public class MovieServiceImplemet implements IMovieService {
 	public List<Movie> getByGender(String gender) {
 		return movieRepository.findByGender(gender);
 	}
+
+	///////////////////////////////////////////////////////////////
 	
-   ///////////////////////////////////////////////////////////////
+	
+	
+	
+	
 	
 	@Override
-	public List<MovieDTO> convertListToDTO(List<Movie> listMovies) {
-		
-		List<MovieDTO> listMovieDTO = listMovies
-				                      .stream()
-				                      .map(movies -> modelMapper.map(movies, MovieDTO.class))
-				                      .collect(Collectors.toList());
-		
-		return listMovieDTO;
-	}
-
-	@Override
-	public List<Movie> convertListToModel(List<MovieDTO> listMovieDTO) {
-
-		List<Movie> listMovieModel = listMovieDTO
-                                .stream()
-                                .map(movies -> modelMapper.map(movies, Movie.class))
-                                .collect(Collectors.toList());
-		return listMovieModel;
-	}
+	public List<MovieDTO> mappingListToDTO(List<Movie> listModel) {
+		List<MovieDTO> listMovieModel = listModel
+                                        .stream()
+                                        .map(movies -> modelMapper.map(movies, MovieDTO.class))
+                                        .collect(Collectors.toList());
+        return listMovieModel;
 }
+	
+	@Override
+	public List<Movie> mappingListToModel(List<MovieDTO> listDTO) {
+		List<Movie> listMovieModel =  listDTO
+                                     .stream()
+                                     .map(movies -> modelMapper.map(movies, Movie.class))
+                                     .collect(Collectors.toList());
+        return listMovieModel;
+	}
+	
 
+
+}

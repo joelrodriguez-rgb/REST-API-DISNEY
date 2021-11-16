@@ -31,7 +31,7 @@ public class PersonajeSpecification {
 				
 			}else if(!personaje.getListMovie().isEmpty()) {			
 				Join<Personaje,Movie> joinMovie = root.join("listMovie");				
-				predicates.add(criteriaBuilder.equal(joinMovie.get("title"), personaje.getListMovie().get(0).getTitle()));
+				predicates.add(criteriaBuilder.equal(joinMovie.get("id"), personaje.getListMovie().get(0).getId()));
 			}
 			
 			return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

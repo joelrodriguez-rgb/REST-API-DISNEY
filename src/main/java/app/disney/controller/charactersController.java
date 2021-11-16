@@ -44,19 +44,21 @@ public class charactersController {
 	public String listPersonaje(@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "year", required = false) Integer year,
 			@RequestParam(value = "weight", required = false) Integer weight,
-			@RequestParam(value = "title", required = false) String movieTitle, ModelMap model) {
+			@RequestParam(value = "id", required = false) Integer idMovie, ModelMap model) {
+		
+		List<MovieDTO> listMovieDTO = movieService.mappingListToDTO(movieService.getAllMovie());
 
-		if (name == null && year == null && weight == null && movieTitle == null) {
-			model.addAttribute("personajes", personajeService.convertListToDTO(personajeService.getAllPersonaje()));
-			model.addAttribute("movies", movieService.convertListToDTO(movieService.getAllMovie()));
+		if (name == null && year == null && weight == null && idMovie == null) {
+			model.addAttribute("personajes", personajeService.mappingListToDTO(personajeService.getAllPersonaje()));
+			model.addAttribute("movies", listMovieDTO);
 		} else {
-			MovieDTO movieDTO = new MovieDTO(movieTitle);
+			MovieDTO movieDTO =  modelMapper.map(movieService.getMovieById(idMovie), MovieDTO.class);
 			SearchPersonajeDTO searchPersonajeDTO = new SearchPersonajeDTO(name, year, weight, movieDTO);
 			Personaje personajeSpec = modelMapper.map(searchPersonajeDTO, Personaje.class);
+			List<Personaje> listPersonajeBySpec = personajeService.getAllPersonaje(spec.getAllBySpec(personajeSpec));
 
-			model.addAttribute("personajes", personajeService
-					.convertListToDTO(personajeService.getAllPersonaje(spec.getAllBySpec(personajeSpec))));
-			model.addAttribute("movies", movieService.convertListToDTO(movieService.getAllMovie()));
+			model.addAttribute("personajes", personajeService.mappingListToDTO(listPersonajeBySpec));
+			model.addAttribute("movies",listMovieDTO);
 		}
 
 		return "characters";
@@ -67,7 +69,7 @@ public class charactersController {
 
 		PersonajeDTO personajeDTO = new PersonajeDTO();
 		model.addAttribute("personaje", personajeDTO);
-		model.addAttribute("movies", movieService.convertListToDTO(movieService.getAllMovie()));
+		model.addAttribute("movies", movieService.mappingListToDTO(movieService.getAllMovie()));
 
 		return "addCharacter";
 	}
@@ -78,7 +80,7 @@ public class charactersController {
 		PersonajeDTO personajeDTObyID = modelMapper.map(personajeService.getPersonajeById(id), PersonajeDTO.class);
 
 		model.addAttribute("personaje", personajeDTObyID);
-		model.addAttribute("movies", movieService.convertListToDTO(movieService.getAllMovie()));
+		model.addAttribute("movies", movieService.mappingListToDTO(movieService.getAllMovie()));
 		return "editCharacter";
 	}
 
@@ -106,7 +108,7 @@ public class charactersController {
 		Personaje personaje = modelMapper.map(personajeDTO, Personaje.class);
 
 		if (result.hasErrors()) {
-			model.addAttribute("movies",  movieService.convertListToDTO(movieService.getAllMovie()));
+			model.addAttribute("movies",  movieService.mappingListToDTO(movieService.getAllMovie()));
 			return "addCharacter";
 		}
 
@@ -136,12 +138,12 @@ public class charactersController {
 		if (result.hasErrors()) {
 			return "editCharacter/{id}";
 		}
-
+		
 		Personaje personajeExisting = personajeService.getPersonajeById(id);
 
 		if (listMovieTitle != null) {
-			personajeDTO.setListMovieDTO(movieService.convertListToDTO(personajeService.getListMovies(listMovieTitle)));
-			personajeExisting.setListMovie(movieService.convertListToModel(personajeDTO.getListMovieDTO()));
+			personajeDTO.setListMovieDTO(movieService.mappingListToDTO(personajeService.getListMovies(listMovieTitle)));
+			personajeExisting.setListMovie(movieService.mappingListToModel(personajeDTO.getListMovieDTO()));
 		}
 
 		if (!imagen.isEmpty()) {

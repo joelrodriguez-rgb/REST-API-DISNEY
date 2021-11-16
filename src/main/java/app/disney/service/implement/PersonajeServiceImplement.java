@@ -22,7 +22,7 @@ import app.disney.service.IMovieService;
 import app.disney.service.IPersonajeService;
 
 @Service
-public class PersonajeServiceImplement implements IPersonajeService {
+public class PersonajeServiceImplement<T> implements IPersonajeService {
 	@Autowired
 	private IPersonajeRepository personajeRepo;
 	
@@ -85,28 +85,45 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		}
 		
 	}
-
+	
+	
 	@Override
 	public List<Movie> getListMovies(List<String> listMovieTitle) {
-		List<Movie> listMovie = new ArrayList<Movie>();
+		List<Movie> listMovie = new ArrayList<>();
+				
 		listMovieTitle.forEach(mov -> listMovie.add(movieService.getByTitleIgnoreCase(mov)));
 
 		return listMovie;
 	}
+	
 
-	@Override
-	public List<PersonajeDTO> convertListToDTO(List<Personaje> listPersonajes) {
-		
-		List<PersonajeDTO> listPersonajeDTO =  listPersonajes
-				                               .stream()
-				                               .map(personajes -> modelMapper.map(personajes, PersonajeDTO.class))
-				                               .collect(Collectors.toList());
-		
-		return  listPersonajeDTO;
+
+	public List<PersonajeDTO> mappingListToDTO(List<Personaje> listModel) {
+		List<PersonajeDTO> listPersonajeDTO =  listModel
+                                               .stream()
+                                               .map(personajes -> modelMapper.map(personajes, PersonajeDTO.class))
+                                               .collect(Collectors.toList());
+
+        return   listPersonajeDTO;
 	}
 
+	
+	public List<Personaje> mappingListToModel(List<PersonajeDTO> listDTO) {
+		List<Personaje> listPersonajeDTO =  listDTO
+                                          .stream()
+                                          .map(personajes -> modelMapper.map(personajes, Personaje.class))
+                                          .collect(Collectors.toList());
 
-
+       return   listPersonajeDTO;
+    }
 
 
 }
+
+
+
+	
+
+
+
+

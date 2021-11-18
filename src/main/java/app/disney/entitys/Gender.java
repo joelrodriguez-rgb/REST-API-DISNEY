@@ -24,24 +24,14 @@ public class Gender {
 	public Gender() {
 	}
 	
-//Constructor para probar jpa
-	public Gender(String genderName) {
-		this.genderName = genderName;
-	}
-	
-	
-	public Gender(String genderName, String imgGender) {
+
+	public Gender(Integer id, String genderName, String imgGender) {
+		super();
+		this.id = id;
 		this.genderName = genderName;
 		this.imgGender = imgGender;
 	}
-	
-	public Gender(Gender genderExisting) {
-		this.genderName = genderExisting.getGenderName();
-		this.imgGender = genderExisting.getImgGender();
-	}
-	
-	
-	
+
 
 	public Integer getId() {
 		return id;

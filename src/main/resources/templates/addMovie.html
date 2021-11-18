@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xlmns:th="http://www.thymeleaf.com">
+<head th:replace="layout/layoutMovies  :: head"></head>
+<header th:replace="layout/layoutMovies  :: header"></header>
+<body>
+	<div class="container">
+		<div class="row">
+			<div
+				class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class="text-center">Create New Movie</h1>
+				<div class="card-body">
+					<form
+						th:action="@{/saveMovie}"
+						enctype="multipart/form-data"
+						th:object="${movie}"
+						method="POST">
+
+						<div class="form-group">
+
+							<!--  Name -->
+							<label>TITLE</label> <input
+								class="form-control"
+								type="text"
+								name="Title"
+								placeholder="enter character name"
+								th:field="*{title}" />
+
+
+
+							<!-- IMAGEN -->
+							<label for="file">IMGEN</label> <input
+								class="form-control"
+								type="file"
+								name="file" />
+
+							<!-- Gender -->
+							<label for="listGender"> Gender</label>
+							<div>
+								<select name="listGender">
+									<option
+										th:each="gender: ${genders}"
+										th:text="${gender.genderName}"
+										name="title"
+										th:value="${movie.title}">
+								</select>
+							</div>
+
+
+							<!-- BTN -->
+							<div class="footer-boody">
+								<button class="btn btn-primary">Submit</button>
+
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

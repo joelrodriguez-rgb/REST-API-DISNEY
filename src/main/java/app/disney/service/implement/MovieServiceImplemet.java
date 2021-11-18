@@ -1,11 +1,16 @@
 package app.disney.service.implement;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import app.disney.DTO.MovieDTO;
 import app.disney.entitys.Movie;
@@ -57,9 +62,20 @@ public class MovieServiceImplemet implements IMovieService {
 	}
 
 	///////////////////////////////////////////////////////////////
-	
-	
-	
+	@Override
+	public void saveImg(MultipartFile imagen) {
+		Path directorioImagenes = Paths.get("src//main//resources//static/imgMovies");
+		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+
+		try {
+			byte[] bytesImg = imagen.getBytes();
+			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+			Files.write(rutaCompleta, bytesImg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 	
@@ -80,6 +96,8 @@ public class MovieServiceImplemet implements IMovieService {
                                      .collect(Collectors.toList());
         return listMovieModel;
 	}
+
+
 	
 
 

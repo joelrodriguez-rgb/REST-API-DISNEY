@@ -8,8 +8,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import lombok.Data;
-
 public class PersonajeDTO {
 	
 	private Integer id;
@@ -33,7 +31,6 @@ public class PersonajeDTO {
 	// contructor full parametros
 	public PersonajeDTO(Integer id, String name, String imgPersonaje, Integer year, Integer weight,
 			List<MovieDTO> listMovieDTO) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.imgPersonaje = imgPersonaje;

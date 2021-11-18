@@ -65,11 +65,11 @@ public class Movie {
 		this.id = id;
 	}
 
-	public String getimgMovie() {
+	public String getImgMovie() {
 		return imgMovie;
 	}
 
-	public void setimgMovie(String imgMovie) {
+	public void setImgMovie(String imgMovie) {
 		this.imgMovie = imgMovie;
 	}
 

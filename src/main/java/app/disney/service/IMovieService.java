@@ -2,6 +2,8 @@ package app.disney.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import app.disney.DTO.MovieDTO;
 import app.disney.entitys.Movie;
 
@@ -25,6 +27,9 @@ public interface IMovieService {
 
 	
 	/////////////////////////////////////////
+	
+	void saveImg(MultipartFile imagen);
+	
 
 	List<Movie> mappingListToModel(List<MovieDTO> listDTO);
 

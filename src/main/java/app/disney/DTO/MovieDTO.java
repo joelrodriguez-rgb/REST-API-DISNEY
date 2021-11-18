@@ -42,7 +42,7 @@ public class MovieDTO {
 	
 	public MovieDTO( Movie movie) {
 		this.id = movie.getId();
-		this.imgMovie = movie.getimgMovie();
+		this.imgMovie = movie.getImgMovie();
 		this.creationDate = movie.getCreationDate();
 		this.gender = movie.getGender();
 		this.qualification = movie.getQualification();

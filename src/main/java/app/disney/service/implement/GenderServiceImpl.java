@@ -49,7 +49,7 @@ public class GenderServiceImpl implements IGenderService {
 	/***BUSQUEDAS***/
 
 	@Override
-	public Gender getByGenderName(String name) {
+	public Gender getByNameGender(String name) {
 		return genderRepo.findByGenderName(name);
 	}
 

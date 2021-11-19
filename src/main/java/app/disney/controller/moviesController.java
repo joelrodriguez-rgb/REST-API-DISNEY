@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,6 +61,15 @@ public class moviesController {
 	}
 	
 	
+	@GetMapping("/movies/{id}")
+	public String deleteMovie(@PathVariable Integer id){
+		
+		movieService.deleteMovieById(id);
+		
+		return "redirect:/movies";
+	}
+	
+	
 	
 	
 	
@@ -91,7 +101,7 @@ public class moviesController {
 		Movie movie = modelMapper.map(movieDTO, Movie.class);
 
 		if (result.hasErrors()) {
-			model.addAttribute("movies",  movieService.mappingListToDTO(movieService.getAllMovie()));
+			model.addAttribute("genders",  genderService.mappingListToDTO(genderService.getAllGender()));
 			return "addMovie";
 		}
 
@@ -105,11 +115,11 @@ public class moviesController {
 		}
 
 		if (genderName != null) {
-			movie.setGender(genderService.getByGenderName(genderName));
+			movie.setGender(genderService.getByNameGender(genderName));
 		}
 
 		movieService.saveMovie(movie);
-		return "redirect:/movies";
+		return "redirect:movies";
 	}
 	
 	

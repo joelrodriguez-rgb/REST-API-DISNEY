@@ -2,6 +2,12 @@ package app.disney.DTO;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import app.disney.entitys.Gender;
 import app.disney.entitys.Movie;
 
@@ -13,8 +19,13 @@ public class MovieDTO {
 
 	private String imgMovie;
 
+	@NotEmpty(message = "Este campo no puede estar vacio")
+	@NotBlank(message = "Este campo no puede estar en blanco")
 	private String title;
 
+
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate creationDate;
 
 	private Integer qualification;
@@ -29,10 +40,8 @@ public class MovieDTO {
 		this.title = title;
 	}
 	
-	public MovieDTO(Integer id, String imgMovie, String title, LocalDate creationDate, Integer qualification,
+	public MovieDTO( String imgMovie, String title, LocalDate creationDate, Integer qualification,
 			Gender gender) {
-		super();
-		this.id = id;
 		this.imgMovie = imgMovie;
 		this.title = title;
 		this.creationDate = creationDate;
@@ -41,7 +50,6 @@ public class MovieDTO {
 	}
 	
 	public MovieDTO( Movie movie) {
-		this.id = movie.getId();
 		this.imgMovie = movie.getImgMovie();
 		this.creationDate = movie.getCreationDate();
 		this.gender = movie.getGender();

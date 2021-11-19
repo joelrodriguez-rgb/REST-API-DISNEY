@@ -29,9 +29,8 @@ public class PersonajeDTO {
 	
 	
 	// contructor full parametros
-	public PersonajeDTO(Integer id, String name, String imgPersonaje, Integer year, Integer weight,
+	public PersonajeDTO(String name, String imgPersonaje, Integer year, Integer weight,
 			List<MovieDTO> listMovieDTO) {
-		this.id = id;
 		this.name = name;
 		this.imgPersonaje = imgPersonaje;
 		this.year = year;

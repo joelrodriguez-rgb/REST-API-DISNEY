@@ -101,25 +101,31 @@
 					<td th:text="${personaje.name}"></td>
 
 					<!-- imagen -->
-					<td><img
-						th:src="@{'/imgCharacters/' + ${personaje.imgPersonaje}}"
-						th:alt="${personaje.imgPersonaje}"
-						width="60"
-						height="60" /></td>
+					<td>
+						<img
+							th:src="@{'/imgCharacters/' + ${personaje.imgPersonaje}}"
+							th:alt="${personaje.imgPersonaje}"
+							width="60"
+							height="60" />
+					</td>
 
 					<!-- operacion -->
 					<td
 						class="btn-group "
-						role="group"><a
-						th:href="@{/characters/editCharacter/{id}(id=${personaje.id})}"
-						type="button"
-						class="btn btn-success"> EDIT </a> <a
-						th:href="@{/characters/{id}(id=${personaje.id})}"
-						type="button"
-						class="btn btn-danger"> DELETE </a> <a
-						th:href="@{/characters/detailCharacter/{id}(id=${personaje.id})}"
-						type="button"
-						class="btn btn-info"> DETAIL </a></td>
+						role="group">
+						<a
+							th:href="@{/characters/editCharacter/{id}(id=${personaje.id})}"
+							type="button"
+							class="btn btn-success"> EDIT </a>
+						<a
+							th:href="@{/characters/{id}(id=${personaje.id})}"
+							type="button"
+							class="btn btn-danger"> DELETE </a>
+						<a
+							th:href="@{/characters/detailCharacter/{id}(id=${personaje.id})}"
+							type="button"
+							class="btn btn-info"> DETAIL </a>
+					</td>
 				</tr>
 			</tbody>
 		</table>

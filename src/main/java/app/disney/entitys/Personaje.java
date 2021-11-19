@@ -14,13 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "personajes")
@@ -43,44 +36,42 @@ public class Personaje {
 	private Integer weight;
 
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-	@JoinTable(name = "personaje_mov"
-	, joinColumns = @JoinColumn(name = "personaje_id")
-	, inverseJoinColumns = @JoinColumn(name = "movie_id"))
+	@JoinTable(name = "personaje_mov", joinColumns = @JoinColumn(name = "personaje_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
 	private List<Movie> listMovie;
 
 	public Personaje() {
 	}
 
 	// contructor full parametros
-		public Personaje(Integer id, String name, String imgPersonaje, Integer year, Integer weight,
-				List<Movie> listMovie) {
-			super();
-			this.id = id;
-			this.name = name;
-			this.imgPersonaje = imgPersonaje;
-			this.year = year;
-			this.weight = weight;
-			this.listMovie = listMovie;
-		}
-		
-		// constructor con 1 sola pelicula asociada
-		public Personaje(String name, String imgPersonaje, Integer year, Integer weight, Movie movie) {
-			this.name = name;
-			this.imgPersonaje = imgPersonaje;
-			this.year = year;
-			this.weight = weight;
-			this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
-		}
-		
-		// constructor con 1 sola pelicula asociada
-		public Personaje(String name, Integer year, Integer weight, Movie movie) {
-			this.name = name;
-			this.year = year;
-			this.weight = weight;
-			this.listMovie= new ArrayList<Movie>(Arrays.asList(movie));
-		}
-		
-		
+	public Personaje(Integer id, String name, String imgPersonaje, Integer year, Integer weight,
+			List<Movie> listMovie) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.imgPersonaje = imgPersonaje;
+		this.year = year;
+		this.weight = weight;
+		this.listMovie = listMovie;
+	}
+
+	// constructor con 1 sola pelicula asociada
+	public Personaje(Integer id, String name, String imgPersonaje, Integer year, Integer weight, Movie movie) {
+		this.id = id;
+		this.name = name;
+		this.imgPersonaje = imgPersonaje;
+		this.year = year;
+		this.weight = weight;
+		this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
+	}
+
+	// constructor con 1 sola pelicula asociada
+	public Personaje(Integer id,String name, Integer year, Integer weight, Movie movie) {
+		this.id = id;
+		this.name = name;
+		this.year = year;
+		this.weight = weight;
+		this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
+	}
 
 	public String getName() {
 		return name;

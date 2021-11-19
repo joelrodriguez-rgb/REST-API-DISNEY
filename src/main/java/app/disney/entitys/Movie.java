@@ -43,8 +43,8 @@ public class Movie {
 	public Movie() {
 	}
 
-	public Movie(String imgMovie, String title, LocalDate creationDate, Integer qualification, Gender gender) {
-		super();
+	public Movie(Integer id,String imgMovie, String title, LocalDate creationDate, Integer qualification, Gender gender) {
+		this.id = id;
 		this.imgMovie = imgMovie;
 		this.title = title;
 		this.creationDate = creationDate;

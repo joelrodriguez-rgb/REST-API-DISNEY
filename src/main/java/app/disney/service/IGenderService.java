@@ -19,7 +19,7 @@ public interface IGenderService {
 	void deleteGenderById(Integer id);
 	
 	/* BUSQUEDAS*/
-	Gender getByGenderName(String name);
+	Gender getByNameGender(String name);
 	
 	
 	List<Gender> mappingListToModel(List<GenderDTO> listDTO);

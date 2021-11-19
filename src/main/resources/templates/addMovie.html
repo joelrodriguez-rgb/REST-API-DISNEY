@@ -17,24 +17,42 @@
 
 						<div class="form-group">
 
-							<!--  Name -->
-							<label>TITLE</label> <input
+							<!--  TITLE -->
+							<label>TITLE</label>
+							<input
 								class="form-control"
 								type="text"
 								name="Title"
 								placeholder="enter character name"
 								th:field="*{title}" />
+							<div
+								class="form-text text-danger"
+								th:errors="*{title}"></div>
 
 
 
 							<!-- IMAGEN -->
-							<label for="file">IMGEN</label> <input
+							<label for="file">IMGEN</label>
+							<input
 								class="form-control"
 								type="file"
 								name="file" />
 
-							<!-- Gender -->
-							<label for="listGender"> Gender</label>
+							<!-- CREATION DATE -->
+							<label>CREATION DATE</label>
+							<input
+								class="form-control"
+								type="date"
+								name="creation"
+								placeholder="enter date"
+								th:field="*{creationDate}" />
+								<div
+								class="form-text text-danger"
+								th:errors="*{creationDate}"></div>
+
+
+							<!-- GENDER -->
+							<label for="listGender"> GENDER</label>
 							<div>
 								<select name="listGender">
 									<option
@@ -42,6 +60,18 @@
 										th:text="${gender.genderName}"
 										name="title"
 										th:value="${movie.title}">
+								</select>
+							</div>
+
+							<!-- Qualification -->
+							<label for="qualification"> QUALIFICATION </label>
+							<div>
+								<select name="qualification">
+									<option th:value="1">1</option>
+									<option th:value="2">2</option>
+									<option th:value="3">3</option>
+									<option th:value="4">4</option>
+									<option th:value="5">5</option>
 								</select>
 							</div>
 

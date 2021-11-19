@@ -5,11 +5,11 @@
 <body>
 
 	<div class="container">
-	<a
+		<a
 			th:href="@{/movies/addMovie}"
 			class="btn btn-primary btn-sm mb-3">Add Movie</a>
-	
-			<form
+
+		<form
 			th:action="@{/movies}"
 			method="GET">
 			<div class="input-group mb-3">
@@ -27,8 +27,8 @@
 				</div>
 			</div>
 		</form>
-	
-	
+
+
 		<table
 			class="table"
 			th:object="${movies}">
@@ -46,25 +46,31 @@
 					<td th:text="${movie.title}"></td>
 
 					<!-- imagen -->
-					<td><img
-						th:src="@{'/imgMovies/' + ${movie.imgMovie}}"
-						th:alt="${movie.imgMovie}"
-						width="60"
-						height="60" /></td>
+					<td>
+						<img
+							th:src="@{'/imgMovies/' + ${movie.imgMovie}}"
+							th:alt="${movie.imgMovie}"
+							width="60"
+							height="60" />
+					</td>
 
 					<!-- operacion -->
 					<td
 						class="btn-group "
-						role="group"><a
-						th:href="@{/movies/editMovie/{id}(id=${movie.id})}"
-						type="button"
-						class="btn btn-success"> EDIT </a> <a
-						th:href="@{/movies/{id}(id=${movie.id})}"
-						type="button"
-						class="btn btn-danger"> DELETE </a> <a
-						th:href="@{/movies/detailMovie/{id}(id=${movie.id})}"
-						type="button"
-						class="btn btn-info"> DETAIL </a></td>
+						role="group">
+						<a
+							th:href="@{/movies/editMovie/{id}(id=${movie.id})}"
+							type="button"
+							class="btn btn-success"> EDIT </a>
+						<a
+							th:href="@{/movies/{id}(id=${movie.id})}"
+							type="button"
+							class="btn btn-danger"> DELETE </a>
+						<a
+							th:href="@{/movies/detailMovie/{id}(id=${movie.id})}"
+							type="button"
+							class="btn btn-info"> DETAIL </a>
+					</td>
 				</tr>
 			</tbody>
 		</table>

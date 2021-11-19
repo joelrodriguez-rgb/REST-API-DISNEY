@@ -70,6 +70,16 @@ public class moviesController {
 	}
 	
 	
+	@GetMapping("/movies/editMovie/{id}")
+	public String editMovie(@PathVariable Integer id, ModelMap model) {
+		
+		MovieDTO movieDTO = modelMapper.map(movieService.getMovieById(id), MovieDTO.class);
+		
+		model.addAttribute("movie", movieDTO);
+		model.addAttribute("gender", genderService.mappingListToDTO(genderService.getAllGender()));
+		
+		return "editMovie";
+	}
 	
 	
 	

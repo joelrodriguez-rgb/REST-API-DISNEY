@@ -17,101 +17,113 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import app.disney.DTO.GenderDTO;
 import app.disney.DTO.MovieDTO;
+import app.disney.DTO.SearchMovieDTO;
 import app.disney.entitys.Movie;
 import app.disney.service.IGenderService;
 import app.disney.service.IMovieService;
+import app.disney.specification.MovieSpecification;
 
 @Controller
 public class moviesController {
-	
+
 	@Autowired
 	private IMovieService movieService;
-	
+
 	@Autowired
 	private IGenderService genderService;
 	
 	@Autowired
+	private MovieSpecification spec;
+
+	@Autowired
 	private ModelMapper modelMapper;
-	
-	
+
 	@GetMapping("/movies")
-	public String listMovies(Model model) {
-		
+	public String listMovies(@RequestParam(value ="title", required = false) String title,
+			                 @RequestParam(value ="gender", required = false) Integer idGender,
+			                 Model model) {
+
 		List<MovieDTO> listMovieDTO = movieService.mappingListToDTO(movieService.getAllMovie());
+		List<GenderDTO> listGenderDTO = genderService.mappingListToDTO(genderService.getAllGender());
 		
-		model.addAttribute("movies", listMovieDTO);
+		if (title == null && idGender == null) {
+			model.addAttribute("movies", listMovieDTO);
+			model.addAttribute("gender", listGenderDTO );
+		}else {
+			GenderDTO gender = modelMapper.map(genderService.getGenderById(idGender), GenderDTO.class);
+			SearchMovieDTO searchMovie = new SearchMovieDTO(title,gender);
+			Movie movieSpec = modelMapper.map(searchMovie, Movie.class);
+			List<Movie> listMovieBySpec = movieService.getAllMovieBySpec(spec.getAllBySpec(movieSpec));
+			
+			model.addAttribute("movies", movieService.mappingListToDTO(listMovieBySpec));
+			model.addAttribute("gender", listGenderDTO );
+		}
 		
 		return "movies";
-		
+
 	}
-	
-	
+
 	
 	
 	@GetMapping("/movies/addMovie")
 	public String addMovie(ModelMap model) {
-		
+
 		MovieDTO movieDTO = new MovieDTO();
-		
+
 		model.addAttribute("movie", movieDTO);
-		model.addAttribute("genders",  genderService.mappingListToDTO(genderService.getAllGender()));
-		
+		model.addAttribute("genders", genderService.mappingListToDTO(genderService.getAllGender()));
+
 		return "addMovie";
 	}
+
 	
 	
 	@GetMapping("/movies/{id}")
-	public String deleteMovie(@PathVariable Integer id){
-		
+	public String deleteMovie(@PathVariable Integer id) {
+
 		movieService.deleteMovieById(id);
-		
+
 		return "redirect:/movies";
 	}
+
 	
 	
 	@GetMapping("/movies/editMovie/{id}")
 	public String editMovie(@PathVariable Integer id, ModelMap model) {
-		
+
 		MovieDTO movieDTO = modelMapper.map(movieService.getMovieById(id), MovieDTO.class);
-		
+
 		model.addAttribute("movie", movieDTO);
-		model.addAttribute("gender", genderService.mappingListToDTO(genderService.getAllGender()));
-		
+		model.addAttribute("genders", genderService.mappingListToDTO(genderService.getAllGender()));
+
 		return "editMovie";
 	}
 	
+	@GetMapping("/movies/detailMovie/{id}")
+	public String detailMovie(@PathVariable Integer id, ModelMap model) {
+		
+		MovieDTO movieDTO = modelMapper.map( movieService.getMovieById(id), MovieDTO.class);
+		model.addAttribute("movie", movieDTO);
+		return "detailMovie";
+	}
+		
+		
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
 	@PostMapping("/saveMovie")
 	public String saveMovie(@ModelAttribute("movie") @Valid MovieDTO movieDTO, BindingResult result,
 			@RequestParam(value = "file", required = false) MultipartFile imagen,
-			@RequestParam(value = "gender", required = false) String genderName,
-			Model model) {
+			@RequestParam(value = "gender", required = false) String genderName, Model model) {
 
 		Movie movie = modelMapper.map(movieDTO, Movie.class);
 
 		if (result.hasErrors()) {
-			model.addAttribute("genders",  genderService.mappingListToDTO(genderService.getAllGender()));
+			model.addAttribute("genders", genderService.mappingListToDTO(genderService.getAllGender()));
 			return "addMovie";
 		}
 
@@ -131,15 +143,40 @@ public class moviesController {
 		movieService.saveMovie(movie);
 		return "redirect:movies";
 	}
+
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+	@PostMapping("/editMovie/{id}")
+	public String editMovie(@PathVariable Integer id, @ModelAttribute("movie") @Valid MovieDTO movieDTO,
+			BindingResult result, @RequestParam(value = "file", required = false) MultipartFile imagen,
+			@RequestParam(value = "gender", required = false) String genderName) {
+		
+		if (result.hasErrors()) {
+			return "editMovie/{id}";
+		}
+		
+		Movie existingMovie = movieService.getMovieById(id);
+		
+		if (genderName != null) {
+			existingMovie.setGender(genderService.getByNameGender(genderName));
+		}
+		
+		if (!imagen.isEmpty()) {
+			
+			movieService.saveImg(imagen);
+			movieDTO.setImgMovie(imagen.getOriginalFilename());
+			existingMovie.setImgMovie(movieDTO.getImgMovie());
+		}
+		
+		existingMovie.setId(id);
+		existingMovie.setCreationDate(movieDTO.getCreationDate());
+		existingMovie.setQualification(movieDTO.getQualification());
+		existingMovie.setTitle(movieDTO.getTitle());
+		
+		movieService.saveMovie(existingMovie);		
+		
+		return "redirect:/movies";
+	}
 
 }

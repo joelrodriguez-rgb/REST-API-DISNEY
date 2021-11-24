@@ -2,6 +2,7 @@ package app.disney.service;
 
 import java.util.List;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.multipart.MultipartFile;
 
 import app.disney.DTO.MovieDTO;
@@ -21,10 +22,13 @@ public interface IMovieService {
 	/* BUSQUEDAS */
 	Movie getByTitleIgnoreCase(String title);
 	
+	List<Movie> getAllMovieBySpec(Specification<Movie> spec);
+	
 	/*FILTROS*/
 	
 	List<Movie> getByGender(String gender);
 
+	
 	
 	/////////////////////////////////////////
 	

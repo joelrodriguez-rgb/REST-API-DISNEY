@@ -71,12 +71,12 @@
 					type="submit"
 					class="btn btn-outline-dark">Filtrar por peliculas</button>
 				<div>
-					<select name="id">
+					<select name="title">
 						<option
 							th:each="movie: ${movies}"
 							th:text="${movie.title}"
-							name="id"
-							th:value="*{movie.id}">
+							name="title"
+							th:value="*{movie.title}">
 					</select>
 				</div>
 			</div>

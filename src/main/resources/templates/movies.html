@@ -15,16 +15,14 @@
 			<div class="input-group mb-3">
 				<button
 					type="submit"
-					class="btn btn-outline-dark">Filtrar por titulo</button>
-				<div>
-					<select name="id">
-						<option
-							th:each="movie: ${movies}"
-							th:text="${movie.title}"
-							name="id"
-							th:value="*{movie.id}">
-					</select>
-				</div>
+					class="btn btn-outline-dark">Buscar por Titulo</button>
+				<input
+					type="text"
+					class="form-control"
+					placeholder="enter title"
+					aria-label="Example text with button addon"
+					aria-describedby="button-addon1"
+					name="title">
 			</div>
 		</form>
 
@@ -46,31 +44,25 @@
 					<td th:text="${movie.title}"></td>
 
 					<!-- imagen -->
-					<td>
-						<img
-							th:src="@{'/imgMovies/' + ${movie.imgMovie}}"
-							th:alt="${movie.imgMovie}"
-							width="60"
-							height="60" />
-					</td>
+					<td><img
+						th:src="@{'/imgMovies/' + ${movie.imgMovie}}"
+						th:alt="${movie.imgMovie}"
+						width="60"
+						height="60" /></td>
 
 					<!-- operacion -->
 					<td
 						class="btn-group "
-						role="group">
-						<a
-							th:href="@{/movies/editMovie/{id}(id=${movie.id})}"
-							type="button"
-							class="btn btn-success"> EDIT </a>
-						<a
-							th:href="@{/movies/{id}(id=${movie.id})}"
-							type="button"
-							class="btn btn-danger"> DELETE </a>
-						<a
-							th:href="@{/movies/detailMovie/{id}(id=${movie.id})}"
-							type="button"
-							class="btn btn-info"> DETAIL </a>
-					</td>
+						role="group"><a
+						th:href="@{/movies/editMovie/{id}(id=${movie.id})}"
+						type="button"
+						class="btn btn-success"> EDIT </a> <a
+						th:href="@{/movies/{id}(id=${movie.id})}"
+						type="button"
+						class="btn btn-danger"> DELETE </a> <a
+						th:href="@{/movies/detailMovie/{id}(id=${movie.id})}"
+						type="button"
+						class="btn btn-info"> DETAIL </a></td>
 				</tr>
 			</tbody>
 		</table>

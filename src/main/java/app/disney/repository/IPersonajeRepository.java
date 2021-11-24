@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import app.disney.DTO.SearchPersonajeDTO;
 import app.disney.entitys.Personaje;
 
 @Repository

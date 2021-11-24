@@ -34,11 +34,13 @@ public class charactersController {
 	@Autowired
 	private IPersonajeService personajeService;
 
+	
 	@Autowired
 	private IMovieService movieService;
 
 	@Autowired
 	private PersonajeSpecification spec;
+	
 
 	@GetMapping("/characters")
 	public String listPersonaje(@RequestParam(value = "name", required = false) String name,
@@ -57,6 +59,7 @@ public class charactersController {
 			Personaje personajeSpec = modelMapper.map(searchPersonajeDTO, Personaje.class);
 			List<Personaje> listPersonajeBySpec = personajeService.getAllPersonaje(spec.getAllBySpec(personajeSpec));
 
+			
 			model.addAttribute("personajes", personajeService.mappingListToDTO(listPersonajeBySpec));
 			model.addAttribute("movies",listMovieDTO);
 		}

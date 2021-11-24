@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import app.disney.entitys.Movie;
-import lombok.Data;
-
 public class SearchPersonajeDTO {
 
 	private String name;

@@ -22,7 +22,6 @@ public class GenderDTO {
 	
 
 	public GenderDTO(Integer id, String genderName, String imgGender) {
-		super();
 		this.id = id;
 		this.genderName = genderName;
 		this.imgGender = imgGender;

@@ -42,17 +42,17 @@ public class moviesController {
 
 	@GetMapping("/movies")
 	public String listMovies(@RequestParam(value ="title", required = false) String title,
-			                 @RequestParam(value ="gender", required = false) Integer idGender,
+			                 @RequestParam(value ="gender", required = false) String genderName,
 			                 Model model) {
 
 		List<MovieDTO> listMovieDTO = movieService.mappingListToDTO(movieService.getAllMovie());
 		List<GenderDTO> listGenderDTO = genderService.mappingListToDTO(genderService.getAllGender());
 		
-		if (title == null && idGender == null) {
+		if (title == null && genderName == null) {
 			model.addAttribute("movies", listMovieDTO);
 			model.addAttribute("genders", listGenderDTO );
 		}else {
-			GenderDTO gender = modelMapper.map(genderService.getGenderById(idGender), GenderDTO.class);
+			GenderDTO gender = new GenderDTO(genderName);
 			SearchMovieDTO searchMovie = new SearchMovieDTO(title,gender);
 			Movie movieSpec = modelMapper.map(searchMovie, Movie.class);
 			List<Movie> listMovieBySpec = movieService.getAllMovieBySpec(spec.getAllBySpec(movieSpec));

@@ -11,10 +11,10 @@
 			th:object="${personaje}">
 			<thead>
 				<tr>
-					<th>Name</th>
-					<th>Year</th>
-					<th>Weight</th>
-					<th>Imagen</th>
+					<th>NOMBRE</th>
+					<th>EDAD</th>
+					<th>PESO</th>
+					<th>IMAGEN</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -31,7 +31,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<label for="listMovies"> LIST MOVIES ASOCIATES</label>
+		<label for="listMovies"> LISTA DE PELICULAS EN LAS QUE PARTICIPA</label>
 		<div
 			class="container"
 			th:each="movie : ${moviesAsociate}"

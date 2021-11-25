@@ -17,10 +17,10 @@
 		<ul>
 			<li class="nav-item"><a
 				class="nav-link"
-				href="/index">DISNEY HOME</a></li>
+				href="/index">VOLVER AL INICIO</a></li>
 			<li class="nav-item"><a
 				class="nav-link"
-				href="/characters">LIST CHARACTERS</a></li>
+				href="/characters">LISTA DE PERSONAJES</a></li>
 		</ul>
 	</nav>
 	<body>
@@ -29,7 +29,7 @@
 			<div class="row">
 				<div
 					class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-					<h1 class="text-center">Edit Character</h1>
+					<h1 class="text-center">EDITAR PERSONAJE</h1>
 					<div class="card-body">
 						<form
 							th:action="@{/editCharacter/{id}(id=${personaje.id})}"
@@ -40,7 +40,7 @@
 							<div class="form-group">
 
 								<!-- Name -->
-								<label> Name</label> <input
+								<label> NOMBRE</label> <input
 									class="form-control"
 									type="text"
 									name="name"
@@ -51,7 +51,7 @@
 									th:errors="*{name}"></div>
 
 								<!--Year -->
-								<label>Character year</label> <input
+								<label>EDAD</label> <input
 									class="form-control"
 									type="number"
 									name="year"
@@ -63,7 +63,7 @@
 
 
 								<!--Weight -->
-								<label>Character Weight</label> <input
+								<label>PESO</label> <input
 									class="form-control"
 									type="number"
 									name="weight"
@@ -82,7 +82,7 @@
 
 
 								<!-- MOVIES -->
-								<label for="listMovies"> MOVIES</label>
+								<label for="listMovies"> PELICULAS ASOCIADAS</label>
 								<div
 									th:object=${movies}
 									name="title">
@@ -102,7 +102,7 @@
 
 								<!-- BTN -->
 								<div class="footer-boody">
-									<button class="btn btn-primary">Submit</button>
+									<button class="btn btn-primary">ENVIAR</button>
 
 								</div>
 

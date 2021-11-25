@@ -7,7 +7,7 @@
 	<div class="container">
 		<a
 			th:href="@{/movies/addMovie}"
-			class="btn btn-primary btn-sm mb-3">Add Movie</a>
+			class="btn btn-primary btn-sm mb-3">AGREGAR PELICULA</a>
 
 		<form
 			th:action="@{/movies}"
@@ -35,12 +35,12 @@
 					type="submit"
 					class="btn btn-outline-dark">Filtrar por Genero</button>
 				<div>
-					<select name="id">
+					<select name="gender">
 						<option
-							th:each="gender ${genders}"
+							th:each="gender :${genders}"
 							th:text="${gender.genderName}"
-							name="id"
-							th:value="*{gender.id}">
+							name="gender"
+							th:value="*{gender.genderName}">
 					</select>
 				</div>
 			</div>
@@ -53,9 +53,9 @@
 			th:object="${movies}">
 
 			<thead>
-				<th>Title</th>
-				<th>Imagen</th>
-				<th>Creation Date</th>
+				<th>TITULO</th>
+				<th>IMAGEN</th>
+				<th>FECHA DE CREACION</th>
 			</thead>
 
 			<tbody>
@@ -77,13 +77,13 @@
 						role="group"><a
 						th:href="@{/movies/editMovie/{id}(id=${movie.id})}"
 						type="button"
-						class="btn btn-success"> EDIT </a> <a
+						class="btn btn-success"> EDITAR </a> <a
 						th:href="@{/movies/{id}(id=${movie.id})}"
 						type="button"
-						class="btn btn-danger"> DELETE </a> <a
+						class="btn btn-danger"> ELIMINAR </a> <a
 						th:href="@{/movies/detailMovie/{id}(id=${movie.id})}"
 						type="button"
-						class="btn btn-info"> DETAIL </a></td>
+						class="btn btn-info"> DETALLE </a></td>
 				</tr>
 			</tbody>
 		</table>

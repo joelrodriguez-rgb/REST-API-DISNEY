@@ -18,14 +18,13 @@ public class MovieSpecification {
 		return (root, query, criteriaBuilder) -> {
 			List<Predicate> predicates = new ArrayList<>();
 
-			if (!movie.getTitle().isEmpty()) {
+			if (movie.getTitle() != null) {
 				predicates.add(criteriaBuilder.like(root.get("title"), "%" + movie.getTitle() + "%"));
 
 			} else if (movie.getGender() != null) {
 						
-				predicates.add(criteriaBuilder.equal(root.get("gender").get("id"), movie.getGender().getId()));
+				predicates.add(criteriaBuilder.equal(root.get("gender").get("genderName"), movie.getGender().getGenderName()));
 			}
-
 			return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
 		};
 	}

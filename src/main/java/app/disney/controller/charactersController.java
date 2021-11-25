@@ -55,7 +55,7 @@ public class charactersController {
 			model.addAttribute("personajes", listPersonajeDTO);
 			model.addAttribute("movies", listMovieDTO);
 		} else {
-			MovieDTO movieDTO =  modelMapper.map(movieService.getByTitleIgnoreCase(title), MovieDTO.class);
+			MovieDTO movieDTO =  new MovieDTO(title);
 			SearchPersonajeDTO searchPersonajeDTO = new SearchPersonajeDTO(name, year, weight, movieDTO);
 			Personaje personajeSpec = modelMapper.map(searchPersonajeDTO, Personaje.class);
 			List<Personaje> listPersonajeBySpec = personajeService.getAllPersonaje(spec.getAllBySpec(personajeSpec));

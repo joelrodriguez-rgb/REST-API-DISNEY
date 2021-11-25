@@ -26,6 +26,10 @@ public class GenderDTO {
 		this.genderName = genderName;
 		this.imgGender = imgGender;
 	}
+	
+	public GenderDTO(String genderName) {
+		this.genderName = genderName;
+	}
 
 
 	public Integer getId() {

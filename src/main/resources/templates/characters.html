@@ -8,7 +8,7 @@
 	<div class="container">
 		<a
 			th:href="@{/characters/addCharacter}"
-			class="btn btn-primary btn-sm mb-3">Add Character</a>
+			class="btn btn-primary btn-sm mb-3">AGREGAR PERSONAJE</a>
 
 		<form
 			th:action="@{/characters}"
@@ -89,9 +89,9 @@
 			th:object="${personajes}">
 
 			<thead>
-				<th>Name</th>
-				<th>Imagen</th>
-				<th>Operation</th>
+				<th>NOMBRE</th>
+				<th>IMAGEN</th>
+				<th>OPERAR</th>
 			</thead>
 
 			<tbody>
@@ -116,15 +116,15 @@
 						<a
 							th:href="@{/characters/editCharacter/{id}(id=${personaje.id})}"
 							type="button"
-							class="btn btn-success"> EDIT </a>
+							class="btn btn-success"> EDITAR </a>
 						<a
 							th:href="@{/characters/{id}(id=${personaje.id})}"
 							type="button"
-							class="btn btn-danger"> DELETE </a>
+							class="btn btn-danger"> ELIMINAR </a>
 						<a
 							th:href="@{/characters/detailCharacter/{id}(id=${personaje.id})}"
 							type="button"
-							class="btn btn-info"> DETAIL </a>
+							class="btn btn-info"> DETALLE </a>
 					</td>
 				</tr>
 			</tbody>

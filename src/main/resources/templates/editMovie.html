@@ -7,7 +7,7 @@
 		<div class="row">
 			<div
 				class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-				<h1 class="text-center">Edit Movie</h1>
+				<h1 class="text-center">EDITAR PELICULA</h1>
 				<div class="card-body">
 					<form
 						th:action="@{/editMovie/{id}(id=${movie.id})}"
@@ -39,7 +39,7 @@
 								name="file" />
 
 							<!-- CREATION DATE -->
-							<label>CREATION DATE</label>
+							<label>FECHA DE CREACION</label>
 							<input
 								class="form-control"
 								type="date"
@@ -52,7 +52,7 @@
 
 
 							<!-- GENDER -->
-							<label for="listGender"> GENDER</label>
+							<label for="listGender"> GENERO</label>
 							<div>
 								<select name="listGender">
 									<option
@@ -64,7 +64,7 @@
 							</div>
 
 							<!-- Qualification -->
-							<label for="qualification"> QUALIFICATION </label>
+							<label for="qualification"> CALIFICACION </label>
 							<div>
 								<select name="qualification">
 									<option th:value="1">1</option>
@@ -78,7 +78,7 @@
 
 							<!-- BTN -->
 							<div class="footer-boody">
-								<button class="btn btn-primary">Submit</button>
+								<button class="btn btn-primary">ENVIAR</button>
 
 							</div>
 

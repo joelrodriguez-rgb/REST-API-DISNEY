@@ -22,7 +22,8 @@ public class MovieSpecification {
 				predicates.add(criteriaBuilder.like(root.get("title"), "%" + movie.getTitle() + "%"));
 
 			} else if (movie.getGender() != null) {
-				predicates.add(criteriaBuilder.equal(root.get("gender"), movie.getGender()));
+						
+				predicates.add(criteriaBuilder.equal(root.get("gender").get("id"), movie.getGender().getId()));
 			}
 
 			return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

@@ -46,15 +46,16 @@ public class charactersController {
 	public String listPersonaje(@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "year", required = false) Integer year,
 			@RequestParam(value = "weight", required = false) Integer weight,
-			@RequestParam(value = "id", required = false) Integer idMovie, ModelMap model) {
+			@RequestParam(value = "title", required = false) String title, ModelMap model) {
 		
+		List<PersonajeDTO> listPersonajeDTO =  personajeService.mappingListToDTO(personajeService.getAllPersonaje());
 		List<MovieDTO> listMovieDTO = movieService.mappingListToDTO(movieService.getAllMovie());
 
-		if (name == null && year == null && weight == null && idMovie == null) {
-			model.addAttribute("personajes", personajeService.mappingListToDTO(personajeService.getAllPersonaje()));
+		if (name == null && year == null && weight == null && title == null) {
+			model.addAttribute("personajes", listPersonajeDTO);
 			model.addAttribute("movies", listMovieDTO);
 		} else {
-			MovieDTO movieDTO =  modelMapper.map(movieService.getMovieById(idMovie), MovieDTO.class);
+			MovieDTO movieDTO =  modelMapper.map(movieService.getByTitleIgnoreCase(title), MovieDTO.class);
 			SearchPersonajeDTO searchPersonajeDTO = new SearchPersonajeDTO(name, year, weight, movieDTO);
 			Personaje personajeSpec = modelMapper.map(searchPersonajeDTO, Personaje.class);
 			List<Personaje> listPersonajeBySpec = personajeService.getAllPersonaje(spec.getAllBySpec(personajeSpec));

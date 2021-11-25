@@ -25,6 +25,27 @@
 					name="title">
 			</div>
 		</form>
+		
+		
+			<form
+			th:action="@{/movies}"
+			method="GET">
+			<div class="input-group mb-3">
+				<button
+					type="submit"
+					class="btn btn-outline-dark">Filtrar por Genero</button>
+				<div>
+					<select name="id">
+						<option
+							th:each="gender ${genders}"
+							th:text="${gender.genderName}"
+							name="id"
+							th:value="*{gender.id}">
+					</select>
+				</div>
+			</div>
+		</form>
+
 
 
 		<table

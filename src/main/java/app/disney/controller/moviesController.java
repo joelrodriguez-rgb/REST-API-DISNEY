@@ -50,7 +50,7 @@ public class moviesController {
 		
 		if (title == null && idGender == null) {
 			model.addAttribute("movies", listMovieDTO);
-			model.addAttribute("gender", listGenderDTO );
+			model.addAttribute("genders", listGenderDTO );
 		}else {
 			GenderDTO gender = modelMapper.map(genderService.getGenderById(idGender), GenderDTO.class);
 			SearchMovieDTO searchMovie = new SearchMovieDTO(title,gender);
@@ -58,7 +58,7 @@ public class moviesController {
 			List<Movie> listMovieBySpec = movieService.getAllMovieBySpec(spec.getAllBySpec(movieSpec));
 			
 			model.addAttribute("movies", movieService.mappingListToDTO(listMovieBySpec));
-			model.addAttribute("gender", listGenderDTO );
+			model.addAttribute("genders", listGenderDTO );
 		}
 		
 		return "movies";

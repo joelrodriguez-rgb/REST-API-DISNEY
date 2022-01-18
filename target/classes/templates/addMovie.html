@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xlmns:th="http://www.thymeleaf.com">
+<head th:replace="layout/layoutMovies  :: head"></head>
+<header th:replace="layout/layoutMovies  :: header"></header>
+<body>
+	<div class="container">
+		<div class="row">
+			<div
+				class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class="text-center">CREAR NUEVA PELICULA</h1>
+				<div class="card-body">
+					<form
+						th:action="@{/saveMovie}"
+						enctype="multipart/form-data"
+						th:object="${movie}"
+						method="POST">
+
+						<div class="form-group">
+
+							<!--  TITLE -->
+							<label>TITULO</label>
+							<input
+								class="form-control"
+								type="text"
+								name="Title"
+								placeholder="enter character name"
+								th:field="*{title}" />
+							<div
+								class="form-text text-danger"
+								th:errors="*{title}"></div>
+
+
+
+							<!-- IMAGEN -->
+							<label for="file">IMGEN</label>
+							<input
+								class="form-control"
+								type="file"
+								name="file" />
+
+							<!-- CREATION DATE -->
+							<label>FECHA DE CREACION</label>
+							<input
+								class="form-control"
+								type="date"
+								name="creation"
+								placeholder="enter date"
+								th:field="*{creationDate}" />
+								<div
+								class="form-text text-danger"
+								th:errors="*{creationDate}"></div>
+
+
+							<!-- GENDER -->
+							<label for="listGender"> GENERO</label>
+							<div>
+								<select name="listGender">
+									<option
+										th:each="gender: ${genders}"
+										th:text="${gender.genderName}"
+										name="title"
+										th:value="${gender.genderName}">
+								</select>
+							</div>
+
+							<!-- Qualification -->
+							<label for="qualification"> CALIFICACION </label>
+							<div>
+								<select name="qualification">
+									<option th:value="1">1</option>
+									<option th:value="2">2</option>
+									<option th:value="3">3</option>
+									<option th:value="4">4</option>
+									<option th:value="5">5</option>
+								</select>
+							</div>
+
+
+							<!-- BTN -->
+							<div class="footer-boody">
+								<button class="btn btn-primary">SENVIAR</button>
+
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

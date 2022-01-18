@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import app.disney.DTO.PersonajeDTO;
 import app.disney.entitys.Movie;
 import app.disney.entitys.Personaje;
 import app.disney.repository.IPersonajeRepository;
@@ -25,24 +23,24 @@ import app.disney.service.IPersonajeService;
 public class PersonajeServiceImplement<T> implements IPersonajeService {
 	@Autowired
 	private IPersonajeRepository personajeRepo;
-	
+
 	@Autowired
 	private IMovieService movieService;
 
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	/** FUNCIONES CRUD */
 	@Override
 	public List<Personaje> getAllPersonaje() {
 		return personajeRepo.findAll();
 	}
-	
+
 	@Override
 	public List<Personaje> getAllPersonaje(Specification<Personaje> spec) {
 		return personajeRepo.findAll(spec);
 	}
-	
+
 	@Override
 	public Personaje savePersonaje(Personaje Personaje) {
 		return personajeRepo.save(Personaje);
@@ -58,7 +56,7 @@ public class PersonajeServiceImplement<T> implements IPersonajeService {
 		personajeRepo.deleteById(id);
 	}
 
-	/**BUSQUEDA */
+	/** BUSQUEDA */
 	@Override
 	public Personaje getByNameIgnoreCase(String name) {
 		return personajeRepo.findByNameIgnoreCase(name);
@@ -69,7 +67,6 @@ public class PersonajeServiceImplement<T> implements IPersonajeService {
 		return personajeRepo.findMovieByPersonajeId(id);
 	}
 
-	
 	////////////////////////////////////////
 	@Override
 	public void saveImg(MultipartFile imagen) {
@@ -83,47 +80,16 @@ public class PersonajeServiceImplement<T> implements IPersonajeService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	
-	@Override
+
 	public List<Movie> getListMovies(List<String> listMovieTitle) {
 		List<Movie> listMovie = new ArrayList<>();
-				
+
 		listMovieTitle.forEach(mov -> listMovie.add(movieService.getByTitleIgnoreCase(mov)));
 
 		return listMovie;
 	}
-	
-
-
-	public List<PersonajeDTO> mappingListToDTO(List<Personaje> listModel) {
-		List<PersonajeDTO> listPersonajeDTO =  listModel
-                                               .stream()
-                                               .map(personajes -> modelMapper.map(personajes, PersonajeDTO.class))
-                                               .collect(Collectors.toList());
-
-        return   listPersonajeDTO;
-	}
-
-	
-	public List<Personaje> mappingListToModel(List<PersonajeDTO> listDTO) {
-		List<Personaje> listPersonajeDTO =  listDTO
-                                          .stream()
-                                          .map(personajes -> modelMapper.map(personajes, Personaje.class))
-                                          .collect(Collectors.toList());
-
-       return   listPersonajeDTO;
-    }
 
 
 }
-
-
-
-	
-
-
-
-

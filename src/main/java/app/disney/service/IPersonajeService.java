@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.multipart.MultipartFile;
 
-import app.disney.DTO.PersonajeDTO;
 import app.disney.entitys.Movie;
 import app.disney.entitys.Personaje;
 
@@ -36,9 +35,9 @@ public interface IPersonajeService  {
 	List<Movie> getListMovies(List<String> listMovieTitle);
 	
 	
-	List<PersonajeDTO> mappingListToDTO(List<Personaje> listModel);
-
-	List<Personaje> mappingListToModel(List<PersonajeDTO> listDTO);
+//	List<PersonajeDTO> mappingListToDTO(List<Personaje> listModel);
+//
+//	List<Personaje> mappingListToModel(List<PersonajeDTO> listDTO);
 
 
 

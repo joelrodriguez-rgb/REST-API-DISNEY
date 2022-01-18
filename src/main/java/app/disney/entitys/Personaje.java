@@ -35,8 +35,8 @@ public class Personaje {
 	@Column(name = "weight")
 	private Integer weight;
 
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-	@JoinTable(name = "personaje_mov", joinColumns = @JoinColumn(name = "personaje_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
+	@ManyToMany(cascade = { CascadeType.MERGE})
+	@JoinTable(name = "personaje_mov", joinColumns = @JoinColumn(name = "personaje_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"  ))
 	private List<Movie> listMovie;
 
 	public Personaje() {
@@ -54,7 +54,7 @@ public class Personaje {
 		this.listMovie = listMovie;
 	}
 
-	// constructor con 1 sola pelicula asociada
+	// constructor con 1 sola pelicula asociada con imagen
 	public Personaje(Integer id, String name, String imgPersonaje, Integer year, Integer weight, Movie movie) {
 		this.id = id;
 		this.name = name;
@@ -64,7 +64,7 @@ public class Personaje {
 		this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
 	}
 
-	// constructor con 1 sola pelicula asociada
+	// constructor con 1 sola pelicula asociada sin imagen
 	public Personaje(Integer id,String name, Integer year, Integer weight, Movie movie) {
 		this.id = id;
 		this.name = name;

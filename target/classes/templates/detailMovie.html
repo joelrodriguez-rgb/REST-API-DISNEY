@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xlmns:th="http://www.thymeleaf.com">
+<head th:replace="layout/layoutMovies :: head"></head>
+<header th:replace="layout/layoutMovies :: header"></header>
+
+<body>
+
+	<div class="container">
+		<table
+			class="table"
+			th:object="${movie}">
+			<thead>
+				<tr>
+					<th>TITULO</th>
+					<th>FECHA DE CREACION</th>
+					<th>CALIFICACION</th>
+					<th>IMAGEN</th>
+					<th>GENERO</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="*{title}"></td>
+					<td th:text="*{creationDate}"></td>
+					<td th:text="*{qualification}"></td>
+					<td><img
+						th:src="@{'/imgMovies/' + *{imgMovie}}"
+						th:alt="*{imgMovie}"
+						width="60"
+						height="60" /></td>
+						<td th:text ="*{gender.genderName}"></td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>

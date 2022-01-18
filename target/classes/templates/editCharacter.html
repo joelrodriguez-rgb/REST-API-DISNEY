@@ -15,16 +15,12 @@
 	<nav
 		class="navbar navbar-expand-sm navbar-light bg-light justify-content-center">
 		<ul>
-			<li class="nav-item">
-				<a
-					class="nav-link"
-					href="/index">DISNEY HOME</a>
-			</li>
-			<li class="nav-item">
-				<a
-					class="nav-link"
-					href="/characters">LIST CHARACTERS</a>
-			</li>
+			<li class="nav-item"><a
+				class="nav-link"
+				href="/index">VOLVER AL INICIO</a></li>
+			<li class="nav-item"><a
+				class="nav-link"
+				href="/characters">LISTA DE PERSONAJES</a></li>
 		</ul>
 	</nav>
 	<body>
@@ -33,7 +29,7 @@
 			<div class="row">
 				<div
 					class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-					<h1 class="text-center">Edit Character</h1>
+					<h1 class="text-center">EDITAR PERSONAJE</h1>
 					<div class="card-body">
 						<form
 							th:action="@{/editCharacter/{id}(id=${personaje.id})}"
@@ -44,35 +40,49 @@
 							<div class="form-group">
 
 								<!-- Name -->
-								<label> Name</label>
-								<input
+								<label> NOMBRE</label> <input
 									class="form-control"
 									type="text"
 									name="name"
 									placeholder="enter  name"
 									th:field="*{name}" />
+								<div
+									class="form-text text-danger"
+									th:errors="*{name}"></div>
 
 								<!--Year -->
-								<label>Character year</label>
-								<input
+								<label>EDAD</label> <input
 									class="form-control"
 									type="number"
 									name="year"
 									placeholder="enter year"
 									th:field="*{year}" />
+								<div
+									class="form-text text-danger"
+									th:errors="*{year}"></div>
+
 
 								<!--Weight -->
-								<label>Character Weight</label>
-								<input
+								<label>PESO</label> <input
 									class="form-control"
 									type="number"
 									name="weight"
 									placeholder="enter weight"
 									th:field="*{weight}" />
+								<div
+									class="form-text text-danger"
+									th:errors="*{weight}"></div>
+
+
+								<!-- IMAGEN -->
+								<label for="file">IMGEN</label> <input
+									class="form-control"
+									type="file"
+									name="file" />
 
 
 								<!-- MOVIES -->
-								<label for="listMovies"> MOVIES</label>
+								<label for="listMovies"> PELICULAS ASOCIADAS</label>
 								<div
 									th:object=${movies}
 									name="title">
@@ -86,10 +96,13 @@
 											th:value="${movie.title}">
 									</select>
 								</div>
+								<div
+									class="form-text text-danger"
+									th:errors="*{listMovieDTO}"></div>
 
 								<!-- BTN -->
 								<div class="footer-boody">
-									<button class="btn btn-primary">Submit</button>
+									<button class="btn btn-primary">ENVIAR</button>
 
 								</div>
 

@@ -35,7 +35,7 @@ public class Movie {
 	@Column(name = "qualification")
 	private Integer qualification;
 
-	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+	@ManyToOne(cascade = {CascadeType.MERGE })
 	@JoinColumn
 	private Gender gender;
 	

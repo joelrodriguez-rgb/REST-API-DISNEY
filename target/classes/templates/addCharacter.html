@@ -9,7 +9,7 @@
 		<div class="row">
 			<div
 				class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-				<h1 class="text-center">Create New Character</h1>
+				<h1 class="text-center">CREAR NUEVO PERSONAJE</h1>
 				<div class="card-body">
 					<form
 						th:action="@{/saveCharacter}"
@@ -20,8 +20,7 @@
 						<div class="form-group">
 
 							<!--  Name -->
-							<label>Character Name</label>
-							<input
+							<label>NOMBRE DE PERSONAJE</label> <input
 								class="form-control"
 								type="text"
 								name="Name"
@@ -29,47 +28,36 @@
 								th:field="*{name}" />
 							<div
 								class="form-text text-danger"
-								th:if="${#fields.hasErrors('name')}"
 								th:errors="*{name}"></div>
 
 							<!-- year-->
-							<label>Character year</label>
-							<input
+							<label>EDAD DEL PERSONAJE</label> <input
 								class="form-control"
 								type="number"
 								min="1"
 								name="year"
 								placeholder="enter Chaacter year"
 								th:field="*{year}" />
-							<div
-								class="form-text text-danger"
-								th:if="${#fields.hasErrors('year')}"
-								th:errors="*{year}"></div>
+						
 
 
 							<!-- weight -->
-							<label>Character weight</label>
-							<input
+							<label>PESO DEL PERSONAJE</label> <input
 								class="form-control"
 								type="number"
 								min="1"
 								name="weight"
-								placeholder="enter character weightl"
 								th:field="*{weight}" />
-							<div
-								class="form-text text-danger"
-								th:if="${#fields.hasErrors('weight')}"
-								th:errors="*{weight}"></div>
+
 
 							<!-- IMAGEN -->
-							<label for="file">IMGEN</label>
-							<input
+							<label for="file">IMGEN</label> <input
 								class="form-control"
 								type="file"
 								name="file" />
 
 							<!-- MOVIES -->
-							<label for="listMovies"> MOVIES</label>
+							<label for="listMovies"> PELICULAS EN LAS QUE PARTICIPA</label>
 							<div>
 								<select
 									multiple
@@ -81,11 +69,14 @@
 										th:value="${movie.title}">
 								</select>
 							</div>
+							<div
+							class="form-text text-danger"
+							 th:errors="*{listMovieDTO}"></div>
 
 
 							<!-- BTN -->
 							<div class="footer-boody">
-								<button class="btn btn-primary">Submit</button>
+								<button class="btn btn-primary">ENVIAR</button>
 
 							</div>
 

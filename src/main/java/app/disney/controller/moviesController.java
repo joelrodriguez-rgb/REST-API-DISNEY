@@ -111,10 +111,6 @@ public class moviesController {
 		
 		
 	
-
-	
-	
-	
 	@PostMapping("/saveMovie")
 	public String saveMovie(@ModelAttribute("movie") @Valid MovieDTO movieDTO, BindingResult result,
 			@RequestParam(value = "file", required = false) MultipartFile imagen,

@@ -27,9 +27,6 @@ public class PersonajeServiceImplement<T> implements IPersonajeService {
 	@Autowired
 	private IMovieService movieService;
 
-	@Autowired
-	private ModelMapper modelMapper;
-
 	/** FUNCIONES CRUD */
 	@Override
 	public List<Personaje> getAllPersonaje() {

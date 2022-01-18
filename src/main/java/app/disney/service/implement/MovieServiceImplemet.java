@@ -5,15 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import app.disney.DTO.MovieDTO;
 import app.disney.entitys.Movie;
 import app.disney.repository.IMovieRepository;
 import app.disney.service.IMovieService;
@@ -24,8 +21,7 @@ public class MovieServiceImplemet implements IMovieService {
 	@Autowired
 	private IMovieRepository movieRepository;
 
-	@Autowired
-	private ModelMapper modelMapper;
+
 
 	/* FUNCIONES CRUD */
 	@Override
@@ -78,33 +74,10 @@ public class MovieServiceImplemet implements IMovieService {
 		
 	}
 	
-	
-	
-	@Override
-	public List<MovieDTO> mappingListToDTO(List<Movie> listModel) {
-		List<MovieDTO> listMovieModel = listModel
-                                        .stream()
-                                        .map(movies -> modelMapper.map(movies, MovieDTO.class))
-                                        .collect(Collectors.toList());
-        return listMovieModel;
-}
-	
-	@Override
-	public List<Movie> mappingListToModel(List<MovieDTO> listDTO) {
-		List<Movie> listMovieModel =  listDTO
-                                     .stream()
-                                     .map(movies -> modelMapper.map(movies, Movie.class))
-                                     .collect(Collectors.toList());
-        return listMovieModel;
-	}
 
 	@Override
 	public List<Movie> getAllMovieBySpec(Specification<Movie> spec) {
           return movieRepository.findAll(spec);
 	}
-
-
-	
-
 
 }

@@ -3,9 +3,11 @@ package app.disney.util;
 import java.beans.JavaBean;
 import java.util.List;
 @JavaBean
-public interface IMapper <T> {
+public interface IMapper {
 	
-	public List<T> mappingListPersonajes(List<T> list);
+	public List<?> mappingListPersonajes(List<?> list);
+	
+	public List<?> mappingListMovie(List<?> list);
 	
 
 }

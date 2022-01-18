@@ -6,31 +6,48 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import app.disney.DTO.MovieDTO;
 import app.disney.DTO.PersonajeDTO;
+import app.disney.entitys.Movie;
 import app.disney.entitys.Personaje;
 
-public class Mapping<T> implements IMapper<T> {
+public class Mapping implements IMapper {
 
 	@Autowired
 	private ModelMapper modelMapper;
 
-	public List<T> mappingListPersonajes(List<T> list) {
-		
-		String nameClass = list.get(0).getClass().getSimpleName();
+	public List<?> mappingListPersonajes(List<?> list) {
 
-		if (nameClass.matches("[a-z][DTO]")) {
-			List<Personaje> listPersonaje = list.stream()
-					.map(personajes -> modelMapper.map(personajes, Personaje.class)).collect(Collectors.toList());
+		List<PersonajeDTO> listPersonajeDTO = list.stream()
+				.map(personajes -> modelMapper.map(personajes, PersonajeDTO.class)).collect(Collectors.toList());
+		return listPersonajeDTO;
+	}
 
-			return (List<T>) listPersonaje;
+	public Object mappingPersonaje(Object personaje) {
+
+		if (personaje.getClass().equals(Personaje.class))
+			return modelMapper.map(personaje, PersonajeDTO.class);
+		else
+			return modelMapper.map(personaje, Personaje.class);
+
+	}
+
+	@Override
+	public List<?> mappingListMovie(List<?> list) {
+
+		if (list.get(0).getClass().equals(MovieDTO.class)) {
+
+			List<?> listMovieModel = list.stream().map(movies -> modelMapper.map(movies, Movie.class))
+					.collect(Collectors.toList());
+			return listMovieModel;
 
 		} else {
 
-			List<PersonajeDTO> listPersonajeDTO = list.stream()
-					.map(personajes -> modelMapper.map(personajes, PersonajeDTO.class)).collect(Collectors.toList());
-			return (List<T>) listPersonajeDTO;
-		}
+			List<MovieDTO> listMovieDTO = list.stream().map(movies -> modelMapper.map(movies, MovieDTO.class))
+					.collect(Collectors.toList());
+			return listMovieDTO;
 
+		}
 	}
 
 }

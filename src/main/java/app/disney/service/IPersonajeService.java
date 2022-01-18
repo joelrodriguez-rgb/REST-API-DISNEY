@@ -34,10 +34,7 @@ public interface IPersonajeService  {
 	
 	List<Movie> getListMovies(List<String> listMovieTitle);
 	
-	
-//	List<PersonajeDTO> mappingListToDTO(List<Personaje> listModel);
-//
-//	List<Personaje> mappingListToModel(List<PersonajeDTO> listDTO);
+
 
 
 

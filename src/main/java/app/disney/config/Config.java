@@ -9,7 +9,7 @@ import app.disney.util.IMapper;
 import app.disney.util.Mapping;
 
 @Configuration
-public class Config<T> {
+public class Config {
 	
 	
 	@Bean
@@ -23,7 +23,7 @@ public class Config<T> {
 	}
 	
 	@Bean
-	public IMapper<T> mapping() {
+	public IMapper mapping() {
 		
 		return new Mapping();
 	}

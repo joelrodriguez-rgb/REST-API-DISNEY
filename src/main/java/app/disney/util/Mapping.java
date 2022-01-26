@@ -6,8 +6,12 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import app.disney.DTO.GenderDTO;
 import app.disney.DTO.MovieDTO;
 import app.disney.DTO.PersonajeDTO;
+import app.disney.DTO.SearchMovieDTO;
+import app.disney.DTO.SearchPersonajeDTO;
+import app.disney.entitys.Gender;
 import app.disney.entitys.Movie;
 import app.disney.entitys.Personaje;
 
@@ -16,19 +20,53 @@ public class Mapping implements IMapper {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	public List<?> mappingListPersonajes(List<?> list) {
+
+
+	@Override
+	public PersonajeDTO mappingPersonajeToDTO(Personaje personaje) {
+		return   modelMapper.map(personaje, PersonajeDTO.class);
+	}
+
+
+	@Override
+	public Personaje mappingPersonajeDTOToEntity(PersonajeDTO personaje) {
+		return   modelMapper.map(personaje, Personaje.class);
+	}
+
+
+	@Override
+	public Personaje mappingSearchPersonajeToEntity(SearchPersonajeDTO search) {
+		return modelMapper.map(search, Personaje.class);
+	}
+
+
+	@Override
+	public List<?> mappingListPersonajesToDTO(List<?> list) {
 
 		List<PersonajeDTO> listPersonajeDTO = list.stream()
 				.map(personajes -> modelMapper.map(personajes, PersonajeDTO.class)).collect(Collectors.toList());
 		return listPersonajeDTO;
 	}
 
-	public Object mappingPersonaje(Object personaje) {
 
-		if (personaje.getClass().equals(Personaje.class))
-			return modelMapper.map(personaje, PersonajeDTO.class);
-		else
-			return modelMapper.map(personaje, Personaje.class);
+
+
+
+	@Override
+	public MovieDTO mappingMovieToDTO(Movie movie) {
+		return modelMapper.map(movie, MovieDTO.class);
+	}
+
+
+	@Override
+	public Movie mappingMovieDTOToEntity(MovieDTO movie) {
+		return modelMapper.map(movie, Movie.class);
+	}
+
+
+	@Override
+	public Movie mappingSearchMovieToEntity(SearchMovieDTO search) {
+		return modelMapper.map(search, Movie.class);
 
 	}
 
@@ -37,7 +75,7 @@ public class Mapping implements IMapper {
 
 		if (list.get(0).getClass().equals(MovieDTO.class)) {
 
-			List<?> listMovieModel = list.stream().map(movies -> modelMapper.map(movies, Movie.class))
+			List<Movie> listMovieModel = list.stream().map(movies -> modelMapper.map(movies, Movie.class))
 					.collect(Collectors.toList());
 			return listMovieModel;
 
@@ -50,4 +88,29 @@ public class Mapping implements IMapper {
 		}
 	}
 
+
+	@Override
+	public List<?> mappingListGender(List<?> list) {
+		if (list.get(0).getClass().equals(GenderDTO.class)) {
+
+			List<Gender> listGenderModel = list.stream().map(genders -> modelMapper.map(genders, Gender.class))
+					.collect(Collectors.toList());
+			return listGenderModel;
+
+		} else {
+
+			List<GenderDTO> listGenderDTO = list.stream().map(genders -> modelMapper.map(genders, GenderDTO.class))
+					.collect(Collectors.toList());
+			return listGenderDTO;
+
+		}
+	}
+
+
+
 }
+
+
+
+
+

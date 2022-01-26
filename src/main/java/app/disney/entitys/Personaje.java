@@ -64,14 +64,6 @@ public class Personaje {
 		this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
 	}
 
-	// constructor con 1 sola pelicula asociada sin imagen
-	public Personaje(Integer id,String name, Integer year, Integer weight, Movie movie) {
-		this.id = id;
-		this.name = name;
-		this.year = year;
-		this.weight = weight;
-		this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
-	}
 
 	public String getName() {
 		return name;

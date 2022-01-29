@@ -12,6 +12,7 @@ import app.disney.entitys.Gender;
 import app.disney.entitys.Movie;
 
 
+
 public class MovieDTO {
 	
 	
@@ -36,9 +37,7 @@ public class MovieDTO {
 	public MovieDTO() {
 	}
 
-	public MovieDTO( String title) {
-		this.title = title;
-	}
+
 	
 	public MovieDTO( String imgMovie, String title, LocalDate creationDate, Integer qualification,
 			Gender gender) {
@@ -49,12 +48,24 @@ public class MovieDTO {
 		this.gender = gender;
 	}
 	
-	public MovieDTO( Movie movie) {
+	public MovieDTO( String title, LocalDate creationDate, Integer qualification) {
+		this.title = title;
+		this.creationDate = creationDate;
+		this.qualification = qualification;
+	}
+	
+	
+	public MovieDTO(Movie movie) {
 		this.imgMovie = movie.getImgMovie();
 		this.creationDate = movie.getCreationDate();
 		this.gender = movie.getGender();
 		this.qualification = movie.getQualification();
 	}
+	
+	public MovieDTO( String title) {
+		this.title = title;
+	}
+	
 	
 
 	public Integer getId() {

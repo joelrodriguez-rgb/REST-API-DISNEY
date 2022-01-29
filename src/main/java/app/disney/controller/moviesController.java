@@ -8,8 +8,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +47,7 @@ public class moviesController {
 
 	@GetMapping()
 	public ResponseEntity<List<?>> listMovies(@RequestParam(value = "title", required = false) String title,
-			@RequestParam(value = "gender", required = false) String genderName, Model model) {
+			@RequestParam(value = "gender", required = false) String genderName) {
 
 		List<?> listMovieDTO = mapping.mappingListMovie(movieService.getAllMovie());
 
@@ -69,7 +67,7 @@ public class moviesController {
 	}
 
 	@GetMapping("/addMovie")
-	public ResponseEntity<?> addMovie(ModelMap model) {
+	public ResponseEntity<?> addMovie() {
 
 		MovieDTO movieDTO = new MovieDTO();
 		return new ResponseEntity<>(movieDTO, HttpStatus.OK);
@@ -77,7 +75,7 @@ public class moviesController {
 	}
 
 	@GetMapping("/editMovie/{id}")
-	public ResponseEntity<?> editMovie(@PathVariable Integer id, ModelMap model) {
+	public ResponseEntity<?> editMovie(@PathVariable Integer id) {
 
 		MovieDTO movieDTO = mapping.mappingMovieToDTO(movieService.getMovieById(id));
 
@@ -85,7 +83,7 @@ public class moviesController {
 	}
 
 	@GetMapping("/detailMovie/{id}")
-	public ResponseEntity<?> detailMovie(@PathVariable Integer id, ModelMap model) {
+	public ResponseEntity<?> detailMovie(@PathVariable Integer id) {
 
 		MovieDTO movieDTO = mapping.mappingMovieToDTO(movieService.getMovieById(id));
 		return new ResponseEntity<>(movieDTO, HttpStatus.OK);
@@ -102,7 +100,7 @@ public class moviesController {
 	@PostMapping("/saveMovie")
 	public ResponseEntity<?> saveMovie(@ModelAttribute("movie") @Valid MovieDTO movieDTO, BindingResult result,
 			@RequestParam(value = "file", required = false) MultipartFile imagen,
-			@RequestParam(value = "gender", required = false) String genderName, Model model) {
+			@RequestParam(value = "gender", required = false) String genderName) {
 
 		Movie movie = mapping.mappingMovieDTOToEntity(movieDTO);
 		List<?> listGender = mapping.mappingListGender(genderService.getAllGender());
@@ -111,7 +109,7 @@ public class moviesController {
 			HashMap<String, Object> map = new HashMap<>();
 			map.put("movie", movie);
 			map.put("genders", listGender);
-			return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);
 		}
 
 		if (movieService.getByTitleIgnoreCase(movie.getTitle()) != null) {

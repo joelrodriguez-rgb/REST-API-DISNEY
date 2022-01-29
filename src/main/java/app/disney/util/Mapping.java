@@ -20,25 +20,20 @@ public class Mapping implements IMapper {
 	@Autowired
 	private ModelMapper modelMapper;
 
-
-
 	@Override
 	public PersonajeDTO mappingPersonajeToDTO(Personaje personaje) {
-		return   modelMapper.map(personaje, PersonajeDTO.class);
+		return modelMapper.map(personaje, PersonajeDTO.class);
 	}
-
 
 	@Override
 	public Personaje mappingPersonajeDTOToEntity(PersonajeDTO personaje) {
-		return   modelMapper.map(personaje, Personaje.class);
+		return modelMapper.map(personaje, Personaje.class);
 	}
-
 
 	@Override
 	public Personaje mappingSearchPersonajeToEntity(SearchPersonajeDTO search) {
 		return modelMapper.map(search, Personaje.class);
 	}
-
 
 	@Override
 	public List<?> mappingListPersonajesToDTO(List<?> list) {
@@ -48,21 +43,15 @@ public class Mapping implements IMapper {
 		return listPersonajeDTO;
 	}
 
-
-
-
-
 	@Override
 	public MovieDTO mappingMovieToDTO(Movie movie) {
 		return modelMapper.map(movie, MovieDTO.class);
 	}
 
-
 	@Override
 	public Movie mappingMovieDTOToEntity(MovieDTO movie) {
 		return modelMapper.map(movie, Movie.class);
 	}
-
 
 	@Override
 	public Movie mappingSearchMovieToEntity(SearchMovieDTO search) {
@@ -88,7 +77,6 @@ public class Mapping implements IMapper {
 		}
 	}
 
-
 	@Override
 	public List<?> mappingListGender(List<?> list) {
 		if (list.get(0).getClass().equals(GenderDTO.class)) {
@@ -106,11 +94,4 @@ public class Mapping implements IMapper {
 		}
 	}
 
-
-
 }
-
-
-
-
-

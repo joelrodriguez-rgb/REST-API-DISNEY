@@ -8,8 +8,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +24,7 @@ import app.disney.DTO.MovieDTO;
 import app.disney.DTO.PersonajeDTO;
 import app.disney.DTO.SearchPersonajeDTO;
 import app.disney.entitys.Personaje;
+import app.disney.exceptions.NotFoundException;
 import app.disney.service.IMovieService;
 import app.disney.service.IPersonajeService;
 import app.disney.specification.PersonajeSpecification;
@@ -50,7 +49,7 @@ public class charactersController<T> {
 	public ResponseEntity<List<?>> listPersonaje(@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "year", required = false) Integer year,
 			@RequestParam(value = "weight", required = false) Integer weight,
-			@RequestParam(value = "title", required = false) String title, ModelMap model) {
+			@RequestParam(value = "title", required = false) String title) {
 
 		List<?> listPersonajeDTO = mapping.mappingListPersonajesToDTO(personajeService.getAllPersonaje());
 
@@ -63,7 +62,6 @@ public class charactersController<T> {
 			SearchPersonajeDTO searchPersonajeDTO = new SearchPersonajeDTO(name, year, weight, movieDTO);
 			Personaje personajeSpec = mapping.mappingSearchPersonajeToEntity(searchPersonajeDTO);
 			List<Personaje> listPersonajeBySpec = personajeService.getAllPersonaje(spec.getAllBySpec(personajeSpec));
-
 			List<?> list = mapping.mappingListPersonajesToDTO(listPersonajeBySpec);
 
 			return new ResponseEntity<>(list, HttpStatus.OK);
@@ -72,7 +70,7 @@ public class charactersController<T> {
 	}
 
 	@GetMapping("/addCharacter")
-	public ResponseEntity<?> addCharacter(ModelMap model) {
+	public ResponseEntity<?> addCharacter() {
 
 		PersonajeDTO personajeDTO = new PersonajeDTO();
 		List<?> listMovie = mapping.mappingListMovie(movieService.getAllMovie());
@@ -85,9 +83,9 @@ public class charactersController<T> {
 	}
 
 	@GetMapping("/editCharacter/{id}")
-	public ResponseEntity<?> editCharacter(@PathVariable Integer id, ModelMap model) {
+	public ResponseEntity<?> editCharacter(@PathVariable Integer id) {
 
-		PersonajeDTO personajeDTObyID =  mapping.mappingPersonajeToDTO(personajeService.getPersonajeById(id));
+		PersonajeDTO personajeDTObyID = mapping.mappingPersonajeToDTO(personajeService.getPersonajeById(id));
 		List<?> listMovie = mapping.mappingListMovie(movieService.getAllMovie());
 
 		HashMap<String, Object> map = new HashMap<>();
@@ -105,8 +103,11 @@ public class charactersController<T> {
 	}
 
 	@GetMapping("/detailCharacter/{id}")
-	public ResponseEntity<?> detailCharacter(@PathVariable Integer id, ModelMap model) {
+	public ResponseEntity<?> detailCharacter(@PathVariable Integer id) {
 
+		
+		personajeService.validationID(id);
+		
 		PersonajeDTO personajeDTObyID = mapping.mappingPersonajeToDTO(personajeService.getPersonajeById(id));
 		List<String> listMovie = personajeService.getMovieByPersonajeId(id);
 
@@ -121,7 +122,7 @@ public class charactersController<T> {
 	@PostMapping("/saveCharacter")
 	public ResponseEntity<?> saveStudent(@RequestBody @Valid PersonajeDTO personajeDTO, BindingResult result,
 			@RequestParam(value = "file", required = false) MultipartFile imagen,
-			@RequestParam(value = "title", required = false) List<String> listMovieTitle, Model model) {
+			@RequestParam(value = "title", required = false) List<String> listMovieTitle) {
 
 		Personaje personaje = mapping.mappingPersonajeDTOToEntity(personajeDTO);
 		List<?> listMovie = mapping.mappingListMovie(movieService.getAllMovie());
@@ -152,10 +153,10 @@ public class charactersController<T> {
 	}
 
 	@PatchMapping("/editCharacter/{id}")
-	public ResponseEntity<?> saveChangesPersonaje(@PathVariable Integer id, @RequestBody @Valid PersonajeDTO personajeDTO,
-			BindingResult result, @RequestParam(value = "file", required = false) MultipartFile imagen,
+	public ResponseEntity<?> saveChangesPersonaje(@PathVariable Integer id,
+			@RequestBody @Valid PersonajeDTO personajeDTO, BindingResult result,
+			@RequestParam(value = "file", required = false) MultipartFile imagen,
 			@RequestParam(value = "title", required = false) List<String> listMovieTitle) {
-
 
 		Personaje personajeExisting = personajeService.getPersonajeById(id);
 		List<?> listMovie = mapping.mappingListMovie(movieService.getAllMovie());
@@ -183,7 +184,7 @@ public class charactersController<T> {
 
 		personajeService.savePersonaje(personajeExisting);
 
-		return  new ResponseEntity<>(mapping.mappingPersonajeToDTO(personajeExisting), HttpStatus.UPGRADE_REQUIRED);
+		return new ResponseEntity<>(mapping.mappingPersonajeToDTO(personajeExisting), HttpStatus.UPGRADE_REQUIRED);
 	}
 
 }

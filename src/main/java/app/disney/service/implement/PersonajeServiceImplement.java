@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import app.disney.entitys.Movie;
 import app.disney.entitys.Personaje;
+import app.disney.exceptions.NotFoundException;
 import app.disney.repository.IPersonajeRepository;
 import app.disney.service.IMovieService;
 import app.disney.service.IPersonajeService;
@@ -76,7 +77,6 @@ public class PersonajeServiceImplement<T> implements IPersonajeService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public List<Movie> getListMovies(List<String> listMovieTitle) {
@@ -85,6 +85,16 @@ public class PersonajeServiceImplement<T> implements IPersonajeService {
 		listMovieTitle.forEach(mov -> listMovie.add(movieService.getByTitleIgnoreCase(mov)));
 
 		return listMovie;
+	}
+	
+	public void validationID(Integer id) {
+		
+		if ( id == 0 || personajeRepo.findById(id) == null ) {
+
+			throw new NotFoundException("id:" + id);
+		}
+
+		
 	}
 
 

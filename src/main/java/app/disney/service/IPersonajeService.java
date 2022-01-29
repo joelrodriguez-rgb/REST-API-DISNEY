@@ -35,6 +35,8 @@ public interface IPersonajeService  {
 	List<Movie> getListMovies(List<String> listMovieTitle);
 	
 
+	
+	public void validationID(Integer id); 
 
 
 

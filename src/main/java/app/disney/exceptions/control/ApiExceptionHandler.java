@@ -17,7 +17,7 @@ import app.disney.exceptions.NotFoundException;
 public class ApiExceptionHandler {
 
 	// 400
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus( HttpStatus.BAD_REQUEST)
 	@ExceptionHandler({ BadRequestException.class, NumberFormatException.class })
 	@ResponseBody()
 	public ErrorMenssage badRequest(Exception exception, HttpServletRequest request) {

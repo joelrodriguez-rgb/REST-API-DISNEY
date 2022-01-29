@@ -7,8 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "gender")
+@Data
 public class Gender {
 
 	@Id
@@ -32,64 +35,5 @@ public class Gender {
 		this.imgGender = imgGender;
 	}
 
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getGenderName() {
-		return genderName;
-	}
-
-	public void setGenderName(String genderName) {
-		this.genderName = genderName;
-	}
-
-	public String getImgGender() {
-		return imgGender;
-	}
-
-	public void setImgGender(String imgGender) {
-		this.imgGender = imgGender;
-	}
-
-	@Override
-	public int hashCode() {
-		return this.id;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Gender other = (Gender) obj;
-		if (genderName == null) {
-			if (other.genderName != null)
-				return false;
-		} else if (!genderName.equals(other.genderName))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Gender [id=" + id + ", genderName=" + genderName + "]";
-	}
-	
-	
-	
 
 }

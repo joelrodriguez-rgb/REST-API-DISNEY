@@ -10,9 +10,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import app.disney.entitys.Gender;
 import app.disney.entitys.Movie;
+import lombok.Data;
 
 
-
+@Data
 public class MovieDTO {
 	
 	
@@ -66,56 +67,7 @@ public class MovieDTO {
 		this.title = title;
 	}
 	
-	
 
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getImgMovie() {
-		return imgMovie;
-	}
-
-	public void setImgMovie(String imgMovie) {
-		this.imgMovie = imgMovie;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public LocalDate getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(LocalDate creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public Integer getQualification() {
-		return qualification;
-	}
-
-	public void setQualification(Integer qualification) {
-		this.qualification = qualification;
-	}
-
-	public Gender getGender() {
-		return gender;
-	}
-
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-	
-	
 
 }

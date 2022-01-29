@@ -14,8 +14,11 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "movies")
+@Data
 public class Movie {
 
 	@Id
@@ -55,104 +58,6 @@ public class Movie {
 	public Movie(String title) {
 		this.title = title;
 	}
-	
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getImgMovie() {
-		return imgMovie;
-	}
-
-	public void setImgMovie(String imgMovie) {
-		this.imgMovie = imgMovie;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public LocalDate getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(LocalDate creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public Integer getQualification() {
-		return qualification;
-	}
-
-	public void setQualification(Integer qualification) {
-		this.qualification = qualification;
-	}
-
-	public Gender getGender() {
-		return gender;
-	}
-
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-
-	@Override
-	public int hashCode() {
-		return this.id;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Movie other = (Movie) obj;
-		if (creationDate == null) {
-			if (other.creationDate != null)
-				return false;
-		} else if (!creationDate.equals(other.creationDate))
-			return false;
-		if (gender == null) {
-			if (other.gender != null)
-				return false;
-		} else if (!gender.equals(other.gender))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (qualification == null) {
-			if (other.qualification != null)
-				return false;
-		} else if (!qualification.equals(other.qualification))
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Movie[id=" + id + ", title=" + title + ", creationDate=" + creationDate + ", qualification="
-				+ qualification + ", gender=" + gender + "]";
-	}
-	
 	
 	
 

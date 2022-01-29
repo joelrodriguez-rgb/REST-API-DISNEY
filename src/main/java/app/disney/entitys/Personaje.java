@@ -15,8 +15,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "personajes")
+@Data
 public class Personaje {
 
 	@Id
@@ -62,66 +65,6 @@ public class Personaje {
 		this.year = year;
 		this.weight = weight;
 		this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
-	}
-
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getImgPersonaje() {
-		return imgPersonaje;
-	}
-
-	public void setImgPersonaje(String imgPersonaje) {
-		this.imgPersonaje = imgPersonaje;
-	}
-
-	public Integer getYear() {
-		return year;
-	}
-
-	public void setYear(Integer year) {
-		this.year = year;
-	}
-
-	public Integer getWeight() {
-		return weight;
-	}
-
-	public void setWeight(Integer weight) {
-		this.weight = weight;
-	}
-
-	public List<Movie> getListMovie() {
-		return listMovie;
-	}
-
-	public void setListMovie(List<Movie> listMovie) {
-		this.listMovie = listMovie;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	@Override
-	public int hashCode() {
-		return this.id;
-	}
-
-	@Override
-	public String toString() {
-		return "Personage [id=" + id + ", name=" + name + ", year=" + year + ", weight=" + weight + ", listMovie="
-				+ listMovie + "]";
 	}
 
 }

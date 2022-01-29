@@ -102,7 +102,7 @@ public class charactersController<T> {
 	}
 
 	@GetMapping("/detailCharacter/{id}")
-	public ResponseEntity<?> detailCharacter(@PathVariable Integer id) throws  {
+	public ResponseEntity<?> detailCharacter(@PathVariable Integer id)  {
 
 		
 		personajeService.validateId(id);

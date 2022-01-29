@@ -1,5 +1,11 @@
 package app.disney.exceptions.control;
 
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter
+@ToString
+
 public class ErrorMenssage {
 
 	String exception;
@@ -16,23 +22,7 @@ public class ErrorMenssage {
 		
 	}
 
-	public String getException() {
-		return exception;
-	}
 
-	public String getMenssage() {
-		return menssage;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	@Override
-	public String toString() {
-		return "ErrorMenssage [exception=" + exception + ", menssage=" + menssage + ", path=" + path + ", traceError="
-				+ traceError + "]";
-	}
 
 
 	

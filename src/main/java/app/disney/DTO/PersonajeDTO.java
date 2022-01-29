@@ -8,6 +8,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import lombok.Data;
+
+@Data
 public class PersonajeDTO {
 	
 	private Integer id;
@@ -48,43 +51,7 @@ public class PersonajeDTO {
 	}
 	
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getImgPersonaje() {
-		return imgPersonaje;
-	}
-	public void setImgPersonaje(String imgPersonaje) {
-		this.imgPersonaje = imgPersonaje;
-	}
-	public Integer getYear() {
-		return year;
-	}
-	public void setYear(Integer year) {
-		this.year = year;
-	}
-	public Integer getWeight() {
-		return weight;
-	}
-	public void setWeight(Integer weight) {
-		this.weight = weight;
-	}
-	public List<MovieDTO> getListMovieDTO() {
-		return listMovieDTO;
-	}
-	public void setListMovieDTO(List<MovieDTO> listMovieDTO) {
-		this.listMovieDTO = listMovieDTO;
-	}
-	
+
 	
 	
 	

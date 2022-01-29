@@ -24,7 +24,6 @@ import app.disney.DTO.MovieDTO;
 import app.disney.DTO.PersonajeDTO;
 import app.disney.DTO.SearchPersonajeDTO;
 import app.disney.entitys.Personaje;
-import app.disney.exceptions.NotFoundException;
 import app.disney.service.IMovieService;
 import app.disney.service.IPersonajeService;
 import app.disney.specification.PersonajeSpecification;
@@ -103,10 +102,10 @@ public class charactersController<T> {
 	}
 
 	@GetMapping("/detailCharacter/{id}")
-	public ResponseEntity<?> detailCharacter(@PathVariable Integer id) {
+	public ResponseEntity<?> detailCharacter(@PathVariable Integer id) throws  {
 
 		
-		personajeService.validationID(id);
+		personajeService.validateId(id);
 		
 		PersonajeDTO personajeDTObyID = mapping.mappingPersonajeToDTO(personajeService.getPersonajeById(id));
 		List<String> listMovie = personajeService.getMovieByPersonajeId(id);

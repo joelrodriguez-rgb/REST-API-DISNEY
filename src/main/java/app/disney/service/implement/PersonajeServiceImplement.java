@@ -86,16 +86,15 @@ public class PersonajeServiceImplement<T> implements IPersonajeService {
 
 		return listMovie;
 	}
-	
-	public void validationID(Integer id) {
-		
-		if ( id == 0 || personajeRepo.findById(id) == null ) {
 
-			throw new NotFoundException("id:" + id);
+	public void validateId(Integer id) {
+
+		if (personajeRepo.findById(id).isEmpty() || id == 0) {
+
+			throw new NotFoundException("ID : " + id);
 		}
-
-		
 	}
 
-
+	
+	
 }

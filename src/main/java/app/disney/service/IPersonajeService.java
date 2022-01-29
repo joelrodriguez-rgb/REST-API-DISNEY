@@ -36,7 +36,7 @@ public interface IPersonajeService  {
 	
 
 	
-	public void validationID(Integer id); 
+	public void validateId(Integer id ); 
 
 
 

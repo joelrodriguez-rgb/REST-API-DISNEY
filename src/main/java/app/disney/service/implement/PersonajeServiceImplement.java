@@ -51,20 +51,27 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	}
 
 	@Override
-	public void savePersonaje(PersonajeDTO newPersonaje) {
-		
-		 validateName(newPersonaje);
-		
+	public void savePersonaje(PersonajeDTO newPersonaje, MultipartFile imagen, List<String> listMovieTitle) {
+		 
 		Personaje personaje = mapping.mappingPersonajeDTOToEntity(newPersonaje);
+		 validateName(personaje);
+		validatePersonajeData(personaje, imagen, listMovieTitle);
+		
 		personajeRepo.save(personaje);
 	}
 	
 	@Override
-	public void upDatePersonaje(PersonajeDTO upPersonaje, Integer id) {
+	public void upDatePersonaje(PersonajeDTO upPersonaje,
+			                    Integer id,
+			                    MultipartFile imagen, 
+			                    List<String> listMovieTitle) {
 		
 				
 		Personaje personajeExisting = mapping.
 				                      mappingPersonajeDTOToEntity(getPersonajeById(id)) ;
+			
+		
+		validatePersonajeData(personajeExisting, imagen, listMovieTitle);
 		
 		personajeExisting.setId(id);
 		personajeExisting.setName(upPersonaje.getName());
@@ -75,33 +82,23 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		
 }
 	
-	
 	@Override
-	public void validatePersonajeData(PersonajeDTO personajeData, 
+	public void validatePersonajeData(Personaje personaje, 
 			                          MultipartFile imagen, 
 			                          List<String> listMovieTitle) {
 
-	   
 		
-		Personaje personaje = mapping.mappingPersonajeDTOToEntity(personajeData);	
 		
-		if (imagen != null) {
-			saveImg(personaje,imagen);
-		}
+		if (imagen != null) saveImg(personaje,imagen);
 		
-		if (listMovieTitle != null) {
-			personaje.setListMovie(getListMovies(listMovieTitle));
-		}
+		if (listMovieTitle != null) personaje.setListMovie(getListMovies(listMovieTitle));
+		
 	
 	}
 	
-	
-	
-
-	private void validateName(PersonajeDTO newPersonaje) {
-		if (personajeRepo.findByNameIgnoreCase(newPersonaje.getName()) != null) {
+	private void validateName(Personaje newPersonaje) {
+		if (personajeRepo.findByNameIgnoreCase(newPersonaje.getName()) != null) 
 			throw new ExistingNameException("NAME  : " + newPersonaje.getName());
-		}		
 	}
 
 	@Override
@@ -144,6 +141,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
 			Files.write(rutaCompleta, bytesImg);
 			
+			// SET Imagen
 			personaje.setImgPersonaje(imagen.getOriginalFilename());
 			
 		} catch (IOException e) {

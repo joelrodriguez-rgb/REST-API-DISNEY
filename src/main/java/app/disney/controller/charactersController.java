@@ -80,13 +80,9 @@ public class charactersController{
 			@RequestParam(value = "file", required = false) MultipartFile imagen,
 			@RequestParam(value = "title", required = false) List<String> listMovieTitle) {
 
-
-		if (result.hasErrors()) {
-			return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
-		}
+		if (result.hasErrors()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
 		
-		personajeService.validatePersonajeData(newPersonaje, imagen, listMovieTitle);
-        personajeService.savePersonaje(newPersonaje);
+        personajeService.savePersonaje(newPersonaje, imagen, listMovieTitle);
         
 		return new ResponseEntity<>(newPersonaje, HttpStatus.CREATED);
 
@@ -100,12 +96,9 @@ public class charactersController{
 			@RequestParam(value = "file", required = false) MultipartFile imagen,
 			@RequestParam(value = "title", required = false) List<String> listMovieTitle) {
 	
-		if (result.hasErrors()) {
-			return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
-		}
-	
-		personajeService.validatePersonajeData(upPersonaje, imagen, listMovieTitle);
-		personajeService.upDatePersonaje(upPersonaje, id);
+		if (result.hasErrors()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+		
+		personajeService.upDatePersonaje(upPersonaje, id, imagen, listMovieTitle);
 		
 		return new ResponseEntity<>(upPersonaje, HttpStatus.OK);
 	}

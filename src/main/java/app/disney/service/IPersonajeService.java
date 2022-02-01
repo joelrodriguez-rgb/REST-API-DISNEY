@@ -13,9 +13,9 @@ public interface IPersonajeService  {
 
 	/* FUNCIONES CRUD */
 
-	void savePersonaje(PersonajeDTO newPersonaje);
+	void savePersonaje(PersonajeDTO newPersonaje, MultipartFile imagen, List<String> listMovieTitle);
 	
-	void upDatePersonaje(PersonajeDTO upPersonaje, Integer id);
+	void upDatePersonaje(PersonajeDTO upPersonaje, Integer id,  MultipartFile imagen, List<String> listMovieTitle);
 
 	PersonajeDTO getPersonajeById(Integer id);
 
@@ -39,7 +39,7 @@ public interface IPersonajeService  {
 	
     List<?> getList(String name, Integer year, Integer weight, String title);
     
-    void validatePersonajeData(PersonajeDTO personajeData, MultipartFile imagen, List<String> listMovieTitle);
+    void validatePersonajeData(Personaje personajeData, MultipartFile imagen, List<String> listMovieTitle);
 
 
 	

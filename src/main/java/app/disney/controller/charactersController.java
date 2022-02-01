@@ -21,17 +21,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import app.disney.DTO.PersonajeDTO;
 import app.disney.service.IPersonajeService;
+import app.disney.util.IMapper;
 
 @RestController
 @RequestMapping("/characters")
 public class charactersController{
 	
-
-
 	@Autowired
 	private IPersonajeService personajeService;
-
-
+	
+	@Autowired
+	private IMapper mapping;
 
 	@GetMapping()
 	public ResponseEntity<List<?>> listPersonaje(@RequestParam(value = "name", required = false) String name,
@@ -52,7 +52,7 @@ public class charactersController{
 	@GetMapping("/editCharacter/{id}")
 	public ResponseEntity<?> editCharacter(@PathVariable Integer id) {
 
-		PersonajeDTO personajeDTObyID = personajeService.getPersonajeById(id);
+		PersonajeDTO personajeDTObyID = mapping.mappingPersonajeToDTO(personajeService.getPersonajeById(id))  ;
 		return new ResponseEntity<>(personajeDTObyID, HttpStatus.OK);
 	}
 
@@ -60,7 +60,7 @@ public class charactersController{
 	@GetMapping("/detailCharacter/{id}")
 	public ResponseEntity<?> detailCharacter(@PathVariable Integer id)  {
 
-		PersonajeDTO personajeDTObyID = personajeService.getPersonajeById(id);
+		PersonajeDTO personajeDTObyID = mapping.mappingPersonajeToDTO(personajeService.getPersonajeById(id))  ;
 		return new ResponseEntity<>(personajeDTObyID, HttpStatus.OK);
 
 	}

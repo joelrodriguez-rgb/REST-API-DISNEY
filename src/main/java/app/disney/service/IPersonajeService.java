@@ -17,7 +17,7 @@ public interface IPersonajeService  {
 	
 	void upDatePersonaje(PersonajeDTO upPersonaje, Integer id,  MultipartFile imagen, List<String> listMovieTitle);
 
-	PersonajeDTO getPersonajeById(Integer id);
+	Personaje getPersonajeById(Integer id);
 
 	void deletePersonajeById(Integer id);
 

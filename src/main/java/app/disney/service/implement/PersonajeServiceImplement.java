@@ -66,10 +66,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 			                    MultipartFile imagen, 
 			                    List<String> listMovieTitle) {
 		
-				
-		Personaje personajeExisting = mapping.
-				                      mappingPersonajeDTOToEntity(getPersonajeById(id)) ;
-			
+		Personaje personajeExisting = getPersonajeById(id) ;
 		
 		validatePersonajeData(personajeExisting, imagen, listMovieTitle);
 		
@@ -79,7 +76,6 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		personajeExisting.setWeight(upPersonaje.getWeight());
 		
 		personajeRepo.save(personajeExisting);
-		
 }
 	
 	@Override
@@ -87,13 +83,9 @@ public class PersonajeServiceImplement implements IPersonajeService {
 			                          MultipartFile imagen, 
 			                          List<String> listMovieTitle) {
 
-		
-		
 		if (imagen != null) saveImg(personaje,imagen);
 		
 		if (listMovieTitle != null) personaje.setListMovie(getListMovies(listMovieTitle));
-		
-	
 	}
 	
 	private void validateName(Personaje newPersonaje) {
@@ -102,9 +94,9 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	}
 
 	@Override
-	public PersonajeDTO getPersonajeById(Integer id) {
+	public Personaje getPersonajeById(Integer id) {
 
-		return mapping.mappingPersonajeToDTO(personajeRepo.findById(id).get());
+		return personajeRepo.findById(id).orElseThrow(() -> new NotFoundException("ID : " + id));
 	}
 
 	@Override

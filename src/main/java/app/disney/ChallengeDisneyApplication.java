@@ -1,18 +1,11 @@
 package app.disney;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
-import app.disney.entitys.Gender;
-import app.disney.entitys.Movie;
-import app.disney.entitys.Personaje;
 import app.disney.repository.IGenderRepository;
 import app.disney.repository.IMovieRepository;
 import app.disney.repository.IPersonajeRepository;
@@ -57,20 +50,25 @@ public class ChallengeDisneyApplication implements CommandLineRunner {
 //		LocalDate date3 = LocalDate.of(2015, 9, 15);
 //		Movie mov3 = new Movie("la lampara de Aladin", date3, 5, genderRepo.findByGenderName("animado"));
 //		movieRepo.save(mov3);
-//
+
+		
+		
+		
+		
+		
 //		List<Movie> listMos = new ArrayList<>();
 //		listMos.add(movieRepo.findByTitleIgnoreCase("la bella y la bestia"));
 //		listMos.add(movieRepo.findByTitleIgnoreCase("la bella y la bestia 2"));
 //
-//		Personaje bestia = new Personaje("Bestia", 35, 120, listMos);
+//		Personaje bestia = new Personaje("Bestia",35, 120, listMos);
 //		personajeRepo.save(bestia);
 //
 //		Personaje bella = new Personaje("Bella", 25, 60, listMos);
 //		personajeRepo.save(bella);
-
+//
 //		Personaje aladin = new Personaje("Aladin2", 35, 60,  movieRepo.findByTitleIgnoreCase("la lampara de aladin 2"));
 //		personajeRepo.save(aladin);
-//		
+		
 		
 		
 		

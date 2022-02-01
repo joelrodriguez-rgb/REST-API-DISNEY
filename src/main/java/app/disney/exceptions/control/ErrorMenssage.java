@@ -15,10 +15,10 @@ public class ErrorMenssage {
 
 	public ErrorMenssage(Exception exception, String path) {
 		super();
-		this.traceError = exception.getStackTrace().toString();
 		this.exception = exception.getClass().getName();
 		this.menssage = exception.getMessage();
 		this.path = path;
+		this.traceError = exception.getStackTrace().toString();
 		
 	}
 

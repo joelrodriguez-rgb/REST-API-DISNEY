@@ -9,23 +9,37 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import app.disney.DTO.MovieDTO;
+import app.disney.DTO.PersonajeDTO;
+import app.disney.DTO.SearchPersonajeDTO;
 import app.disney.entitys.Movie;
 import app.disney.entitys.Personaje;
+import app.disney.exceptions.ExistingNameException;
 import app.disney.exceptions.NotFoundException;
 import app.disney.repository.IPersonajeRepository;
 import app.disney.service.IMovieService;
 import app.disney.service.IPersonajeService;
+import app.disney.specification.PersonajeSpecification;
+import app.disney.util.IMapper;
 
 @Service
-public class PersonajeServiceImplement<T> implements IPersonajeService {
+public class PersonajeServiceImplement implements IPersonajeService {
 	@Autowired
 	private IPersonajeRepository personajeRepo;
 
 	@Autowired
 	private IMovieService movieService;
+
+	@Autowired
+	private IMapper mapping;
+
+	@Autowired
+	private PersonajeSpecification spec;
 
 	/** FUNCIONES CRUD */
 	@Override
@@ -39,18 +53,71 @@ public class PersonajeServiceImplement<T> implements IPersonajeService {
 	}
 
 	@Override
-	public Personaje savePersonaje(Personaje Personaje) {
-		return personajeRepo.save(Personaje);
+	public void savePersonaje(PersonajeDTO newPersonaje) {
+		
+		
+		Personaje personaje = mapping.mappingPersonajeDTOToEntity(newPersonaje);
+		personajeRepo.save(personaje);
+	}
+	
+	@Override
+	public void upDatePersonaje(PersonajeDTO upPersonaje, Integer id) {
+		
+				
+		Personaje personajeExisting = mapping.
+				                      mappingPersonajeDTOToEntity(getPersonajeById(id)) ;
+		
+		personajeExisting.setId(id);
+		personajeExisting.setName(upPersonaje.getName());
+		personajeExisting.setYear(upPersonaje.getYear());
+		personajeExisting.setWeight(upPersonaje.getWeight());
+}
+	
+	
+	@Override
+	public void validatePersonajeData(PersonajeDTO personajeData, 
+			                          MultipartFile imagen, 
+			                          List<String> listMovieTitle) {
+
+	    validateName(personajeData);
+		
+		Personaje personaje = mapping.mappingPersonajeDTOToEntity(personajeData);	
+		
+		if (imagen != null) {
+			saveImg(personaje,imagen);
+		}
+		
+		if (listMovieTitle != null) {
+			personaje.setListMovie(getListMovies(listMovieTitle));
+		}
+	
+	}
+	
+	
+	
+
+	private void validateName(PersonajeDTO newPersonaje) {
+		if (personajeRepo.findByNameIgnoreCase(newPersonaje.getName()) != null) {
+			throw new ExistingNameException("NAME  : " + newPersonaje.getName());
+		}		
 	}
 
 	@Override
-	public Personaje getPersonajeById(Integer id) {
-		return personajeRepo.findById(id).get();
+	public PersonajeDTO getPersonajeById(Integer id) {
+
+		return mapping
+				      .mappingPersonajeToDTO(personajeRepo.findById(id)
+				      .orElseThrow(() -> new NotFoundException("ID : " + id)));
 	}
 
 	@Override
 	public void deletePersonajeById(Integer id) {
-		personajeRepo.deleteById(id);
+
+		if (personajeRepo.findById(id).isPresent())
+			personajeRepo.deleteById(id);
+		else
+			throw new NotFoundException("ID : " + id);
+
 	}
 
 	/** BUSQUEDA */
@@ -66,7 +133,7 @@ public class PersonajeServiceImplement<T> implements IPersonajeService {
 
 	////////////////////////////////////////
 	@Override
-	public void saveImg(MultipartFile imagen) {
+	public void saveImg(Personaje personaje ,MultipartFile imagen) {
 		Path directorioImagenes = Paths.get("src//main//resources//static/imgCharacters");
 		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
 
@@ -74,6 +141,9 @@ public class PersonajeServiceImplement<T> implements IPersonajeService {
 			byte[] bytesImg = imagen.getBytes();
 			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
 			Files.write(rutaCompleta, bytesImg);
+			
+			personaje.setImgPersonaje(imagen.getOriginalFilename());
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -87,14 +157,29 @@ public class PersonajeServiceImplement<T> implements IPersonajeService {
 		return listMovie;
 	}
 
-	public void validateId(Integer id) {
+	@Override
+	public List<?> getList(String name, Integer year, Integer weight, String title) {
 
-		if (personajeRepo.findById(id).isEmpty() || id == 0) {
+		if (name == null && year == null && weight == null && title == null) {
 
-			throw new NotFoundException("ID : " + id);
+			List<?> listPersonajeDTO = mapping.mappingListPersonajesToDTO(personajeRepo.findAll());
+			return listPersonajeDTO;
+
+		} else {
+			MovieDTO movieDTO = new MovieDTO(title);
+			SearchPersonajeDTO searchPersonajeDTO = new SearchPersonajeDTO(name, year, weight, movieDTO);
+			Personaje personaje = mapping.mappingSearchPersonajeToEntity(searchPersonajeDTO);
+			Specification<Personaje> personajeSpec = spec.getAllBySpec(personaje);
+			List<Personaje> listPersonajeBySpec = personajeRepo.findAll(personajeSpec);
+			List<?> list = mapping.mappingListPersonajesToDTO(listPersonajeBySpec);
+
+			return list;
+
 		}
 	}
 
-	
-	
+
+
+
+
 }

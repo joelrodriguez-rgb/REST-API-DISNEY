@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class PersonajeDTO {
 	private Integer id;
 	@NotEmpty(message = "Este campo no puede estar vacio")
 	@NotBlank(message = "Este campo no puede estar en blanco")
+	@Length(min = 2 , max = 50)
 	private String name;
 	
 	private String imgPersonaje;

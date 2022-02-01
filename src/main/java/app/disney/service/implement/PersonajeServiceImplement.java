@@ -9,8 +9,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,6 +53,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	@Override
 	public void savePersonaje(PersonajeDTO newPersonaje) {
 		
+		 validateName(newPersonaje);
 		
 		Personaje personaje = mapping.mappingPersonajeDTOToEntity(newPersonaje);
 		personajeRepo.save(personaje);
@@ -71,6 +70,9 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		personajeExisting.setName(upPersonaje.getName());
 		personajeExisting.setYear(upPersonaje.getYear());
 		personajeExisting.setWeight(upPersonaje.getWeight());
+		
+		personajeRepo.save(personajeExisting);
+		
 }
 	
 	
@@ -79,7 +81,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 			                          MultipartFile imagen, 
 			                          List<String> listMovieTitle) {
 
-	    validateName(personajeData);
+	   
 		
 		Personaje personaje = mapping.mappingPersonajeDTOToEntity(personajeData);	
 		

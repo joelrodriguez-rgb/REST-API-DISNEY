@@ -46,10 +46,9 @@ public class Personaje {
 	}
 
 	// contructor full parametros
-	public Personaje(Integer id, String name, String imgPersonaje, Integer year, Integer weight,
+	public Personaje( String name, String imgPersonaje, Integer year, Integer weight,
 			List<Movie> listMovie) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.imgPersonaje = imgPersonaje;
 		this.year = year;
@@ -58,10 +57,19 @@ public class Personaje {
 	}
 
 	// constructor con 1 sola pelicula asociada con imagen
-	public Personaje(Integer id, String name, String imgPersonaje, Integer year, Integer weight, Movie movie) {
-		this.id = id;
+	public Personaje(String name, String imgPersonaje, Integer year, Integer weight, Movie movie) {
 		this.name = name;
 		this.imgPersonaje = imgPersonaje;
+		this.year = year;
+		this.weight = weight;
+		this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
+	}
+	
+	
+	///////////////////////
+	
+	public Personaje(String name,  Integer year, Integer weight, Movie movie) {
+		this.name = name;
 		this.year = year;
 		this.weight = weight;
 		this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));

@@ -68,8 +68,14 @@ public class ChallengeDisneyApplication implements CommandLineRunner {
 //		Personaje bella = new Personaje("Bella", 25, 60, listMos);
 //		personajeRepo.save(bella);
 
-//		Personaje aladin = new Personaje("Aladin", 35, 60,  movieRepo.findByTitleIgnoreCase("la lampara de aladin"));
+//		Personaje aladin = new Personaje("Aladin2", 35, 60,  movieRepo.findByTitleIgnoreCase("la lampara de aladin 2"));
 //		personajeRepo.save(aladin);
+//		
+		
+		
+		
+		
+		
 
 	}
 

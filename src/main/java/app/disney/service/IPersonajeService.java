@@ -3,8 +3,6 @@ package app.disney.service;
 import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import app.disney.DTO.PersonajeDTO;

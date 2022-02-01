@@ -104,9 +104,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	@Override
 	public PersonajeDTO getPersonajeById(Integer id) {
 
-		return mapping
-				      .mappingPersonajeToDTO(personajeRepo.findById(id)
-				      .orElseThrow(() -> new NotFoundException("ID : " + id)));
+		return mapping.mappingPersonajeToDTO(personajeRepo.findById(id).get());
 	}
 
 	@Override

@@ -86,7 +86,6 @@ public class PersonajeServiceImplement implements IPersonajeService {
 			                          List<String> listMovieTitle) {
 
 		if (imagen != null) saveImg(personaje,imagen);
-		
 		if (listMovieTitle != null) personaje.setListMovie(getListMovies(listMovieTitle));
 	}
 	

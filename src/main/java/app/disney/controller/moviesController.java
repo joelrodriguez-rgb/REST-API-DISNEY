@@ -46,23 +46,15 @@ public class moviesController {
 	private IMapper mapping;
 
 	@GetMapping()
-	public ResponseEntity<List<?>> listMovies(@RequestParam(value = "title", required = false) String title,
+	public ResponseEntity<List<?>> listMovies(
+			@RequestParam(value = "title", required = false) String title,
 			@RequestParam(value = "gender", required = false) String genderName) {
 
-		List<?> listMovieDTO = mapping.mappingListMovie(movieService.getAllMovie());
-
-		if (title == null && genderName == null) {
-
-			return new ResponseEntity<>(listMovieDTO, HttpStatus.OK);
-		} else {
-			GenderDTO gender = new GenderDTO(genderName);
-			SearchMovieDTO searchMovie = new SearchMovieDTO(title, gender);
-			Movie movieSpec = mapping.mappingSearchMovieToEntity(searchMovie);
-			List<Movie> listMovieBySpec = movieService.getAllMovieBySpec(spec.getAllBySpec(movieSpec));
-
-			return new ResponseEntity<>(listMovieBySpec, HttpStatus.OK);
-
-		}
+		GenderDTO gender = new GenderDTO(genderName);
+		SearchMovieDTO searchMovieDTO = new SearchMovieDTO(title, gender);
+		List<?> listMovies = movieService.getList(searchMovieDTO);
+		
+		return new ResponseEntity<List<?>>(listMovies, HttpStatus.OK);
 
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.multipart.MultipartFile;
 
+import app.disney.DTO.SearchMovieDTO;
 import app.disney.entitys.Movie;
 
 public interface IMovieService {
@@ -17,6 +18,8 @@ public interface IMovieService {
 	Movie getMovieById(Integer id);
 
 	void deleteMovieById(Integer id);
+	
+	List<?> getList(SearchMovieDTO searchMovieDTO);
 	
 	/* BUSQUEDAS */
 	Movie getByTitleIgnoreCase(String title);

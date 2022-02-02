@@ -11,51 +11,60 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import app.disney.DTO.SearchMovieDTO;
 import app.disney.entitys.Movie;
 import app.disney.repository.IMovieRepository;
 import app.disney.service.IMovieService;
+import app.disney.specification.MovieSpecification;
+import app.disney.util.IMapper;
 
 @Service
 public class MovieServiceImplemet implements IMovieService {
 
 	@Autowired
-	private IMovieRepository movieRepository;
+	private IMovieRepository movieRepo;
+	
+	@Autowired
+	private IMapper mapping;
+
+	@Autowired
+	private MovieSpecification spec;
 
 
 
 	/* FUNCIONES CRUD */
 	@Override
 	public List<Movie> getAllMovie() {
-		return movieRepository.findAll();
+		return movieRepo.findAll();
 	}
 
 	@Override
 	public Movie saveMovie(Movie movie) {
-		return movieRepository.save(movie);
+		return movieRepo.save(movie);
 	}
 
 	@Override
 	public Movie getMovieById(Integer id) {
-		return movieRepository.findById(id).get();
+		return movieRepo.findById(id).get();
 	}
 
 	@Override
 	public void deleteMovieById(Integer id) {
-		movieRepository.deleteById(id);
+		movieRepo.deleteById(id);
 	}
 
 	/* BUSQUEDAS */
 
 	@Override
 	public Movie getByTitleIgnoreCase(String title) {
-		return movieRepository.findByTitleIgnoreCase(title);
+		return movieRepo.findByTitleIgnoreCase(title);
 	}
 
 	/* FILTROS */
 
 	@Override
 	public List<Movie> getByGender(String gender) {
-		return movieRepository.findByGender(gender);
+		return movieRepo.findByGender(gender);
 	}
 
 	///////////////////////////////////////////////////////////////
@@ -77,7 +86,29 @@ public class MovieServiceImplemet implements IMovieService {
 
 	@Override
 	public List<Movie> getAllMovieBySpec(Specification<Movie> spec) {
-          return movieRepository.findAll(spec);
+          return movieRepo.findAll(spec);
+	}
+
+	@Override
+	public List<?> getList(SearchMovieDTO searchMovieDTO) {
+		
+
+		if (searchMovieDTO.getTitle() == null && 
+			searchMovieDTO.getGender() == null) {
+			
+			List<?> listMovieDTO = mapping.mappingListMovie(movieRepo.findAll());
+			return listMovieDTO;
+			
+		} else {
+
+			Movie movie = mapping.mappingSearchMovieToEntity(searchMovieDTO);
+			Specification<Movie> movieSpec = spec.getAllBySpec(movie);
+			List<Movie> listMovieBySpec = movieRepo.findAll(movieSpec);
+			List<?> list = mapping.mappingListMovie(listMovieBySpec);
+
+			return list;
+
+		}
 	}
 
 }

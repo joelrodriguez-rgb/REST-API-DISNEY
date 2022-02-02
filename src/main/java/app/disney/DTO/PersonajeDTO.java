@@ -53,6 +53,15 @@ public class PersonajeDTO {
 	}
 	
 	
+	// constructor sin imagen
+	public PersonajeDTO(String name, Integer year, Integer weight, MovieDTO MovieDTO) {
+		this.name = name;
+		this.year = year;
+		this.weight = weight;
+		this.listMovieDTO = new ArrayList<MovieDTO>(Arrays.asList(MovieDTO));
+	}
+	
+	
 
 	
 	

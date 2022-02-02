@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import app.disney.DTO.MovieDTO;
 import app.disney.DTO.PersonajeDTO;
+import app.disney.DTO.SearchPersonajeDTO;
 import app.disney.service.IPersonajeService;
 import app.disney.util.IMapper;
 
@@ -34,12 +36,17 @@ public class charactersController{
 	private IMapper mapping;
 
 	@GetMapping()
-	public ResponseEntity<List<?>> listPersonaje(@RequestParam(value = "name", required = false) String name,
+	public ResponseEntity<List<?>> listPersonaje(
+			@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "year", required = false) Integer year,
 			@RequestParam(value = "weight", required = false) Integer weight,
 			@RequestParam(value = "title", required = false) String title) {
 		
-		 return new ResponseEntity<>(personajeService.getList(name,year,weight,title), HttpStatus.OK);
+		MovieDTO movieDTO = new MovieDTO(title);
+		SearchPersonajeDTO searchPersonajeDTO = new SearchPersonajeDTO(name, year, weight, movieDTO);
+		List<?> listPersonajes = personajeService.getList(searchPersonajeDTO);
+		
+		 return new ResponseEntity<>(listPersonajes, HttpStatus.OK);
 	}
 
 	@GetMapping("/addCharacter")
@@ -97,7 +104,7 @@ public class charactersController{
 			@RequestParam(value = "title", required = false) List<String> listMovieTitle) {
 	
 		if (result.hasErrors()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
-		
+				
 		personajeService.upDatePersonaje(upPersonaje, id, imagen, listMovieTitle);
 		
 		return new ResponseEntity<>(upPersonaje, HttpStatus.OK);

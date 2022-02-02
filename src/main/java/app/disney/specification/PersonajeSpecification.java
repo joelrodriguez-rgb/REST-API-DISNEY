@@ -29,7 +29,7 @@ public class PersonajeSpecification {
 			} else if (personaje.getWeight() != null) {
 				predicates.add(criteriaBuilder.equal(root.get("weight"), personaje.getWeight()));
 				
-			}else if(!personaje.getListMovie().isEmpty()) {			
+			}else if(personaje.getListMovie() != null) {			
 				Join<Personaje,Movie> joinMovie = root.join("listMovie");				
 				predicates.add(criteriaBuilder.equal(joinMovie.get("title"), personaje.getListMovie().get(0).getTitle()));
 			}

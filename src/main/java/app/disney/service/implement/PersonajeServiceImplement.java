@@ -12,7 +12,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import app.disney.DTO.MovieDTO;
 import app.disney.DTO.PersonajeDTO;
 import app.disney.DTO.SearchPersonajeDTO;
 import app.disney.entitys.Movie;
@@ -54,7 +53,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	public void savePersonaje(PersonajeDTO newPersonaje, MultipartFile imagen, List<String> listMovieTitle) {
 		 
 		Personaje personaje = mapping.mappingPersonajeDTOToEntity(newPersonaje);
-		 validateName(personaje);
+		validateName(personaje);
 		validatePersonajeData(personaje, imagen, listMovieTitle);
 		
 		personajeRepo.save(personaje);
@@ -122,7 +121,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 
 	////////////////////////////////////////
 	@Override
-	public void saveImg(Personaje personaje ,MultipartFile imagen) {
+	public void saveImg(Personaje personaje, MultipartFile imagen) {
 		Path directorioImagenes = Paths.get("src//main//resources//static/imgCharacters");
 		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
 
@@ -130,10 +129,10 @@ public class PersonajeServiceImplement implements IPersonajeService {
 			byte[] bytesImg = imagen.getBytes();
 			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
 			Files.write(rutaCompleta, bytesImg);
-			
+
 			// SET Imagen
 			personaje.setImgPersonaje(imagen.getOriginalFilename());
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -148,16 +147,17 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	}
 
 	@Override
-	public List<?> getList(String name, Integer year, Integer weight, String title) {
+	public List<?> getList(SearchPersonajeDTO searchPersonajeDTO) {
 
-		if (name == null && year == null && weight == null && title == null) {
+		if (searchPersonajeDTO.getName() == null && 
+			searchPersonajeDTO.getYear() == null && 
+			searchPersonajeDTO.getWeight() == null && 
+			searchPersonajeDTO.getMovieDTO() == null) {
 
 			List<?> listPersonajeDTO = mapping.mappingListPersonajesToDTO(personajeRepo.findAll());
 			return listPersonajeDTO;
 
 		} else {
-			MovieDTO movieDTO = new MovieDTO(title);
-			SearchPersonajeDTO searchPersonajeDTO = new SearchPersonajeDTO(name, year, weight, movieDTO);
 			Personaje personaje = mapping.mappingSearchPersonajeToEntity(searchPersonajeDTO);
 			Specification<Personaje> personajeSpec = spec.getAllBySpec(personaje);
 			List<Personaje> listPersonajeBySpec = personajeRepo.findAll(personajeSpec);

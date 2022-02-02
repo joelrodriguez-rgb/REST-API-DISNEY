@@ -1,11 +1,13 @@
 package app.disney.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.multipart.MultipartFile;
 
 import app.disney.DTO.PersonajeDTO;
+import app.disney.DTO.SearchPersonajeDTO;
 import app.disney.entitys.Movie;
 import app.disney.entitys.Personaje;
 
@@ -33,11 +35,11 @@ public interface IPersonajeService  {
 	
 	/////////////////////////////////////////////////
 	
-	void saveImg(Personaje personaje ,MultipartFile imagen);
+	void saveImg(Personaje personaje ,MultipartFile imagen) throws IOException;
 	
 	List<Movie> getListMovies(List<String> listMovieTitle);
 	
-    List<?> getList(String name, Integer year, Integer weight, String title);
+    List<?> getList(SearchPersonajeDTO searchPersonajeDTO);
     
     void validatePersonajeData(Personaje personajeData, MultipartFile imagen, List<String> listMovieTitle);
 

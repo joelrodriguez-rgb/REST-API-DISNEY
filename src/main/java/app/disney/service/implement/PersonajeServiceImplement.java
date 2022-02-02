@@ -76,7 +76,6 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		personajeExisting.setName(upPersonaje.getName());
 		personajeExisting.setYear(upPersonaje.getYear());
 		personajeExisting.setWeight(upPersonaje.getWeight());
-		personajeExisting.setImgPersonaje(imagen.getOriginalFilename());
 		
 		personajeRepo.save(personajeExisting);
 }
@@ -136,6 +135,9 @@ public class PersonajeServiceImplement implements IPersonajeService {
 			byte[] bytesImg = imagen.getBytes();
 			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
 			Files.write(rutaCompleta, bytesImg);
+
+			// SET Imagen
+			personaje.setImgPersonaje(imagen.getOriginalFilename());
 
 		} catch (IOException e) {
 			e.printStackTrace();

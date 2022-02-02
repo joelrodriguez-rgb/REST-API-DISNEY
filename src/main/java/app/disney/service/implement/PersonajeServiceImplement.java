@@ -53,8 +53,8 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	public void savePersonaje(PersonajeDTO newPersonaje, MultipartFile imagen, List<String> listMovieTitle) {
 		 
 		Personaje personaje = mapping.mappingPersonajeDTOToEntity(newPersonaje);
-		validateName(personaje);
-		validatePersonajeData(personaje, imagen, listMovieTitle);
+		validateName(personaje.getName());
+		validateImagenAndListMovie(personaje, imagen, listMovieTitle);
 		
 		personajeRepo.save(personaje);
 	}
@@ -67,18 +67,22 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		
 		Personaje personajeExisting = getPersonajeById(id) ;
 		
-		validatePersonajeData(personajeExisting, imagen, listMovieTitle);
+		validateImagenAndListMovie(personajeExisting, imagen, listMovieTitle);
 		
+		if (personajeExisting.getName() != upPersonaje.getName()) {
+			validateName(upPersonaje.getName());
+		}
 		personajeExisting.setId(id);
 		personajeExisting.setName(upPersonaje.getName());
 		personajeExisting.setYear(upPersonaje.getYear());
 		personajeExisting.setWeight(upPersonaje.getWeight());
+		personajeExisting.setImgPersonaje(imagen.getOriginalFilename());
 		
 		personajeRepo.save(personajeExisting);
 }
 	
 	@Override
-	public void validatePersonajeData(Personaje personaje, 
+	public void validateImagenAndListMovie(Personaje personaje, 
 			                          MultipartFile imagen, 
 			                          List<String> listMovieTitle) {
 
@@ -87,9 +91,10 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		if (listMovieTitle != null) personaje.setListMovie(getListMovies(listMovieTitle));
 	}
 	
-	private void validateName(Personaje newPersonaje) {
-		if (personajeRepo.findByNameIgnoreCase(newPersonaje.getName()) != null) 
-			throw new ExistingNameException("NAME  : " + newPersonaje.getName());
+	@Override
+	public void validateName(String name) {
+		if (personajeRepo.findByNameIgnoreCase(name) != null) 
+			throw new ExistingNameException("NAME  : " + name);
 	}
 
 	@Override
@@ -108,7 +113,9 @@ public class PersonajeServiceImplement implements IPersonajeService {
 
 	}
 
-	/** BUSQUEDA */
+	/**
+	 * BUSQUEDAS 
+	 * ***/
 	@Override
 	public Personaje getByNameIgnoreCase(String name) {
 		return personajeRepo.findByNameIgnoreCase(name);
@@ -130,14 +137,12 @@ public class PersonajeServiceImplement implements IPersonajeService {
 			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
 			Files.write(rutaCompleta, bytesImg);
 
-			// SET Imagen
-			personaje.setImgPersonaje(imagen.getOriginalFilename());
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
+	@Override
 	public List<Movie> getListMovies(List<String> listMovieTitle) {
 		List<Movie> listMovie = new ArrayList<>();
 

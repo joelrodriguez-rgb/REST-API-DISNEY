@@ -41,8 +41,9 @@ public interface IPersonajeService  {
 	
     List<?> getList(SearchPersonajeDTO searchPersonajeDTO);
     
-    void validatePersonajeData(Personaje personajeData, MultipartFile imagen, List<String> listMovieTitle);
+    void validateImagenAndListMovie(Personaje personajeData, MultipartFile imagen, List<String> listMovieTitle);
 
+    void validateName(String name);
 
 	
 

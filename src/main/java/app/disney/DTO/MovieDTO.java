@@ -6,7 +6,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import app.disney.entitys.Gender;
 import app.disney.entitys.Movie;
@@ -23,11 +26,13 @@ public class MovieDTO {
 
 	@NotEmpty(message = "Este campo no puede estar vacio")
 	@NotBlank(message = "Este campo no puede estar en blanco")
+	@Length(min = 2 , max = 50)
 	private String title;
 
 
 	@NotNull
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-M-d")
+	@JsonFormat(pattern = "yyyy-M-d" ,shape = JsonFormat.Shape.STRING)
 	private LocalDate creationDate;
 
 	private Integer qualification;

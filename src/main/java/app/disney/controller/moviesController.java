@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import app.disney.DTO.GenderDTO;
 import app.disney.DTO.MovieDTO;
@@ -26,7 +29,6 @@ import app.disney.DTO.SearchMovieDTO;
 import app.disney.entitys.Movie;
 import app.disney.service.IGenderService;
 import app.disney.service.IMovieService;
-import app.disney.specification.MovieSpecification;
 import app.disney.util.IMapper;
 
 @RestController
@@ -38,9 +40,6 @@ public class moviesController {
 
 	@Autowired
 	private IGenderService genderService;
-
-	@Autowired
-	private MovieSpecification spec;
 
 	@Autowired
 	private IMapper mapping;
@@ -70,7 +69,6 @@ public class moviesController {
 	public ResponseEntity<?> editMovie(@PathVariable Integer id) {
 
 		MovieDTO movieDTO = mapping.mappingMovieToDTO(movieService.getMovieById(id));
-
 		return new ResponseEntity<>(movieDTO, HttpStatus.OK);
 	}
 
@@ -82,80 +80,61 @@ public class moviesController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<List<?>> deleteMovie(@PathVariable Integer id) {
+	public ResponseEntity<?> deleteMovie(@PathVariable Integer id) {
+		
 		movieService.deleteMovieById(id);
-		List<?> list = mapping.mappingListMovie(movieService.getAllMovie());
-
-		return new ResponseEntity<>(list, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@PostMapping("/saveMovie")
-	public ResponseEntity<?> saveMovie(@ModelAttribute("movie") @Valid MovieDTO movieDTO, BindingResult result,
+	public ResponseEntity<?> saveMovie(
+			@RequestBody @Valid MovieDTO newMovie,
+			BindingResult result,
 			@RequestParam(value = "file", required = false) MultipartFile imagen,
 			@RequestParam(value = "gender", required = false) String genderName) {
 
-		Movie movie = mapping.mappingMovieDTOToEntity(movieDTO);
-		List<?> listGender = mapping.mappingListGender(genderService.getAllGender());
+		if (result.hasErrors()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
 		
-		if (result.hasErrors()) {
-			HashMap<String, Object> map = new HashMap<>();
-			map.put("movie", movie);
-			map.put("genders", listGender);
-			return new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);
-		}
-
-		if (movieService.getByTitleIgnoreCase(movie.getTitle()) != null) {
-			return new ResponseEntity<>(movie, HttpStatus.BAD_REQUEST);
-		}
-
-		if (!imagen.isEmpty()) {
-			movieService.saveImg(imagen);
-			movie.setImgMovie(imagen.getOriginalFilename());
-		}
-
-		if (genderName != null) {
-			movie.setGender(genderService.getByNameGender(genderName));
-		}
-
-		movieService.saveMovie(movie);
-		return new ResponseEntity<>(movie, HttpStatus.CREATED);
+		movieService.saveMovie(newMovie, imagen, genderName);
+	
+		return new ResponseEntity<>(newMovie, HttpStatus.CREATED);
 	}
 
-	@PatchMapping("/editMovie/{id}")
-	public ResponseEntity<?> editMovie(@PathVariable Integer id, @ModelAttribute("movie") @Valid MovieDTO movieDTO,
-			BindingResult result, @RequestParam(value = "file", required = false) MultipartFile imagen,
-			@RequestParam(value = "gender", required = false) String genderName) {
-
-		
-		Movie existingMovie = movieService.getMovieById(id);
-		List<?> listGender = mapping.mappingListGender(genderService.getAllGender());
-		
-		if (result.hasErrors()) {
-			HashMap<String, Object> map = new HashMap<>();
-			map.put("movie", movieDTO);
-			map.put("genders", listGender);
-			return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
-		}
-
-
-		if (genderName != null) {
-			existingMovie.setGender(genderService.getByNameGender(genderName));
-		}
-
-		if (!imagen.isEmpty()) {
-
-			movieService.saveImg(imagen);
-			existingMovie.setImgMovie(imagen.getOriginalFilename());
-		}
-
-		existingMovie.setId(id);
-		existingMovie.setCreationDate(movieDTO.getCreationDate());
-		existingMovie.setQualification(movieDTO.getQualification());
-		existingMovie.setTitle(movieDTO.getTitle());
-
-		movieService.saveMovie(existingMovie);
-
-		return new ResponseEntity<>(mapping.mappingMovieToDTO(existingMovie), HttpStatus.UPGRADE_REQUIRED);
-	}
+//	@PatchMapping("/editMovie/{id}")
+//	public ResponseEntity<?> editMovie(@PathVariable Integer id, @ModelAttribute("movie") @Valid MovieDTO movieDTO,
+//			BindingResult result, @RequestParam(value = "file", required = false) MultipartFile imagen,
+//			@RequestParam(value = "gender", required = false) String genderName) {
+//
+//		
+//		Movie existingMovie = movieService.getMovieById(id);
+//		List<?> listGender = mapping.mappingListGender(genderService.getAllGender());
+//		
+//		if (result.hasErrors()) {
+//			HashMap<String, Object> map = new HashMap<>();
+//			map.put("movie", movieDTO);
+//			map.put("genders", listGender);
+//			return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+//		}
+//
+//
+//		if (genderName != null) {
+//			existingMovie.setGender(genderService.getByNameGender(genderName));
+//		}
+//
+//		if (!imagen.isEmpty()) {
+//
+//			movieService.saveImg(imagen);
+//			existingMovie.setImgMovie(imagen.getOriginalFilename());
+//		}
+//
+//		existingMovie.setId(id);
+//		existingMovie.setCreationDate(movieDTO.getCreationDate());
+//		existingMovie.setQualification(movieDTO.getQualification());
+//		existingMovie.setTitle(movieDTO.getTitle());
+//
+//		movieService.saveMovie(existingMovie);
+//
+//		return new ResponseEntity<>(mapping.mappingMovieToDTO(existingMovie), HttpStatus.UPGRADE_REQUIRED);
+//	}
 
 }

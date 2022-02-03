@@ -1,6 +1,5 @@
 package app.disney.service;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
@@ -35,7 +34,7 @@ public interface IPersonajeService  {
 	
 	/////////////////////////////////////////////////
 	
-	void saveImg(Personaje personaje ,MultipartFile imagen) throws IOException;
+	void saveImg(Personaje personaje ,MultipartFile imagen);
 	
 	List<Movie> getListMovies(List<String> listMovieTitle);
 	

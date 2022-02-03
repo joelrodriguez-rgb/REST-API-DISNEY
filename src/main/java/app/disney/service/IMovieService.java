@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.multipart.MultipartFile;
 
+import app.disney.DTO.MovieDTO;
 import app.disney.DTO.SearchMovieDTO;
 import app.disney.entitys.Movie;
 
@@ -13,7 +14,7 @@ public interface IMovieService {
 	/* FUNCIONES CRUD */
 	List<Movie> getAllMovie();
 
-	Movie saveMovie(Movie movie);
+	void saveMovie(MovieDTO newMovie, MultipartFile imagen, String gender);
 
 	Movie getMovieById(Integer id);
 
@@ -34,7 +35,11 @@ public interface IMovieService {
 	
 	/////////////////////////////////////////
 	
-	void saveImg(MultipartFile imagen);
+	void saveImg(Movie movie,MultipartFile imagen);
+	
+	void validateName(String title);
+	 
+	void validateImagenAndListMovie(Movie movie, MultipartFile imagen, String gender);
 	
 
 

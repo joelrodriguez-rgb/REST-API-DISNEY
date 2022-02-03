@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Entity
@@ -32,7 +34,8 @@ public class Movie {
 	private String title;
 
 	@Column(name = "creation_date")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-M-d")
+	@JsonFormat(pattern = "yyyy-M-d" ,shape = JsonFormat.Shape.STRING)
 	private LocalDate creationDate;
 
 	@Column(name = "qualification")
@@ -61,6 +64,12 @@ public class Movie {
 		this.creationDate = date1;
 		this.qualification = i;
 		this.gender = gender2;
+	}
+	
+	public Movie( String title, LocalDate creationDate, Integer qualification) {
+		this.title = title;
+		this.creationDate = creationDate;
+		this.qualification = qualification;
 	}
 	
 	

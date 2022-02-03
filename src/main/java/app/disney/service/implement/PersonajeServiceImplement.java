@@ -82,8 +82,8 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	
 	@Override
 	public void validateImagenAndListMovie(Personaje personaje, 
-			                          MultipartFile imagen, 
-			                          List<String> listMovieTitle) {
+			                               MultipartFile imagen, 
+			                               List<String> listMovieTitle) {
 
 		if (imagen != null) saveImg(personaje,imagen);
 		if (listMovieTitle != null) personaje.setListMovie(getListMovies(listMovieTitle));
@@ -134,7 +134,6 @@ public class PersonajeServiceImplement implements IPersonajeService {
 			byte[] bytesImg = imagen.getBytes();
 			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
 			Files.write(rutaCompleta, bytesImg);
-
 			// SET Imagen
 			personaje.setImgPersonaje(imagen.getOriginalFilename());
 

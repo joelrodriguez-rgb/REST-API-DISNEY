@@ -15,6 +15,8 @@ public interface IMovieService {
 	List<Movie> getAllMovie();
 
 	void saveMovie(MovieDTO newMovie, MultipartFile imagen, String gender);
+	
+	void upDateMovie(MovieDTO upMovie, Integer id,  MultipartFile imagen, String gender);
 
 	Movie getMovieById(Integer id);
 

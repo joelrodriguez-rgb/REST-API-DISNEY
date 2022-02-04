@@ -134,6 +134,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 			byte[] bytesImg = imagen.getBytes();
 			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
 			Files.write(rutaCompleta, bytesImg);
+			
 			// SET Imagen
 			personaje.setImgPersonaje(imagen.getOriginalFilename());
 

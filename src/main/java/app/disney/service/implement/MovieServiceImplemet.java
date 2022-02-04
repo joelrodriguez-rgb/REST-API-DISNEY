@@ -53,12 +53,31 @@ public class MovieServiceImplemet implements IMovieService {
 		validateName(movie.getTitle());
 		validateImagenAndListMovie(movie, imagen, gender);
 		
-		System.out.println("////////////////////////////////////////");
 		movieRepo.save(movie);
 	}
 	
+	@Override
+	public void upDateMovie(MovieDTO upMovie, 
+			                Integer id, 
+			                MultipartFile imagen, 
+			                String gender) {
+		
+		Movie movieExisting = getMovieById(id);
+		
+		validateImagenAndListMovie(movieExisting, imagen, gender);
+		
+		if (movieExisting.getTitle() != upMovie.getTitle()) {
+			validateName(upMovie.getTitle());
+		}
+		
+		movieExisting.setId(id);
+		movieExisting.setTitle(upMovie.getTitle());
+		movieExisting.setCreationDate(upMovie.getCreationDate());
+		movieExisting.setQualification(upMovie.getQualification());
 	
-	
+		movieRepo.save(movieExisting);
+		
+	}
 	
 	@Override
 	public void validateName(String title) {
@@ -149,6 +168,8 @@ public class MovieServiceImplemet implements IMovieService {
 
 		}
 	}
+
+
 
 
 

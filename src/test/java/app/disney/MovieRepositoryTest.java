@@ -26,7 +26,7 @@ import app.disney.util.IMapper;
 
 @SpringBootTest
 //Base de datos de pruebas
-@TestPropertySource(locations = "application.properties")
+@TestPropertySource(locations = "classpath:test.properties")
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @Transactional
 class MovieRepositoryTest {
@@ -105,10 +105,12 @@ class MovieRepositoryTest {
 	void findAllByGenderSpecTest() {
 
 		GenderDTO gender = new GenderDTO("dibujo");
-		SearchMovieDTO search = new SearchMovieDTO();
+		SearchMovieDTO search = new SearchMovieDTO(null, gender);
 		Movie movie = mapping.mappingSearchMovieToEntity(search);
 		Specification<Movie> movieSpec = spec.getAllBySpec(movie);
-
+		
+		assertEquals("PELICULA 01", movieRepo.findAll(movieSpec).get(0).getTitle());
+		assertEquals("PELICULA 02", movieRepo.findAll(movieSpec).get(1).getTitle());
 	}
 
 	@AfterEach

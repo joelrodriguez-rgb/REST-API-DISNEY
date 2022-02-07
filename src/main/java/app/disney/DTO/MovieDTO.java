@@ -35,8 +35,10 @@ public class MovieDTO {
 	@JsonFormat(pattern = "yyyy-M-d" ,shape = JsonFormat.Shape.STRING)
 	private LocalDate creationDate;
 
+	@NotNull
 	private Integer qualification;
 
+	@NotNull
 	private Gender gender;
 	
 	
@@ -54,10 +56,11 @@ public class MovieDTO {
 		this.gender = gender;
 	}
 	
-	public MovieDTO( String title, LocalDate creationDate, Integer qualification) {
+	public MovieDTO( String title, LocalDate creationDate, Integer qualification,Gender gender) {
 		this.title = title;
 		this.creationDate = creationDate;
 		this.qualification = qualification;
+		this.gender = gender;
 	}
 	
 	

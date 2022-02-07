@@ -27,16 +27,6 @@ public interface IPersonajeRepository extends JpaRepository<Personaje, Integer>,
 
 	List<Personaje> findByWeight(Double weight);
 
-	@Query(value = "SELECT * FROM personajes pj, personaje_mov pmov, movies mov" 
-	             +" WHERE pj.id = pmov.personaje_id "
-		         + "AND mov.id = pmov.movie_id " 
-	             + "AND mov.title = ?1 ", nativeQuery = true)
-	List<Personaje> findByMovie(String title);
-
-	
-	
-	
-	
 	
 	
 }

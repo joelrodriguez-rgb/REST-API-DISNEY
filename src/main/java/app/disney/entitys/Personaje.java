@@ -39,7 +39,9 @@ public class Personaje {
 	private Integer weight;
 
 	@ManyToMany(cascade = { CascadeType.MERGE})
-	@JoinTable(name = "personaje_mov", joinColumns = @JoinColumn(name = "personaje_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"  ))
+	@JoinTable(name = "personaje_mov", 
+	           joinColumns = @JoinColumn(name = "personaje_id"), 
+	           inverseJoinColumns = @JoinColumn(name = "movie_id"))
 	private List<Movie> listMovie;
 
 	public Personaje() {
@@ -64,9 +66,6 @@ public class Personaje {
 		this.weight = weight;
 		this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
 	}
-	
-	
-	///////////////////////
 	
 	public Personaje(String name,  Integer year, Integer weight, Movie movie) {
 		this.name = name;

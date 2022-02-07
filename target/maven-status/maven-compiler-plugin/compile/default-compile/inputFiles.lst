@@ -1,3 +1,4 @@
+C:\Users\DELL\Desktop\proyectos\app\challenge-disney\challenge-disney\src\main\java\app\disney\exceptions\ExistingNameException.java
 C:\Users\DELL\Desktop\proyectos\app\challenge-disney\challenge-disney\src\main\java\app\disney\controller\IndexController.java
 C:\Users\DELL\Desktop\proyectos\app\challenge-disney\challenge-disney\src\main\java\app\disney\util\Mapping.java
 C:\Users\DELL\Desktop\proyectos\app\challenge-disney\challenge-disney\src\main\java\app\disney\service\implement\MovieServiceImplemet.java
@@ -17,6 +18,7 @@ C:\Users\DELL\Desktop\proyectos\app\challenge-disney\challenge-disney\src\main\j
 C:\Users\DELL\Desktop\proyectos\app\challenge-disney\challenge-disney\src\main\java\app\disney\exceptions\control\ApiExceptionHandler.java
 C:\Users\DELL\Desktop\proyectos\app\challenge-disney\challenge-disney\src\main\java\app\disney\exceptions\control\ErrorMenssage.java
 C:\Users\DELL\Desktop\proyectos\app\challenge-disney\challenge-disney\src\main\java\app\disney\util\IMapper.java
+C:\Users\DELL\Desktop\proyectos\app\challenge-disney\challenge-disney\src\main\java\app\disney\exceptions\MethodNotAllowedException.java
 C:\Users\DELL\Desktop\proyectos\app\challenge-disney\challenge-disney\src\main\java\app\disney\entitys\Gender.java
 C:\Users\DELL\Desktop\proyectos\app\challenge-disney\challenge-disney\src\main\java\app\disney\service\IPersonajeService.java
 C:\Users\DELL\Desktop\proyectos\app\challenge-disney\challenge-disney\src\main\java\app\disney\specification\PersonajeSpecification.java

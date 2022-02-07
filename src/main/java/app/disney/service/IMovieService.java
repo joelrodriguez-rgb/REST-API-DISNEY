@@ -41,7 +41,7 @@ public interface IMovieService {
 	
 	void validateName(String title);
 	 
-	void validateImagenAndListMovie(Movie movie, MultipartFile imagen, String gender);
+	void validateImagenAndGender(Movie movie, MultipartFile imagen, String gender);
 	
 
 

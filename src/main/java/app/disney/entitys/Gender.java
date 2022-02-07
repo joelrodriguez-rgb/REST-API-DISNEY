@@ -28,11 +28,15 @@ public class Gender {
 	}
 	
 
-	public Gender(Integer id, String genderName, String imgGender) {
+	public Gender(String genderName, String imgGender) {
 		super();
-		this.id = id;
 		this.genderName = genderName;
 		this.imgGender = imgGender;
+	}
+	
+	public Gender(String genderName) {
+		super();
+		this.genderName = genderName;
 	}
 
 

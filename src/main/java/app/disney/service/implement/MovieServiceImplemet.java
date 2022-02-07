@@ -51,7 +51,7 @@ public class MovieServiceImplemet implements IMovieService {
 			               String gender) {
 		Movie movie= mapping.mappingMovieDTOToEntity(newMovie);
 		validateName(movie.getTitle());
-		validateImagenAndListMovie(movie, imagen, gender);
+		validateImagenAndGender(movie, imagen, gender);
 		
 		movieRepo.save(movie);
 	}
@@ -64,9 +64,9 @@ public class MovieServiceImplemet implements IMovieService {
 		
 		Movie movieExisting = getMovieById(id);
 		
-		validateImagenAndListMovie(movieExisting, imagen, gender);
+		validateImagenAndGender(movieExisting, imagen, gender);
 		
-		if (movieExisting.getTitle() != upMovie.getTitle()) {
+		if (!movieExisting.getTitle().equalsIgnoreCase(upMovie.getTitle())) {
 			validateName(upMovie.getTitle());
 		}
 		
@@ -86,7 +86,7 @@ public class MovieServiceImplemet implements IMovieService {
 	}
 	
 	@Override
-	public void validateImagenAndListMovie(Movie movie, 
+	public void validateImagenAndGender(Movie movie, 
 			                               MultipartFile imagen, 
 			                               String gender) {
 		

@@ -28,6 +28,7 @@ public class PersonajeDTO {
 	@NotNull
 	private Integer weight;
 	
+	@NotNull
 	private List<MovieDTO> listMovieDTO;
 	
 	public PersonajeDTO() {}

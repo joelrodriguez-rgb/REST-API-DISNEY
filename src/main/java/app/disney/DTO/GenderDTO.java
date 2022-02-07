@@ -22,8 +22,7 @@ public class GenderDTO {
 	}
 	
 
-	public GenderDTO(Integer id, String genderName, String imgGender) {
-		this.id = id;
+	public GenderDTO( String genderName, String imgGender) {
 		this.genderName = genderName;
 		this.imgGender = imgGender;
 	}

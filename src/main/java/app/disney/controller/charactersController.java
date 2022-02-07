@@ -85,7 +85,7 @@ public class charactersController{
 			@RequestBody @Valid PersonajeDTO newPersonaje,
 			BindingResult result,
 			@RequestParam(value = "file", required = false) MultipartFile imagen,
-			@RequestParam(value = "title", required = false) List<String> listMovieTitle) {
+			@RequestParam(value = "title") List<String> listMovieTitle) {
 
 		if (result.hasErrors()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
 		
@@ -101,7 +101,7 @@ public class charactersController{
 			@RequestBody @Valid PersonajeDTO upPersonaje,
 			BindingResult result,
 			@RequestParam(value = "file", required = false) MultipartFile imagen,
-			@RequestParam(value = "title", required = false) List<String> listMovieTitle) {
+			@RequestParam(value = "title") List<String> listMovieTitle) {
 	
 		if (result.hasErrors()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
 				

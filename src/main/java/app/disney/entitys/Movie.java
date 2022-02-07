@@ -41,7 +41,7 @@ public class Movie {
 	@Column(name = "qualification")
 	private Integer qualification;
 
-	@ManyToOne(cascade = {CascadeType.MERGE })
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn
 	private Gender gender;
 	
@@ -49,8 +49,7 @@ public class Movie {
 	public Movie() {
 	}
 
-	public Movie(Integer id,String imgMovie, String title, LocalDate creationDate, Integer qualification, Gender gender) {
-		this.id = id;
+	public Movie(String imgMovie, String title, LocalDate creationDate, Integer qualification, Gender gender) {
 		this.imgMovie = imgMovie;
 		this.title = title;
 		this.creationDate = creationDate;

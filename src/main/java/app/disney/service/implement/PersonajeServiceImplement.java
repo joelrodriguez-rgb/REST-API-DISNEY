@@ -50,7 +50,9 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	}
 
 	@Override
-	public void savePersonaje(PersonajeDTO newPersonaje, MultipartFile imagen, List<String> listMovieTitle) {
+	public void savePersonaje(PersonajeDTO newPersonaje, 
+			                  MultipartFile imagen, 
+			                  List<String> listMovieTitle) {
 		 
 		Personaje personaje = mapping.mappingPersonajeDTOToEntity(newPersonaje);
 		validateName(personaje.getName());
@@ -69,7 +71,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		
 		validateImagenAndListMovie(personajeExisting, imagen, listMovieTitle);
 		
-		if (personajeExisting.getName() != upPersonaje.getName()) {
+		if (!personajeExisting.getName().equalsIgnoreCase(upPersonaje.getName())) {
 			validateName(upPersonaje.getName());
 		}
 		personajeExisting.setId(id);

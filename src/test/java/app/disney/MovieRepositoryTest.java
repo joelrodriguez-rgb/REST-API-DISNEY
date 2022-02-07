@@ -11,7 +11,6 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +22,11 @@ import app.disney.repository.IGenderRepository;
 import app.disney.repository.IMovieRepository;
 import app.disney.repository.IPersonajeRepository;
 import app.disney.specification.MovieSpecification;
-import app.disney.specification.PersonajeSpecification;
 import app.disney.util.IMapper;
 
 @SpringBootTest
-@TestPropertySource(locations = "classpath:test.properties")
+//Base de datos de pruebas
+@TestPropertySource(locations = "application.properties")
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @Transactional
 class MovieRepositoryTest {
@@ -78,8 +77,9 @@ class MovieRepositoryTest {
 	}
 
 	/**
-	 * @Query(value = "SELECT * FROM movies mov, gender gen " + "WHERE mov.gender_id
-	 *              = gen.id " + "AND gen.gender_name = ?1" , nativeQuery = true)
+	 * @Query(value = "SELECT * FROM movies mov, gender gen " 
+	 *              + "WHERE mov.gender_id = gen.id " 
+	 *              + "AND gen.gender_name = ?1" , nativeQuery = true)
 	 */
 	@Test
 	void findByGenderTest() {
@@ -93,9 +93,11 @@ class MovieRepositoryTest {
 	@Test
 	void findAllByTitleSpecTest() {
 
-		SearchMovieDTO search = new SearchMovieDTO();
+		SearchMovieDTO search = new SearchMovieDTO("pelicula 01",null);
 		Movie movie = mapping.mappingSearchMovieToEntity(search);
 		Specification<Movie> movieSpec = spec.getAllBySpec(movie);
+		
+		assertEquals("PELICULA 01", movieRepo.findAll(movieSpec).get(0).getTitle());
 
 	}
 

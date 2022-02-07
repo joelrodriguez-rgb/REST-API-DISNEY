@@ -28,6 +28,7 @@ import app.disney.specification.PersonajeSpecification;
 import app.disney.util.IMapper;
 
 @SpringBootTest
+//Base de datos de pruebas
 @TestPropertySource(locations = "classpath:test.properties")
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @Transactional
@@ -50,6 +51,8 @@ class PersonajeRepositoryTest {
 
 	@BeforeEach
 	void seendDb() {
+		
+		//Cargando Movies
 
 		LocalDate date1 = LocalDate.of(2003, 6, 20);
 		Movie mov1 = new Movie("PELICULA 01", date1, 3, genderRepo.findByGenderName("dibujo"));
@@ -63,10 +66,14 @@ class PersonajeRepositoryTest {
 		Movie mov3 = new Movie("PELICULA 03", date3, 5, genderRepo.findByGenderName("animado"));
 		movieRepo.save(mov3);
 
+		
 		List<Movie> listMovie = new ArrayList<>();
 		listMovie.add(movieRepo.findByTitleIgnoreCase("pelicula 01"));
 		listMovie.add(movieRepo.findByTitleIgnoreCase("pelicula 02"));
 
+		
+		//Cargando Personajes
+		
 		Personaje personaje01 = new Personaje("personaje 01", 10, 1, listMovie);
 		personajeRepo.save(personaje01);
 
@@ -78,10 +85,10 @@ class PersonajeRepositoryTest {
 	}
 
 	/**
-	 * @Query(value = "SELECT mov.title FROM personaje_mov pmov, movies mov " +
-	 *              "WHERE pmov.movie_id = mov.id " + "AND pmov.personaje_id = ?1",
-	 *              nativeQuery = true) List<String> findMovieByPersonajeId(Integer
-	 *              personajeID);
+	 * @Query(value = "SELECT mov.title FROM personaje_mov pmov, movies mov " 
+	 *              + "WHERE pmov.movie_id = mov.id "
+	 *              + "AND pmov.personaje_id = ?1",nativeQuery = true) 
+	 * List<String> findMovieByPersonajeId(IntegerpersonajeID);
 	 */
 	@Test
 	void findMovieByPersonajeIdTest() {

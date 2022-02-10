@@ -34,20 +34,6 @@ class PersonajeRepositoryTest {
 	private PersonajeSpecification spec;
 
 
-	/**
-	 * @Query(value = "SELECT mov.title FROM personaje_mov pmov, movies mov " 
-	 *              + "WHERE pmov.movie_id = mov.id "
-	 *              + "AND pmov.personaje_id = ?1",nativeQuery = true) 
-	 * List<String> findMovieByPersonajeId(IntegerpersonajeID);
-	 */
-	@Test
-	void findMovieByPersonajeIdTest() {
-		
-		
-		assertNotNull(personajeRepo.findMovieByPersonajeId(1));
-		assertNotNull(personajeRepo.findMovieByPersonajeId(2));
-		assertNotNull(personajeRepo.findMovieByPersonajeId(3));
-	}
 
 	@Test
 	void findByNameIgnoreCaseTest() {

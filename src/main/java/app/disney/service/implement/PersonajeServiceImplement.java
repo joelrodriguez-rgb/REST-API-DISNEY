@@ -121,10 +121,6 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		return personajeRepo.findByNameIgnoreCase(name);
 	}
 
-	@Override
-	public List<String> getMovieByPersonajeId(Integer id) {
-		return personajeRepo.findMovieByPersonajeId(id);
-	}
 
 	////////////////////////////////////////
 	@Override

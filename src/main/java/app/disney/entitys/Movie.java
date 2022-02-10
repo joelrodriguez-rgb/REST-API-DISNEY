@@ -58,11 +58,11 @@ public class Movie {
 	}
 	
 	
-	public Movie(String title, LocalDate date1, int i, Gender gender2) {
+	public Movie(String title, LocalDate date, int qualfication, Gender gender) {
 		this.title = title;
-		this.creationDate = date1;
-		this.qualification = i;
-		this.gender = gender2;
+		this.creationDate = date;
+		this.qualification = qualfication;
+		this.gender = gender;
 	}
 	
 	public Movie( String title, LocalDate creationDate, Integer qualification) {

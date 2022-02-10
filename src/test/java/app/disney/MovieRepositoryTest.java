@@ -89,7 +89,7 @@ class MovieRepositoryTest {
 	void findAllByTitleSpecTest() {
         //GIVEN
 		
-		//Obtengo el objeto a buscar
+		//Obtengo el objeto a especificado
 		SearchMovieDTO search = new SearchMovieDTO("pelicula 01",null);
 		Movie movieSearch = mapping.mappingSearchMovieToEntity(search);
 		Specification<Movie> movieSpec = spec.getAllBySpec(movieSearch);
@@ -100,14 +100,14 @@ class MovieRepositoryTest {
 		LocalDate date = LocalDate.of(2003, 6, 20);
 		Movie movie = new Movie("PELICULA 01", date, 3, gen);
 		
-		List<Movie> list = new ArrayList<Movie>();
+		List<Movie> list = new ArrayList();
 		list.add(movie);
 		
 		//WHEN
 		when(movieRepo.findAll(movieSpec)).thenReturn(list);
 		
 		//THEN
-		assertEquals("PELICULA 01", movieRepo.findAll(movieSpec).get(0).getTitle());
+		assertEquals(movie.getTitle(), movieRepo.findAll(movieSpec).get(0).getTitle());
 
 	}
 
@@ -116,7 +116,7 @@ class MovieRepositoryTest {
 		
 	    //GIVEN
 		
-		//Obtengo el objeto a buscar
+		//Obtengo el objeto a especificado
 		GenderDTO gender = new GenderDTO("dibujo");
 		SearchMovieDTO search = new SearchMovieDTO(null, gender);
 		Movie movieSearch = mapping.mappingSearchMovieToEntity(search);
@@ -134,7 +134,7 @@ class MovieRepositoryTest {
 		when(movieRepo.findAll(movieSpec)).thenReturn(list);
 		
 		//THEN
-		assertEquals("PELICULA 01", movieRepo.findAll(movieSpec).get(0).getTitle());
+		assertEquals(movie.getTitle(), movieRepo.findAll(movieSpec).get(0).getTitle());
 	}
 
 }

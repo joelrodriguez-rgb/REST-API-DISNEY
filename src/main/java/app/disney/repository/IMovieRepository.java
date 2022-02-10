@@ -11,7 +11,8 @@ import org.springframework.stereotype.Repository;
 import app.disney.entitys.Movie;
 
 @Repository
-public interface IMovieRepository extends JpaRepository<Movie, Integer>,JpaSpecificationExecutor<Movie>  {
+public interface IMovieRepository extends JpaRepository<Movie, Integer>,
+                                          JpaSpecificationExecutor<Movie>  {
 
 	List<Movie> findAll(Specification<Movie> spec);
 	

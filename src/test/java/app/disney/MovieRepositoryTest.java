@@ -1,79 +1,58 @@
 package app.disney;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import app.disney.DTO.GenderDTO;
 import app.disney.DTO.SearchMovieDTO;
 import app.disney.entitys.Gender;
 import app.disney.entitys.Movie;
-import app.disney.repository.IGenderRepository;
 import app.disney.repository.IMovieRepository;
-import app.disney.repository.IPersonajeRepository;
 import app.disney.specification.MovieSpecification;
 import app.disney.util.IMapper;
 
+
+@RunWith(SpringRunner.class)
 @SpringBootTest
-//Base de datos de pruebas
-@TestPropertySource(locations = "classpath:test.properties")
-@TestInstance(TestInstance.Lifecycle.PER_METHOD)
-@Transactional
 class MovieRepositoryTest {
 
-	@Autowired
-	private IPersonajeRepository personajeRepo;
 
-	@Autowired
+	@Mock
 	private IMovieRepository movieRepo;
-
-	@Autowired
-	private IGenderRepository genderRepo;
-
+	
 	@Autowired
 	private IMapper mapping;
 
 	@Autowired
 	private MovieSpecification spec;
-
-	@BeforeEach
-	void seendDb() {
-		Gender gen1 = new Gender("dibujo");
-		Gender gen2 = new Gender("animado");
-		Gender gen3 = new Gender("terror");
-
-		genderRepo.save(gen1);
-		genderRepo.save(gen2);
-		genderRepo.save(gen3);
-
-		LocalDate date1 = LocalDate.of(2003, 6, 20);
-		Movie mov1 = new Movie("PELICULA 01", date1, 3, genderRepo.findByGenderName("dibujo"));
-		movieRepo.save(mov1);
-
-		LocalDate date2 = LocalDate.of(2008, 5, 4);
-		Movie mov2 = new Movie("PELICULA 02", date2, 5, genderRepo.findByGenderName("dibujo"));
-		movieRepo.save(mov2);
-
-		LocalDate date3 = LocalDate.of(2015, 9, 15);
-		Movie mov3 = new Movie("PELICULA 03", date3, 5, genderRepo.findByGenderName("animado"));
-		movieRepo.save(mov3);
-
-	}
-
+	
+	
 	@Test
 	void findByTitleIgnoreCaseTest() {
-
-		assertEquals("PELICULA 01", movieRepo.findByTitleIgnoreCase("pElIcULA 01").getTitle());
+		//GIVEN
+		Gender gen = new Gender("dibujo");
+		LocalDate date = LocalDate.of(2003, 6, 20);
+		Movie mov = new Movie("PELICULA 01", date, 3, gen);
+		movieRepo.save(mov);
+		
+		//WHEN
+		when(movieRepo.findByTitleIgnoreCase("pElIcULA 01")).thenReturn(mov);
+		
+		//THEN
+		assertEquals(mov, movieRepo.findByTitleIgnoreCase("pElIcULA 01"));
 	}
 
 	/**
@@ -83,41 +62,79 @@ class MovieRepositoryTest {
 	 */
 	@Test
 	void findByGenderTest() {
-
-		assertEquals(false, movieRepo.findByGender("dibujo").isEmpty());
-		assertEquals("PELICULA 01", movieRepo.findByGender("dibujo").get(0).getTitle());
-		assertEquals("PELICULA 03", movieRepo.findByGender("animado").get(0).getTitle());
+		
+		//GIVEN
+		Gender gen = new Gender("dibujo");
+		LocalDate date = LocalDate.of(2003, 6, 20);
+		Movie mov1 = new Movie("PELICULA 01", date, 3, gen);
+		Movie mov2 = new Movie("PELICULA 02", date, 3, gen);
+		List<Movie> list = new ArrayList<Movie>();
+		list.add(mov1);
+		list.add(mov2);
+		
+		
+		//WHEN
+		when(movieRepo.findByGender("dibujo")).thenReturn(list);
+		
+		//THEN
+		assertNotNull( movieRepo.findByGender("dibujo"));
+		assertEquals(mov1, movieRepo.findByGender("dibujo").get(0));
+		assertEquals(mov2, movieRepo.findByGender("dibujo").get(1));
 
 	}
+	
+
 
 	@Test
 	void findAllByTitleSpecTest() {
-
-		SearchMovieDTO search = new SearchMovieDTO("pelicula 01",null);
-		Movie movie = mapping.mappingSearchMovieToEntity(search);
-		Specification<Movie> movieSpec = spec.getAllBySpec(movie);
+        //GIVEN
 		
+		//Obtengo el objeto a buscar
+		SearchMovieDTO search = new SearchMovieDTO("pelicula 01",null);
+		Movie movieSearch = mapping.mappingSearchMovieToEntity(search);
+		Specification<Movie> movieSpec = spec.getAllBySpec(movieSearch);
+		
+		
+		//Preparo el Objeto que tengo que buscar
+		Gender gen = new Gender("dibujo");
+		LocalDate date = LocalDate.of(2003, 6, 20);
+		Movie movie = new Movie("PELICULA 01", date, 3, gen);
+		
+		List<Movie> list = new ArrayList<Movie>();
+		list.add(movie);
+		
+		//WHEN
+		when(movieRepo.findAll(movieSpec)).thenReturn(list);
+		
+		//THEN
 		assertEquals("PELICULA 01", movieRepo.findAll(movieSpec).get(0).getTitle());
 
 	}
 
 	@Test
 	void findAllByGenderSpecTest() {
-
+		
+	    //GIVEN
+		
+		//Obtengo el objeto a buscar
 		GenderDTO gender = new GenderDTO("dibujo");
 		SearchMovieDTO search = new SearchMovieDTO(null, gender);
-		Movie movie = mapping.mappingSearchMovieToEntity(search);
-		Specification<Movie> movieSpec = spec.getAllBySpec(movie);
+		Movie movieSearch = mapping.mappingSearchMovieToEntity(search);
+		Specification<Movie> movieSpec = spec.getAllBySpec(movieSearch);
 		
+		//Preparo el Objeto que tengo que buscar
+		Gender gen = new Gender("dibujo");
+		LocalDate date = LocalDate.of(2003, 6, 20);
+		Movie movie = new Movie("PELICULA 01", date, 3, gen);
+		
+		List<Movie> list = new ArrayList<Movie>();
+		list.add(movie);
+		
+		//WHEN
+		when(movieRepo.findAll(movieSpec)).thenReturn(list);
+		
+		//THEN
 		assertEquals("PELICULA 01", movieRepo.findAll(movieSpec).get(0).getTitle());
-		assertEquals("PELICULA 02", movieRepo.findAll(movieSpec).get(1).getTitle());
-	}
-
-	@AfterEach
-	void deleteAllDb() {
-		personajeRepo.deleteAll();
-		movieRepo.deleteAll();
-		genderRepo.deleteAll();
 	}
 
 }

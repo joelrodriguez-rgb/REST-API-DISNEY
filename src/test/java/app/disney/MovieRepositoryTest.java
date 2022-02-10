@@ -9,12 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import app.disney.DTO.GenderDTO;
 import app.disney.DTO.SearchMovieDTO;
@@ -25,7 +23,6 @@ import app.disney.specification.MovieSpecification;
 import app.disney.util.IMapper;
 
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 class MovieRepositoryTest {
 
@@ -38,7 +35,6 @@ class MovieRepositoryTest {
 
 	@Autowired
 	private MovieSpecification spec;
-	
 	
 	@Test
 	void findByTitleIgnoreCaseTest() {

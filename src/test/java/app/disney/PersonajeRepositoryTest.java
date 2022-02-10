@@ -8,12 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import app.disney.DTO.MovieDTO;
 import app.disney.DTO.SearchPersonajeDTO;
@@ -23,7 +21,6 @@ import app.disney.repository.IPersonajeRepository;
 import app.disney.specification.PersonajeSpecification;
 import app.disney.util.IMapper;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 class PersonajeRepositoryTest {
 

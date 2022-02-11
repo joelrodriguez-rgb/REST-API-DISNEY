@@ -29,7 +29,6 @@ public class PersonajeDTO {
 	@NotNull
 	private Integer weight;
 	
-	@NotNull
 	private List<MovieDTO> listMovieDTO;
 	
 	public PersonajeDTO() {}
@@ -53,26 +52,5 @@ public class PersonajeDTO {
 		this.weight = weight;
 		this.listMovieDTO = new ArrayList<MovieDTO>(Arrays.asList(MovieDTO));
 	}
-	
-	
-	// constructor sin imagen
-	public PersonajeDTO(String name, Integer year, Integer weight, MovieDTO MovieDTO) {
-		this.name = name;
-		this.year = year;
-		this.weight = weight;
-		this.listMovieDTO = new ArrayList<MovieDTO>(Arrays.asList(MovieDTO));
-	}
-	
-	public PersonajeDTO(String name, Integer year, Integer weight) {
-		this.name = name;
-		this.year = year;
-		this.weight = weight;
-	}
-	
-	
-
-	
-	
-	
 
 }

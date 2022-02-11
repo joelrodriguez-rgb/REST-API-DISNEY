@@ -103,7 +103,7 @@ public class charactersController{
 			@RequestParam(value = "file", required = false) MultipartFile imagen,
 			@RequestParam(value = "title") List<String> listMovieTitle) {
 	
-		//if (result.hasErrors()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+		if (result.hasErrors()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
 				
 		personajeService.upDatePersonaje(upPersonaje, id, imagen, listMovieTitle);
 		

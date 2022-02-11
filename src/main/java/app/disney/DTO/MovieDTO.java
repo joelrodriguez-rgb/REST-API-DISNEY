@@ -12,7 +12,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import app.disney.entitys.Gender;
-import app.disney.entitys.Movie;
 import lombok.Data;
 
 
@@ -38,13 +37,15 @@ public class MovieDTO {
 	@NotNull
 	private Integer qualification;
 
-	@NotNull
+
 	private Gender gender;
 	
 	
 	public MovieDTO() {
 	}
-
+	public MovieDTO(String title) {
+		this.title = title;
+	}
 
 	
 	public MovieDTO( String title, String imgMovie, LocalDate creationDate, Integer qualification,
@@ -62,25 +63,7 @@ public class MovieDTO {
 		this.qualification = qualification;
 		this.gender = gender;
 	}
-	public MovieDTO( String title, LocalDate creationDate, Integer qualification) {
-		this.title = title;
-		this.creationDate = creationDate;
-		this.qualification = qualification;
-	}
 	
 	
-	public MovieDTO(Movie movie) {
-		this.imgMovie = movie.getImgMovie();
-		this.creationDate = movie.getCreationDate();
-		this.gender = movie.getGender();
-		this.qualification = movie.getQualification();
-	}
-	
-	public MovieDTO( String title) {
-		this.title = title;
-	}
-	
-
-
 
 }

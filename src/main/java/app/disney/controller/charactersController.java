@@ -88,7 +88,7 @@ public class charactersController{
 			@RequestParam(value = "title") List<String> listMovieTitle) {
 
 		if (result.hasErrors()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
-		
+			
         personajeService.savePersonaje(newPersonaje, imagen, listMovieTitle);
         
 		return new ResponseEntity<>(newPersonaje, HttpStatus.CREATED);

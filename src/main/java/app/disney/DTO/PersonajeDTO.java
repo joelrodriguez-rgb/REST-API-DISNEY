@@ -62,6 +62,12 @@ public class PersonajeDTO {
 		this.listMovieDTO = new ArrayList<MovieDTO>(Arrays.asList(MovieDTO));
 	}
 	
+	public PersonajeDTO(String name, Integer year, Integer weight) {
+		this.name = name;
+		this.year = year;
+		this.weight = weight;
+	}
+	
 	
 
 	

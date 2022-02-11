@@ -84,7 +84,7 @@ public class moviesController {
 			@RequestParam(value = "file", required = false) MultipartFile imagen,
 			@RequestParam(value = "gender") String genderName) {
 
-		if (result.hasErrors()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+	if (result.hasErrors()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
 		
 		movieService.saveMovie(newMovie, imagen, genderName);
 	

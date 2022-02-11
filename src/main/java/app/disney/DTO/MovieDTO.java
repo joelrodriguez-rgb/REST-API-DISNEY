@@ -47,7 +47,7 @@ public class MovieDTO {
 
 
 	
-	public MovieDTO( String imgMovie, String title, LocalDate creationDate, Integer qualification,
+	public MovieDTO( String title, String imgMovie, LocalDate creationDate, Integer qualification,
 			Gender gender) {
 		this.imgMovie = imgMovie;
 		this.title = title;
@@ -61,6 +61,11 @@ public class MovieDTO {
 		this.creationDate = creationDate;
 		this.qualification = qualification;
 		this.gender = gender;
+	}
+	public MovieDTO( String title, LocalDate creationDate, Integer qualification) {
+		this.title = title;
+		this.creationDate = creationDate;
+		this.qualification = qualification;
 	}
 	
 	

@@ -38,7 +38,28 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	@Autowired
 	private PersonajeSpecification spec;
 
-	/** FUNCIONES CRUD */
+	@Override
+	public List<?> getListPersonajes(SearchPersonajeDTO searchPersonajeDTO) {
+
+		if (searchPersonajeDTO.getName() == null 
+			&& searchPersonajeDTO.getYear() == null
+			&& searchPersonajeDTO.getWeight() == null
+			&& searchPersonajeDTO.getMovieDTO() == null) {
+
+			List<?> listPersonajeDTO = mapping.mappingListPersonajesToDTO(personajeRepo.findAll());
+			return listPersonajeDTO;
+
+		} else {
+			Personaje personaje = mapping.mappingSearchPersonajeToEntity(searchPersonajeDTO);
+			Specification<Personaje> personajeSpec = spec.getAllBySpec(personaje);
+			List<Personaje> listPersonajeBySpec = personajeRepo.findAll(personajeSpec);
+			List<?> list = mapping.mappingListPersonajesToDTO(listPersonajeBySpec);
+
+			return list;
+
+		}
+	}
+
 	@Override
 	public List<Personaje> getAllPersonaje() {
 		return personajeRepo.findAll();
@@ -50,27 +71,26 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	}
 
 	@Override
-	public void savePersonaje(PersonajeDTO newPersonaje, 
-			                  MultipartFile imagen, 
+	public void savePersonaje(PersonajeDTO newPersonaje,
+			                  MultipartFile imagen,
 			                  List<String> listMovieTitle) {
-		 
+
 		Personaje personaje = mapping.mappingPersonajeDTOToEntity(newPersonaje);
 		validateName(personaje.getName());
-		validateImagenAndListMovie(personaje, imagen, listMovieTitle);
-		
+
+		personaje.setImgPersonaje(saveImg(imagen));
+		personaje.setListMovie(getListMoviesByTitle(listMovieTitle));
+
 		personajeRepo.save(personaje);
 	}
-	
+
 	@Override
-	public void upDatePersonaje(PersonajeDTO upPersonaje,
-			                    Integer id,
-			                    MultipartFile imagen, 
+	public void upDatePersonaje(PersonajeDTO upPersonaje, 
+			                    Integer id, MultipartFile imagen,
 			                    List<String> listMovieTitle) {
-		
-		Personaje personajeExisting = getPersonajeById(id) ;
-		
-		validateImagenAndListMovie(personajeExisting, imagen, listMovieTitle);
-		
+
+		Personaje personajeExisting = getPersonajeById(id);
+
 		if (!personajeExisting.getName().equalsIgnoreCase(upPersonaje.getName())) {
 			validateName(upPersonaje.getName());
 		}
@@ -78,22 +98,15 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		personajeExisting.setName(upPersonaje.getName());
 		personajeExisting.setYear(upPersonaje.getYear());
 		personajeExisting.setWeight(upPersonaje.getWeight());
-		
-		personajeRepo.save(personajeExisting);
-}
-	
-	@Override
-	public void validateImagenAndListMovie(Personaje personaje, 
-			                               MultipartFile imagen, 
-			                               List<String> listMovieTitle) {
+		personajeExisting.setImgPersonaje(saveImg(imagen));
+		personajeExisting.setListMovie(getListMoviesByTitle(listMovieTitle));
 
-		if (imagen != null) saveImg(personaje,imagen);
-		if (listMovieTitle != null) personaje.setListMovie(getListMovies(listMovieTitle));
+		personajeRepo.save(personajeExisting);
 	}
-	
+
 	@Override
 	public void validateName(String name) {
-		if (personajeRepo.findByNameIgnoreCase(name) != null) 
+		if (personajeRepo.findByNameIgnoreCase(name) != null)
 			throw new ExistingNameException("NAME  : " + name);
 	}
 
@@ -110,70 +123,42 @@ public class PersonajeServiceImplement implements IPersonajeService {
 			personajeRepo.deleteById(id);
 		else
 			throw new NotFoundException("ID : " + id);
-
 	}
 
-	/**
-	 * BUSQUEDAS 
-	 * ***/
 	@Override
 	public Personaje getByNameIgnoreCase(String name) {
 		return personajeRepo.findByNameIgnoreCase(name);
 	}
 
-
-	////////////////////////////////////////
 	@Override
-	public void saveImg(Personaje personaje, MultipartFile imagen) {
-		Path directorioImagenes = Paths.get("src//main//resources//static/imgCharacters");
-		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+	public String saveImg(MultipartFile imagen) {
+		if (imagen != null) {
 
-		try {
-			byte[] bytesImg = imagen.getBytes();
-			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-			Files.write(rutaCompleta, bytesImg);
-			
-			// SET Imagen
-			personaje.setImgPersonaje(imagen.getOriginalFilename());
+			Path directorioImagenes = Paths.get("src//main//resources//static/imgCharacters");
+			String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
 
-		} catch (IOException e) {
-			e.printStackTrace();
+			try {
+				byte[] bytesImg = imagen.getBytes();
+				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+				Files.write(rutaCompleta, bytesImg);
+
+				return imagen.getOriginalFilename();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		return null;
 	}
 
 	@Override
-	public List<Movie> getListMovies(List<String> listMovieTitle) {
-		List<Movie> listMovie = new ArrayList<>();
+	public List<Movie> getListMoviesByTitle(List<String> listMovieTitle) {
+			List<Movie> listMovie = new ArrayList<>();
 
-		listMovieTitle.forEach(mov -> listMovie.add(movieService.getByTitleIgnoreCase(mov)));
+			listMovieTitle.forEach(mov -> listMovie.add(movieService.getByTitleIgnoreCase(mov)));
 
-		return listMovie;
+			return listMovie;
+
 	}
-
-	@Override
-	public List<?> getList(SearchPersonajeDTO searchPersonajeDTO) {
-
-		if (searchPersonajeDTO.getName() == null && 
-			searchPersonajeDTO.getYear() == null && 
-			searchPersonajeDTO.getWeight() == null && 
-			searchPersonajeDTO.getMovieDTO() == null) {
-
-			List<?> listPersonajeDTO = mapping.mappingListPersonajesToDTO(personajeRepo.findAll());
-			return listPersonajeDTO;
-
-		} else {
-			Personaje personaje = mapping.mappingSearchPersonajeToEntity(searchPersonajeDTO);
-			Specification<Personaje> personajeSpec = spec.getAllBySpec(personaje);
-			List<Personaje> listPersonajeBySpec = personajeRepo.findAll(personajeSpec);
-			List<?> list = mapping.mappingListPersonajesToDTO(listPersonajeBySpec);
-
-			return list;
-
-		}
-	}
-
-
-
-
 
 }

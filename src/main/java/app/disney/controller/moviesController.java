@@ -42,7 +42,7 @@ public class moviesController {
 
 		GenderDTO gender = new GenderDTO(genderName);
 		SearchMovieDTO searchMovieDTO = new SearchMovieDTO(title, gender);
-		List<?> listMovies = movieService.getList(searchMovieDTO);
+		List<?> listMovies = movieService.getListMovies(searchMovieDTO);
 		
 		return new ResponseEntity<List<?>>(listMovies, HttpStatus.OK);
 

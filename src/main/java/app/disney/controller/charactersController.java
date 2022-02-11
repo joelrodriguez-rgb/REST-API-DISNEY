@@ -44,7 +44,7 @@ public class charactersController{
 		
 		MovieDTO movieDTO = new MovieDTO(title);
 		SearchPersonajeDTO searchPersonajeDTO = new SearchPersonajeDTO(name, year, weight, movieDTO);
-		List<?> listPersonajes = personajeService.getList(searchPersonajeDTO);
+		List<?> listPersonajes = personajeService.getListPersonajes(searchPersonajeDTO);
 		
 		 return new ResponseEntity<>(listPersonajes, HttpStatus.OK);
 	}

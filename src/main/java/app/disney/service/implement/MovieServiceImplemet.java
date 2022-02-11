@@ -27,136 +27,26 @@ public class MovieServiceImplemet implements IMovieService {
 
 	@Autowired
 	private IMovieRepository movieRepo;
-	
+
 	@Autowired
 	private IMapper mapping;
 
 	@Autowired
 	private MovieSpecification spec;
-	
+
 	@Autowired
 	private IGenderService genderService;
-
-
-
-	/* FUNCIONES CRUD */
-	@Override
-	public List<Movie> getAllMovie() {
-		return movieRepo.findAll();
-	}
-
-	@Override
-	public void  saveMovie(MovieDTO newMovie, 
-			               MultipartFile imagen, 
-			               String gender) {
-		Movie movie= mapping.mappingMovieDTOToEntity(newMovie);
-		validateName(movie.getTitle());
-		validateImagenAndGender(movie, imagen, gender);
-		
-		movieRepo.save(movie);
-	}
+	
+	
 	
 	@Override
-	public void upDateMovie(MovieDTO upMovie, 
-			                Integer id, 
-			                MultipartFile imagen, 
-			                String gender) {
-		
-		Movie movieExisting = getMovieById(id);
-		
-		validateImagenAndGender(movieExisting, imagen, gender);
-		
-		if (!movieExisting.getTitle().equalsIgnoreCase(upMovie.getTitle())) {
-			validateName(upMovie.getTitle());
-		}
-		
-		movieExisting.setId(id);
-		movieExisting.setTitle(upMovie.getTitle());
-		movieExisting.setCreationDate(upMovie.getCreationDate());
-		movieExisting.setQualification(upMovie.getQualification());
-	
-		movieRepo.save(movieExisting);
-		
-	}
-	
-	@Override
-	public void validateName(String title) {
-		if (movieRepo.findByTitleIgnoreCase(title) != null) 
-			throw new ExistingNameException("TITLE  : " + title);
-	}
-	
-	@Override
-	public void validateImagenAndGender(Movie movie, 
-			                               MultipartFile imagen, 
-			                               String gender) {
-		
-		if (imagen != null) saveImg(movie,imagen);
-		if (gender != null) movie.setGender(genderService.getByNameGender(gender));
-		
-		
-	}
-	
-	@Override
-	public Movie getMovieById(Integer id) {
-		return movieRepo.findById(id).orElseThrow(() -> new NotFoundException("ID : " + id));
-	}
+	public List<?> getListMovies(SearchMovieDTO searchMovieDTO) {
 
-	@Override
-	public void deleteMovieById(Integer id) {
-		
-		if (movieRepo.findById(id).isPresent())
-			movieRepo.deleteById(id);
-		else
-			throw new NotFoundException("ID : " + id);
-	}
+		if (searchMovieDTO.getTitle() == null && searchMovieDTO.getGender() == null) {
 
-	/* BUSQUEDAS */
-
-	@Override
-	public Movie getByTitleIgnoreCase(String title) {
-		return movieRepo.findByTitleIgnoreCase(title);
-	}
-
-	/* FILTROS */
-
-	@Override
-	public List<Movie> getByGender(String gender) {
-		return movieRepo.findByGender(gender);
-	}
-
-	///////////////////////////////////////////////////////////////
-	@Override
-	public void saveImg(Movie movie, MultipartFile imagen) {
-		Path directorioImagenes = Paths.get("src//main//resources//static/imgMovies");
-		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-
-		try {
-			byte[] bytesImg = imagen.getBytes();
-			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-			Files.write(rutaCompleta, bytesImg);
-			// SET Imagen
-			movie.setImgMovie(imagen.getOriginalFilename());
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public List<Movie> getAllMovieBySpec(Specification<Movie> spec) {
-          return movieRepo.findAll(spec);
-	}
-
-	@Override
-	public List<?> getList(SearchMovieDTO searchMovieDTO) {
-		
-
-		if (searchMovieDTO.getTitle() == null && 
-			searchMovieDTO.getGender() == null) {
-			
 			List<?> listMovieDTO = mapping.mappingListMovie(movieRepo.findAll());
 			return listMovieDTO;
-			
+
 		} else {
 
 			Movie movie = mapping.mappingSearchMovieToEntity(searchMovieDTO);
@@ -168,9 +58,103 @@ public class MovieServiceImplemet implements IMovieService {
 
 		}
 	}
+	
+
+	@Override
+	public List<Movie> getAllMovie() {
+		return movieRepo.findAll();
+	}
+
+	@Override
+	public void saveMovie(MovieDTO newMovie, 
+			              MultipartFile imagen, 
+			              String gender) {
+		
+		Movie movie = mapping.mappingMovieDTOToEntity(newMovie);
+		validateName(movie.getTitle());
+		movie.setImgMovie(saveImg(imagen));
+		movie.setGender(genderService.getByNameGender(gender));
+
+		movieRepo.save(movie);
+	}
+
+	@Override
+	public void upDateMovie(MovieDTO upMovie, Integer id, MultipartFile imagen, String gender) {
+
+		Movie movieExisting = getMovieById(id);
+
+		if (!movieExisting.getTitle().equalsIgnoreCase(upMovie.getTitle())) {
+			validateName(upMovie.getTitle());
+		}
+
+		movieExisting.setId(id);
+		movieExisting.setTitle(upMovie.getTitle());
+		movieExisting.setCreationDate(upMovie.getCreationDate());
+		movieExisting.setQualification(upMovie.getQualification());
+		movieExisting.setImgMovie(saveImg(imagen));
+		movieExisting.setGender(genderService.getByNameGender(gender));
+
+		movieRepo.save(movieExisting);
+
+	}
+
+	@Override
+	public void validateName(String title) {
+		if (movieRepo.findByTitleIgnoreCase(title) != null)
+			throw new ExistingNameException("TITLE  : " + title);
+	}
+
+	@Override
+	public Movie getMovieById(Integer id) {
+		return movieRepo.findById(id).orElseThrow(() -> new NotFoundException("ID : " + id));
+	}
+
+	@Override
+	public void deleteMovieById(Integer id) {
+
+		if (movieRepo.findById(id).isPresent())
+			movieRepo.deleteById(id);
+		else
+			throw new NotFoundException("ID : " + id);
+	}
 
 
+	@Override
+	public Movie getByTitleIgnoreCase(String title) {
+		return movieRepo.findByTitleIgnoreCase(title);
+	}
 
+
+	@Override
+	public List<Movie> getByGender(String gender) {
+		return movieRepo.findByGender(gender);
+	}
+
+	@Override
+	public String saveImg(MultipartFile imagen) {
+		if (imagen != null) {
+
+			Path directorioImagenes = Paths.get("src//main//resources//static/imgMovies");
+			String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+
+			try {
+				byte[] bytesImg = imagen.getBytes();
+				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+				Files.write(rutaCompleta, bytesImg);
+
+				return imagen.getOriginalFilename();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public List<Movie> getAllMovieBySpec(Specification<Movie> spec) {
+		return movieRepo.findAll(spec);
+	}
 
 
 

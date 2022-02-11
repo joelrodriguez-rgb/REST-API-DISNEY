@@ -22,7 +22,7 @@ public interface IMovieService {
 
 	void deleteMovieById(Integer id);
 	
-	List<?> getList(SearchMovieDTO searchMovieDTO);
+	List<?> getListMovies(SearchMovieDTO searchMovieDTO);
 	
 	/* BUSQUEDAS */
 	Movie getByTitleIgnoreCase(String title);
@@ -34,14 +34,12 @@ public interface IMovieService {
 	List<Movie> getByGender(String gender);
 
 	
-	
 	/////////////////////////////////////////
 	
-	void saveImg(Movie movie,MultipartFile imagen);
+	String saveImg(MultipartFile imagen);
 	
 	void validateName(String title);
 	 
-	void validateImagenAndGender(Movie movie, MultipartFile imagen, String gender);
 	
 
 

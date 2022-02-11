@@ -33,14 +33,12 @@ public interface IPersonajeService  {
 	
 	/////////////////////////////////////////////////
 	
-	void saveImg(Personaje personaje ,MultipartFile imagen);
+	String saveImg(MultipartFile imagen);
 	
-	List<Movie> getListMovies(List<String> listMovieTitle);
+	List<Movie> getListMoviesByTitle(List<String> listMovieTitle);
 	
-    List<?> getList(SearchPersonajeDTO searchPersonajeDTO);
+    List<?> getListPersonajes(SearchPersonajeDTO searchPersonajeDTO);
     
-    void validateImagenAndListMovie(Personaje personajeData, MultipartFile imagen, List<String> listMovieTitle);
-
     void validateName(String name);
 
 	

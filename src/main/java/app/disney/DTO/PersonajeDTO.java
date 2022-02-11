@@ -15,6 +15,7 @@ import lombok.Data;
 public class PersonajeDTO {
 	
 	private Integer id;
+	
 	@NotEmpty(message = "Este campo no puede estar vacio")
 	@NotBlank(message = "Este campo no puede estar en blanco")
 	@Length(min = 2 , max = 50)

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -38,10 +39,7 @@ public class Personaje {
 	@Column(name = "weight")
 	private Integer weight;
 
-	@ManyToMany(cascade = { CascadeType.MERGE})
-	@JoinTable(name = "personaje_mov", 
-	           joinColumns = @JoinColumn(name = "personaje_id"), 
-	           inverseJoinColumns = @JoinColumn(name = "movie_id"))
+	@OneToMany(cascade = { CascadeType.MERGE})
 	private List<Movie> listMovie;
 
 	public Personaje() {

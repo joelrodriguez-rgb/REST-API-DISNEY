@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-public class User {
+public class AppUser {
 	
 	@Id()
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,6 +3,8 @@ package app.disney.security;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,9 +12,14 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class AppUser {
 	
 	@Id()
@@ -35,7 +42,7 @@ public class AppUser {
 	@Pattern(regexp = "([a-z0-9]+(\\.?[a-z0-9])*)+@(([a-z]+)\\.([a-z]+))+")
 	private String email;
 	
-	@Column
+	@Embedded
 	private List<Role> roles;
 	
 }

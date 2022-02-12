@@ -1,5 +1,7 @@
 package app.disney.security;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,6 +35,7 @@ public class User {
 	@Pattern(regexp = "([a-z0-9]+(\\.?[a-z0-9])*)+@(([a-z]+)\\.([a-z]+))+")
 	private String email;
 	
+	@Column
+	private List<Role> roles;
 	
-
 }

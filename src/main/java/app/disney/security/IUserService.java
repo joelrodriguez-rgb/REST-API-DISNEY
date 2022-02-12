@@ -2,13 +2,15 @@ package app.disney.security;
 
 import java.util.List;
 
-public interface IUserService {
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+public interface IUserService extends UserDetailsService{
 	
-	AppUser saveUser(AppUser user);
+	AppUser saveUser(AppUserDto user);
 	
 	void addRole(String userName, Role sole);
 	
-	AppUser getUser(String userName);
+	AppUser getUserByUserName(String userName);
 	
 	List<AppUser> getAllUser();
 

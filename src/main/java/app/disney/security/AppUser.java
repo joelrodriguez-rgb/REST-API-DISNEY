@@ -1,16 +1,17 @@
 package app.disney.security;
 
-import java.util.List;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,23 +27,19 @@ public class AppUser {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column
-	@NotBlank
-	@NotEmpty
+	@Column(unique = true)
 	private String userName;
 	
 	@Column
-	@NotBlank
-	@NotEmpty
 	private String password;
 	
 	@Column
-	@NotBlank
-	@NotEmpty
-	@Pattern(regexp = "([a-z0-9]+(\\.?[a-z0-9])*)+@(([a-z]+)\\.([a-z]+))+")
 	private String email;
 	
-	@Embedded
-	private List<Role> roles;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "usuario_role", 
+    joinColumns = @JoinColumn(name = "user_id"), 
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Collection<Role> roles;
 	
 }

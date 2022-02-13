@@ -74,6 +74,7 @@ public class Personaje {
 		this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
 	}
 	
+	
 	public Personaje(String name,  Integer year, Integer weight, List<Movie> listMovie) {
 		this.name = name;
 		this.year = year;

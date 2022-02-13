@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 
 		} else {
 			Personaje personaje = mapping.mappingSearchPersonajeToEntity(searchPersonajeDTO);
+			personaje.setListMovie(Arrays.asList(mapping.mappingMovieDTOToEntity(searchPersonajeDTO.getMovieDTO())));
 			Specification<Personaje> personajeSpec = spec.getAllBySpec(personaje);
 			List<Personaje> listPersonajeBySpec = personajeRepo.findAll(personajeSpec);
 			List<?> list = mapping.mappingListPersonajesToDTO(listPersonajeBySpec);

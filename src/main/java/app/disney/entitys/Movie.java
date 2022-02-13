@@ -48,6 +48,10 @@ public class Movie {
 
 	public Movie() {
 	}
+	
+	public Movie(String title) {
+		this.title = title;
+	}
 
 	public Movie(String imgMovie, String title, LocalDate creationDate, Integer qualification, Gender gender) {
 		this.imgMovie = imgMovie;
@@ -56,7 +60,6 @@ public class Movie {
 		this.qualification = qualification;
 		this.gender = gender;
 	}
-	
 	
 	public Movie(String title, LocalDate date, int qualfication, Gender gender) {
 		this.title = title;

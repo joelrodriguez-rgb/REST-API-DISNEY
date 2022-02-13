@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 
 @Data 
 @AllArgsConstructor
-@NoArgsConstructor
 public class AppUserDto {
 	
 	@NotBlank
@@ -28,6 +27,14 @@ public class AppUserDto {
 	@Pattern(regexp = "([a-z0-9]+(\\.?[a-z0-9])*)+@(([a-z]+)\\.([a-z]+))+")
 	private String email;
 	
-	private Collection<Role> roles;
+	private Collection<AppRole> roles;
+	
+	public AppUserDto() {}
+	
+	public AppUserDto(String userName, String pasword, String email) {
+		this.userName = userName;
+		this.password = pasword;
+		this.email = email;
+	}
 
 }

@@ -1,5 +1,6 @@
 package app.disney.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -36,10 +37,10 @@ public class AppUser {
 	@Column
 	private String email;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	@JoinTable(name = "usuario_role", 
     joinColumns = @JoinColumn(name = "user_id"), 
     inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Collection<Role> roles;
+	private Collection<AppRole> roles = new ArrayList<>();
 	
 }

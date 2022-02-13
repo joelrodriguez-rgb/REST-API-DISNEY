@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import app.disney.repository.IGenderRepository;
 import app.disney.repository.IMovieRepository;
 import app.disney.repository.IPersonajeRepository;
+import app.disney.security.AppRole;
+import app.disney.security.IRoleRepository;
 
 @SpringBootApplication
 @Transactional
@@ -22,6 +24,9 @@ public class ChallengeDisneyApplication implements CommandLineRunner {
 
 	@Autowired
 	private IGenderRepository genderRepo;
+	
+	@Autowired
+	private IRoleRepository rolRepo;
 	
 
 	public static void main(String[] args) {
@@ -68,11 +73,11 @@ public class ChallengeDisneyApplication implements CommandLineRunner {
 //
 //		Personaje aladin = new Personaje("Aladin2", 35, 60,  movieRepo.findByTitleIgnoreCase("la lampara de aladin 2"));
 //		personajeRepo.save(aladin);
-		
-		
-		
-		
-		
+//		
+//		AppRole rol = new AppRole("USUARIO");
+//		
+//		rolRepo.save(rol);
+//		
 		
 
 	}

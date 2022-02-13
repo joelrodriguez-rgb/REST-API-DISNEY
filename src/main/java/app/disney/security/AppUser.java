@@ -21,9 +21,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Data @NoArgsConstructor @AllArgsConstructor
 @Entity
 public class AppUser {
 	
@@ -40,7 +38,7 @@ public class AppUser {
 	@Column
 	private String email;
 	
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_role", 
     joinColumns = @JoinColumn(name = "user_id"), 
     inverseJoinColumns = @JoinColumn(name = "role_id"))

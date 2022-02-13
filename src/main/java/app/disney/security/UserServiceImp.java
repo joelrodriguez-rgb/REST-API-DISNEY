@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import app.disney.exceptions.ExistingNameException;
@@ -29,6 +30,9 @@ public class UserServiceImp implements IUserService, UserDetailsService {
 
 	@Autowired
 	private ModelMapper mapper;
+	
+	@Autowired
+	private PasswordEncoder bcrypt;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -56,6 +60,7 @@ public class UserServiceImp implements IUserService, UserDetailsService {
 		}
 		AppUser user = mapper.map(userDto, AppUser.class);
 		user.setRoles(Arrays.asList(roleService.getRoleById(1)));
+		user.setPassword(bcrypt.encode(userDto.getPassword()));
 
 		return userRepo.save(user);
 	}

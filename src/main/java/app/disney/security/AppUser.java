@@ -14,10 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -42,5 +45,12 @@ public class AppUser {
     joinColumns = @JoinColumn(name = "user_id"), 
     inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Collection<AppRole> roles = new ArrayList<>();
+	
+	
+	public AppUser(String userName, String pasword, String email) {
+		this.userName = userName;
+		this.password = pasword;
+		this.email = email;
+	}
 	
 }

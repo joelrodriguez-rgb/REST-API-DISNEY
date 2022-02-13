@@ -56,7 +56,6 @@ public class UserServiceImp implements IUserService, UserDetailsService {
 		}
 		AppUser user = mapper.map(userDto, AppUser.class);
 		user.setRoles(Arrays.asList(roleService.getRoleById(1)));
-		log.info(roleService.getRoleById(1).getAuthority());
 
 		return userRepo.save(user);
 	}

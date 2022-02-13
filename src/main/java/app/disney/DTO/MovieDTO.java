@@ -38,7 +38,7 @@ public class MovieDTO {
 	private Integer qualification;
 
 
-	private Gender gender;
+	private GenderDTO gender;
 	
 	
 	public MovieDTO() {
@@ -50,7 +50,7 @@ public class MovieDTO {
 
 	
 	public MovieDTO( String title, String imgMovie, LocalDate creationDate, Integer qualification,
-			Gender gender) {
+			GenderDTO gender) {
 		this.imgMovie = imgMovie;
 		this.title = title;
 		this.creationDate = creationDate;
@@ -58,7 +58,7 @@ public class MovieDTO {
 		this.gender = gender;
 	}
 	
-	public MovieDTO( String title, LocalDate creationDate, Integer qualification,Gender gender) {
+	public MovieDTO( String title, LocalDate creationDate, Integer qualification,GenderDTO gender) {
 		this.title = title;
 		this.creationDate = creationDate;
 		this.qualification = qualification;

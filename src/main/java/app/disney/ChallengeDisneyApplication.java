@@ -6,11 +6,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
+import app.disney.entitys.AppRole;
 import app.disney.repository.IGenderRepository;
 import app.disney.repository.IMovieRepository;
 import app.disney.repository.IPersonajeRepository;
-import app.disney.security.AppRole;
-import app.disney.security.IRoleRepository;
+import app.disney.repository.IRoleRepository;
 
 @SpringBootApplication
 @Transactional

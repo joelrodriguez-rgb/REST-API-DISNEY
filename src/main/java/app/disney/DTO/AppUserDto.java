@@ -1,4 +1,4 @@
-package app.disney.security;
+package app.disney.DTO;
 
 import java.util.Collection;
 
@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import app.disney.entitys.AppRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

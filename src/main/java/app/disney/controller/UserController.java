@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.disney.security.AppUserDto;
-import app.disney.security.IUserService;
+import app.disney.DTO.AppUserDto;
+import app.disney.service.IUserService;
 
 
 @RequestMapping("/user")

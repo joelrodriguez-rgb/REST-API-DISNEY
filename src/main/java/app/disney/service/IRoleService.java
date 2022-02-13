@@ -1,4 +1,6 @@
-package app.disney.security;
+package app.disney.service;
+
+import app.disney.entitys.AppRole;
 
 public interface IRoleService {
 	

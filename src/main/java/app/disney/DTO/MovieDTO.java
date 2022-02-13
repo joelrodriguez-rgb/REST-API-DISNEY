@@ -43,6 +43,7 @@ public class MovieDTO {
 	
 	public MovieDTO() {
 	}
+	
 	public MovieDTO(String title) {
 		this.title = title;
 	}

@@ -22,10 +22,8 @@ import app.disney.exceptions.ExistingNameException;
 import app.disney.repository.IUserRepository;
 import app.disney.service.IRoleService;
 import app.disney.service.IUserService;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 public class UserServiceImp implements IUserService, UserDetailsService {
 
 	@Autowired

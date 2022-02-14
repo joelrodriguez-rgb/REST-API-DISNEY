@@ -3,6 +3,7 @@ package app.disney.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,13 +13,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import app.disney.security.filter.CustomAuthenticationFilter;
+import app.disney.security.filter.CustomAuthorizationFilter;
 
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -28,6 +29,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 
 		return new BCryptPasswordEncoder();
+
+	}
+
+	@Bean @Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+
+		return super.authenticationManagerBean();
 
 	}
 
@@ -43,15 +51,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.authorizeRequests().anyRequest().permitAll();
+		http.authorizeRequests().antMatchers("/login").permitAll();
+		// http.authorizeRequests().antMatchers(HttpMethod.GET,
+		// "/characters/**").hasAnyAuthority("USER");
+		//http.authorizeRequests().antMatchers(HttpMethod.GET, "/movies/**").hasAnyAuthority("USER");
+		http.authorizeRequests().anyRequest().authenticated();
 		http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+		http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
 	}
 
-	@Bean @Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-
-		return super.authenticationManagerBean();
-
-	}
 }

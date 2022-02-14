@@ -13,6 +13,8 @@ public interface IUserService {
 	void addRole(String userName, AppRole sole);
 		
 	List<AppUser> getAllUser();
+	
+	AppUser getUser(String userName);
 
 
 }

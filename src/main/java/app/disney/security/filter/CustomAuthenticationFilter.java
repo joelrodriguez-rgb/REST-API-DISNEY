@@ -71,17 +71,12 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 				.withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
 				.withIssuer(request.getRequestURI().toString()).sign(algorithm);
 
-//		response.setHeader("acces_token", acces_token);
-//		response.setHeader("refresh_token", refresh_token);
-		
-		Map<String , String> tokens = new HashMap<String, String>();
+		Map<String, String> tokens = new HashMap<String, String>();
 		tokens.put("acces_token", acces_token);
 		tokens.put("refresh_token", refresh_token);
-		
+
 		response.setContentType(APPLICATION_JSON_VALUE);
 		new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-		
-		
 
 	}
 

@@ -28,7 +28,7 @@ import app.disney.util.IMapper;
 
 @RestController
 @RequestMapping("/characters")
-@PreAuthorize("USER")
+//@PreAuthorize("USER")
 public class charactersController{
 	
 	@Autowired

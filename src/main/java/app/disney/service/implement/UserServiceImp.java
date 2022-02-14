@@ -82,4 +82,11 @@ public class UserServiceImp implements IUserService, UserDetailsService {
 		return listAllUser;
 	}
 
+	@Override
+	public AppUser getUser(String userName) {
+
+		return userRepo.findByUserName(userName);
+
+	}
+
 }

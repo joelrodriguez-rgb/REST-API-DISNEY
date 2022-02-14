@@ -42,9 +42,10 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	@Override
 	public List<?> getListPersonajes(SearchPersonajeDTO searchPersonajeDTO) {
 
-		if (searchPersonajeDTO.getName() == null && searchPersonajeDTO.getYear() == null
-				&& searchPersonajeDTO.getWeight() == null
-				&& searchPersonajeDTO.getMovieDTO() == null) {
+		if (searchPersonajeDTO.getName() == null &&
+			searchPersonajeDTO.getYear() == null && 
+			searchPersonajeDTO.getWeight() == null && 
+			searchPersonajeDTO.getMovieDTO().getTitle() == null) {
 
 			List<?> listPersonajeDTO = mapping.mappingListPersonajesToDTO(personajeRepo.findAll());
 			return listPersonajeDTO;

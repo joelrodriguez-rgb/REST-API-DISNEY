@@ -44,7 +44,7 @@ public class charactersController{
 			@RequestParam(value = "weight", required = false) Integer weight,
 			@RequestParam(value = "title", required = false) String title) {
 		
-		MovieDTO movieDTO = new MovieDTO(title);
+		MovieDTO movieDTO =  new MovieDTO(title);
 		SearchPersonajeDTO searchPersonajeDTO = new SearchPersonajeDTO(name, year, weight, movieDTO);
 		List<?> listPersonajes = personajeService.getListPersonajes(searchPersonajeDTO);
 		

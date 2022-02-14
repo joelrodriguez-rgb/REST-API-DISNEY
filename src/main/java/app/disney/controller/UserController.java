@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import app.disney.DTO.AppUserDto;
 import app.disney.service.IUserService;
 
-
 @RequestMapping("/user")
 @RestController
 public class UserController {
@@ -31,19 +30,16 @@ public class UserController {
 		return new ResponseEntity<>(userDto, HttpStatus.OK);
 
 	}
-	
+
 	@PostMapping("/saveUser")
-	private ResponseEntity<?> saveUser(@RequestBody @Valid AppUserDto newUser, BindingResult result){
-		
-		if (result.hasErrors()) return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
-		
-		return new ResponseEntity<>(userService.saveUser(newUser),HttpStatus.CREATED);
-		
+	private ResponseEntity<?> saveUser(	@RequestBody @Valid AppUserDto newUser,
+										BindingResult result) {
+
+		if (result.hasErrors())
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+		return new ResponseEntity<>(userService.saveUser(newUser), HttpStatus.CREATED);
+
 	}
-	
-	
-	
-	
-	
 
 }

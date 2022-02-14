@@ -42,17 +42,17 @@ public class PersonajeServiceImplement implements IPersonajeService {
 	@Override
 	public List<?> getListPersonajes(SearchPersonajeDTO searchPersonajeDTO) {
 
-		if (searchPersonajeDTO.getName() == null 
-			&& searchPersonajeDTO.getYear() == null
-			&& searchPersonajeDTO.getWeight() == null
-			&& searchPersonajeDTO.getMovieDTO() == null) {
+		if (searchPersonajeDTO.getName() == null && searchPersonajeDTO.getYear() == null
+				&& searchPersonajeDTO.getWeight() == null
+				&& searchPersonajeDTO.getMovieDTO() == null) {
 
 			List<?> listPersonajeDTO = mapping.mappingListPersonajesToDTO(personajeRepo.findAll());
 			return listPersonajeDTO;
 
 		} else {
 			Personaje personaje = mapping.mappingSearchPersonajeToEntity(searchPersonajeDTO);
-			personaje.setListMovie(Arrays.asList(mapping.mappingMovieDTOToEntity(searchPersonajeDTO.getMovieDTO())));
+			personaje.setListMovie(Arrays
+					.asList(mapping.mappingMovieDTOToEntity(searchPersonajeDTO.getMovieDTO())));
 			Specification<Personaje> personajeSpec = spec.getAllBySpec(personaje);
 			List<Personaje> listPersonajeBySpec = personajeRepo.findAll(personajeSpec);
 			List<?> list = mapping.mappingListPersonajesToDTO(listPersonajeBySpec);
@@ -60,22 +60,27 @@ public class PersonajeServiceImplement implements IPersonajeService {
 			return list;
 
 		}
+
 	}
 
 	@Override
 	public List<Personaje> getAllPersonaje() {
+
 		return personajeRepo.findAll();
+
 	}
 
 	@Override
 	public List<Personaje> getAllPersonaje(Specification<Personaje> spec) {
+
 		return personajeRepo.findAll(spec);
+
 	}
 
 	@Override
-	public void savePersonaje(PersonajeDTO newPersonaje,
-			                  MultipartFile imagen,
-			                  List<String> listMovieTitle) {
+	public void savePersonaje(	PersonajeDTO newPersonaje,
+								MultipartFile imagen,
+								List<String> listMovieTitle) {
 
 		Personaje personaje = mapping.mappingPersonajeDTOToEntity(newPersonaje);
 		validateName(personaje.getName());
@@ -84,12 +89,14 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		personaje.setListMovie(getListMoviesByTitle(listMovieTitle));
 
 		personajeRepo.save(personaje);
+
 	}
 
 	@Override
-	public void upDatePersonaje(PersonajeDTO upPersonaje, 
-			                    Integer id, MultipartFile imagen,
-			                    List<String> listMovieTitle) {
+	public void upDatePersonaje(PersonajeDTO upPersonaje,
+								Integer id,
+								MultipartFile imagen,
+								List<String> listMovieTitle) {
 
 		Personaje personajeExisting = getPersonajeById(id);
 
@@ -104,36 +111,42 @@ public class PersonajeServiceImplement implements IPersonajeService {
 		personajeExisting.setListMovie(getListMoviesByTitle(listMovieTitle));
 
 		personajeRepo.save(personajeExisting);
+
 	}
 
 	@Override
 	public void validateName(String name) {
+
 		if (personajeRepo.findByNameIgnoreCase(name) != null)
 			throw new ExistingNameException("NAME  : " + name);
+
 	}
 
 	@Override
 	public Personaje getPersonajeById(Integer id) {
 
 		return personajeRepo.findById(id).orElseThrow(() -> new NotFoundException("ID : " + id));
+
 	}
 
 	@Override
 	public void deletePersonajeById(Integer id) {
 
-		if (personajeRepo.findById(id).isPresent())
-			personajeRepo.deleteById(id);
-		else
-			throw new NotFoundException("ID : " + id);
+		if (personajeRepo.findById(id).isPresent()) personajeRepo.deleteById(id);
+		else throw new NotFoundException("ID : " + id);
+
 	}
 
 	@Override
 	public Personaje getByNameIgnoreCase(String name) {
+
 		return personajeRepo.findByNameIgnoreCase(name);
+
 	}
 
 	@Override
 	public String saveImg(MultipartFile imagen) {
+
 		if (imagen != null) {
 
 			Path directorioImagenes = Paths.get("src//main//resources//static/imgCharacters");
@@ -151,15 +164,17 @@ public class PersonajeServiceImplement implements IPersonajeService {
 			}
 		}
 		return null;
+
 	}
 
 	@Override
 	public List<Movie> getListMoviesByTitle(List<String> listMovieTitle) {
-			List<Movie> listMovie = new ArrayList<>();
 
-			listMovieTitle.forEach(mov -> listMovie.add(movieService.getByTitleIgnoreCase(mov)));
+		List<Movie> listMovie = new ArrayList<>();
 
-			return listMovie;
+		listMovieTitle.forEach(mov -> listMovie.add(movieService.getByTitleIgnoreCase(mov)));
+
+		return listMovie;
 
 	}
 

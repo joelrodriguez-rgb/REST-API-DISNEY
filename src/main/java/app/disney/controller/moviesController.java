@@ -87,13 +87,8 @@ public class moviesController {
 	public ResponseEntity<?> detailMovie(@PathVariable Integer id) {
 
 		MovieDTO movieDTO = mapping.mappingMovieToDTO(movieService.getMovieById(id));
-		List<String> personajes = movieService.getAllPersonajesByMovie(id);
 		
-		JSONObject myMovieJSON = new JSONObject();
-	//	myMovieJSON.put("Movie", movieDTO);
-		myMovieJSON.put("Personajes", personajes);
-		
-		return new ResponseEntity<>(myMovieJSON, HttpStatus.OK);
+		return new ResponseEntity<>(movieDTO, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")

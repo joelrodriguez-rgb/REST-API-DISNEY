@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,8 +68,16 @@ public class charactersController{
 	@GetMapping("/detailCharacter/{id}")
 	public ResponseEntity<?> detailCharacter(@PathVariable Integer id)  {
 
-		PersonajeDTO personajeDTObyID = mapping.mappingPersonajeToDTO(personajeService.getPersonajeById(id))  ;
-		return new ResponseEntity<>(personajeDTObyID, HttpStatus.OK);
+		PersonajeDTO personajeDTO = mapping.mappingPersonajeToDTO(personajeService.getPersonajeById(id));
+		List<String> movies = personajeService.getAllMoviesByPersonajeId(id);
+		JSONObject myPersonajeJSON = new JSONObject();
+		myPersonajeJSON.put("Name", personajeDTO.getName());
+		myPersonajeJSON.put("Year", personajeDTO.getYear());
+		myPersonajeJSON.put("Weight", personajeDTO.getWeight());
+		myPersonajeJSON.put("Imagen", personajeDTO.getImgPersonaje());
+		myPersonajeJSON.put("Movies", movies );
+			
+		return new ResponseEntity<>(myPersonajeJSON.toString(), HttpStatus.OK);
 
 	}
 	

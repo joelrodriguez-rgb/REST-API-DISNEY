@@ -30,6 +30,7 @@ public interface IPersonajeService  {
 
 	Personaje getByNameIgnoreCase(String name);
 	
+	List<String> getAllMoviesByPersonajeId(Integer id);
 	
 	/////////////////////////////////////////////////
 	

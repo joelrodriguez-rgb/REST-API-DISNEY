@@ -179,4 +179,11 @@ public class PersonajeServiceImplement implements IPersonajeService {
 
 	}
 
+	@Override
+	public List<String> getAllMoviesByPersonajeId(Integer id) {
+
+		return personajeRepo.findAllMoviesByPersonajeId(id);
+
+	}
+
 }

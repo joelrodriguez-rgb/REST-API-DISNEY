@@ -37,7 +37,8 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 									HttpServletResponse response,
 									FilterChain filterChain) throws ServletException, IOException {
 
-		if (request.getServletPath().equals("/login")) {
+		if (request.getServletPath().equals("/login")
+				|| request.getServletPath().equals("/auth/token/refresh")) {
 
 			filterChain.doFilter(request, response);
 		} else {
@@ -64,8 +65,8 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 					Stream.of(roles)
 							.forEach(role -> authorities.add(new SimpleGrantedAuthority(role)));
 
-					UsernamePasswordAuthenticationToken authenticationToken= new 
-					UsernamePasswordAuthenticationToken(username, null, authorities);
+					UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+							username, null, authorities);
 
 					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 

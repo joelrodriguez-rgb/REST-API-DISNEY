@@ -10,40 +10,35 @@ import app.disney.DTO.SearchMovieDTO;
 import app.disney.entitys.Movie;
 
 public interface IMovieService {
-	
+
 	/* FUNCIONES CRUD */
-	List<Movie> getAllMovie();
 
 	void saveMovie(MovieDTO newMovie, MultipartFile imagen, String gender);
-	
-	void upDateMovie(MovieDTO upMovie, Integer id,  MultipartFile imagen, String gender);
+
+	void upDateMovie(MovieDTO upMovie, Integer id, MultipartFile imagen, String gender);
 
 	Movie getMovieById(Integer id);
 
 	void deleteMovieById(Integer id);
-	
+
 	List<?> getListMovies(SearchMovieDTO searchMovieDTO);
-	
+
 	/* BUSQUEDAS */
+	
 	Movie getByTitleIgnoreCase(String title);
-	
+
 	List<Movie> getAllMovieBySpec(Specification<Movie> spec);
-	
-	/*FILTROS*/
-	
-	List<Movie> getByGender(String gender);
 
-	
+	/* FILTROS */
+
+	List<?> getAllOrderByCreationDateAsc();
+
+	List<?> getAllOrderByCreationDateDesc();
+
 	/////////////////////////////////////////
-	
+
 	String saveImg(MultipartFile imagen);
-	
+
 	void validateName(String title);
-	 
-	
-
-
-	
-
 
 }

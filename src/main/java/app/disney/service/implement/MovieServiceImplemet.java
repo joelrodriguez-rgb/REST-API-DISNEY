@@ -36,9 +36,7 @@ public class MovieServiceImplemet implements IMovieService {
 
 	@Autowired
 	private IGenderService genderService;
-	
-	
-	
+
 	@Override
 	public List<?> getListMovies(SearchMovieDTO searchMovieDTO) {
 
@@ -57,25 +55,19 @@ public class MovieServiceImplemet implements IMovieService {
 			return list;
 
 		}
-	}
-	
 
-	@Override
-	public List<Movie> getAllMovie() {
-		return movieRepo.findAll();
 	}
 
 	@Override
-	public void saveMovie(MovieDTO newMovie, 
-			              MultipartFile imagen, 
-			              String gender) {
-		
+	public void saveMovie(MovieDTO newMovie, MultipartFile imagen, String gender) {
+
 		Movie movie = mapping.mappingMovieDTOToEntity(newMovie);
 		validateName(movie.getTitle());
 		movie.setImgMovie(saveImg(imagen));
 		movie.setGender(genderService.getByNameGender(gender));
 
 		movieRepo.save(movie);
+
 	}
 
 	@Override
@@ -100,38 +92,37 @@ public class MovieServiceImplemet implements IMovieService {
 
 	@Override
 	public void validateName(String title) {
+
 		if (movieRepo.findByTitleIgnoreCase(title) != null)
 			throw new ExistingNameException("TITLE  : " + title);
+
 	}
 
 	@Override
 	public Movie getMovieById(Integer id) {
+
 		return movieRepo.findById(id).orElseThrow(() -> new NotFoundException("ID : " + id));
+
 	}
 
 	@Override
 	public void deleteMovieById(Integer id) {
 
-		if (movieRepo.findById(id).isPresent())
-			movieRepo.deleteById(id);
-		else
-			throw new NotFoundException("ID : " + id);
-	}
+		if (movieRepo.findById(id).isPresent()) movieRepo.deleteById(id);
+		else throw new NotFoundException("ID : " + id);
 
+	}
 
 	@Override
 	public Movie getByTitleIgnoreCase(String title) {
+
 		return movieRepo.findByTitleIgnoreCase(title);
-	}
 
-
-	@Override
-	public List<Movie> getByGender(String gender) {
-		return movieRepo.findByGender(gender);
 	}
 
 	@Override
 	public String saveImg(MultipartFile imagen) {
+
 		if (imagen != null) {
 
 			Path directorioImagenes = Paths.get("src//main//resources//static/imgMovies");
@@ -143,19 +134,38 @@ public class MovieServiceImplemet implements IMovieService {
 				Files.write(rutaCompleta, bytesImg);
 
 				return imagen.getOriginalFilename();
-				
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		return null;
+
 	}
 
 	@Override
 	public List<Movie> getAllMovieBySpec(Specification<Movie> spec) {
+
 		return movieRepo.findAll(spec);
+
 	}
 
+	@Override
+	public List<?> getAllOrderByCreationDateAsc() {
 
+		List<?> list = mapping.mappingListMovie(movieRepo.findAllOrderByCreationDateAsc());
+
+		return list;
+
+	}
+
+	@Override
+	public List<?> getAllOrderByCreationDateDesc() {
+
+		List<?> list = mapping.mappingListMovie(movieRepo.findAllOrderByCreationDateDesc());
+
+		return list;
+
+	}
 
 }

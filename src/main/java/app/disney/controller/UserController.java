@@ -35,7 +35,7 @@ import app.disney.entitys.AppRole;
 import app.disney.entitys.AppUser;
 import app.disney.service.IUserService;
 
-@RequestMapping("/user")
+@RequestMapping("/auth")
 @RestController
 public class UserController {
 
@@ -48,6 +48,16 @@ public class UserController {
 		AppUserDto userDto = new AppUserDto();
 
 		return new ResponseEntity<>(userDto, HttpStatus.OK);
+
+	}
+
+	@PostMapping("/register")
+	private ResponseEntity<?> saveUser(	@RequestBody @Valid AppUserDto newUser,
+										BindingResult result) {
+
+		if (result.hasErrors()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+		return new ResponseEntity<>(userService.saveUser(newUser), HttpStatus.CREATED);
 
 	}
 
@@ -104,16 +114,6 @@ public class UserController {
 			throw new RuntimeException("Refresh token is missing");
 
 		}
-
-	}
-
-	@PostMapping("/saveUser")
-	private ResponseEntity<?> saveUser(	@RequestBody @Valid AppUserDto newUser,
-										BindingResult result) {
-
-		if (result.hasErrors()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
-		return new ResponseEntity<>(userService.saveUser(newUser), HttpStatus.CREATED);
 
 	}
 

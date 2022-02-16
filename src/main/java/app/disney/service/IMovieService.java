@@ -28,6 +28,8 @@ public interface IMovieService {
 	Movie getByTitleIgnoreCase(String title);
 
 	List<Movie> getAllMovieBySpec(Specification<Movie> spec);
+	
+	List<String> getAllPersonajesByMovie(Integer id);
 
 	/* FILTROS */
 

@@ -1,9 +1,11 @@
 package app.disney.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,14 +42,30 @@ public class moviesController {
 	@GetMapping()
 	public ResponseEntity<List<?>> listMovies(
 			@RequestParam(value = "title", required = false) String title,
-			@RequestParam(value = "gender", required = false) String genderName) {
-
+			@RequestParam(value = "gender", required = false) String genderName,
+			@RequestParam(value = "order", required = false) String order) {
+		
+		
+		if (order != null) {
+			
+			List<?> listMovies = new ArrayList();
+			
+			if (order.equalsIgnoreCase("ASC")) 
+				listMovies = movieService.getAllOrderByCreationDateAsc();
+				
+			else 
+				listMovies =	movieService.getAllOrderByCreationDateDesc();
+			 
+			return new ResponseEntity<List<?>>(listMovies, HttpStatus.OK);
+			
+		}else {
+			
 		GenderDTO gender = new GenderDTO(genderName);
 		SearchMovieDTO searchMovieDTO = new SearchMovieDTO(title, gender);
 		List<?> listMovies = movieService.getListMovies(searchMovieDTO);
 		
 		return new ResponseEntity<List<?>>(listMovies, HttpStatus.OK);
-
+		}
 	}
 
 	@GetMapping("/addMovie")
@@ -69,7 +87,13 @@ public class moviesController {
 	public ResponseEntity<?> detailMovie(@PathVariable Integer id) {
 
 		MovieDTO movieDTO = mapping.mappingMovieToDTO(movieService.getMovieById(id));
-		return new ResponseEntity<>(movieDTO, HttpStatus.OK);
+		List<String> personajes = movieService.getAllPersonajesByMovie(id);
+		
+		JSONObject myMovieJSON = new JSONObject();
+	//	myMovieJSON.put("Movie", movieDTO);
+		myMovieJSON.put("Personajes", personajes);
+		
+		return new ResponseEntity<>(myMovieJSON, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")

@@ -168,4 +168,13 @@ public class MovieServiceImplemet implements IMovieService {
 
 	}
 
+	@Override
+	public List<String> getAllPersonajesByMovie(Integer id) {
+
+		List<String> listPersonaje = movieRepo.findAllPersonajesByMovie(id);
+
+		return listPersonaje;
+
+	}
+
 }

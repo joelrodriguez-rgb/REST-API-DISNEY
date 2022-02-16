@@ -1,7 +1,6 @@
 package app.disney;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -50,36 +49,6 @@ class MovieRepositoryTest {
 		//THEN
 		assertEquals(mov, movieRepo.findByTitleIgnoreCase("pElIcULA 01"));
 	}
-
-	/**
-	 * @Query(value = "SELECT * FROM movies mov, gender gen " 
-	 *              + "WHERE mov.gender_id = gen.id " 
-	 *              + "AND gen.gender_name = ?1" , nativeQuery = true)
-	 */
-	@Test
-	void findByGenderTest() {
-		
-		//GIVEN
-		Gender gen = new Gender("dibujo");
-		LocalDate date = LocalDate.of(2003, 6, 20);
-		Movie mov1 = new Movie("PELICULA 01", date, 3, gen);
-		Movie mov2 = new Movie("PELICULA 02", date, 3, gen);
-		List<Movie> list = new ArrayList<Movie>();
-		list.add(mov1);
-		list.add(mov2);
-		
-		
-		//WHEN
-		when(movieRepo.findByGender("dibujo")).thenReturn(list);
-		
-		//THEN
-		assertNotNull( movieRepo.findByGender("dibujo"));
-		assertEquals(mov1, movieRepo.findByGender("dibujo").get(0));
-		assertEquals(mov2, movieRepo.findByGender("dibujo").get(1));
-
-	}
-	
-
 
 	@Test
 	void findAllByTitleSpecTest() {

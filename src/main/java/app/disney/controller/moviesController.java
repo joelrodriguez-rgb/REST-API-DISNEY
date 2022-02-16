@@ -27,6 +27,9 @@ import app.disney.DTO.MovieDTO;
 import app.disney.DTO.SearchMovieDTO;
 import app.disney.service.IMovieService;
 import app.disney.util.IMapper;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 
 @RestController
 @RequestMapping("/movies")
@@ -87,8 +90,16 @@ public class moviesController {
 	public ResponseEntity<?> detailMovie(@PathVariable Integer id) {
 
 		MovieDTO movieDTO = mapping.mappingMovieToDTO(movieService.getMovieById(id));
-		
-		return new ResponseEntity<>(movieDTO, HttpStatus.OK);
+        List<String> personajes = movieService.getAllPersonajesByMovie(id);
+        
+        JSONObject myMovieJSON = new JSONObject();
+        myMovieJSON.put("Title", movieDTO.getTitle());
+        myMovieJSON.put("Creation Date", movieDTO.getCreationDate() );
+        myMovieJSON.put("Qualification", movieDTO.getQualification() );
+        myMovieJSON.put("Gender", movieDTO.getGender().getGenderName() );
+        myMovieJSON.put("Personajes", personajes );
+		    
+		return new ResponseEntity<>(myMovieJSON.toString(), HttpStatus.OK) ;
 	}
 
 	@DeleteMapping("/{id}")

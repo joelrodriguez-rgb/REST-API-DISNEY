@@ -97,8 +97,11 @@ public class moviesController {
         myMovieJSON.put("Creation Date", movieDTO.getCreationDate() );
         myMovieJSON.put("Qualification", movieDTO.getQualification() );
         myMovieJSON.put("Gender", movieDTO.getGender().getGenderName() );
+        myMovieJSON.put("Imagen", movieDTO.getImgMovie());
+        
         myMovieJSON.put("Personajes", personajes );
-		    
+		
+        
 		return new ResponseEntity<>(myMovieJSON.toString(), HttpStatus.OK) ;
 	}
 

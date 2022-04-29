@@ -13,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
 
-import app.disney.DTO.GenderDTO;
-import app.disney.DTO.SearchMovieDTO;
-import app.disney.entitys.Gender;
-import app.disney.entitys.Movie;
-import app.disney.repository.IMovieRepository;
-import app.disney.specification.MovieSpecification;
+import app.disney.ports.input.rs.request.GenderDTO;
+import app.disney.ports.input.rs.request.SearchMovieDTO;
+import app.disney.domain.model.Gender;
+import app.disney.domain.model.Movie;
+import app.disney.domain.repository.IMovieRepository;
+import app.disney.ports.input.rs.api.specification.MovieSpecification;
 import app.disney.util.IMapper;
 
 

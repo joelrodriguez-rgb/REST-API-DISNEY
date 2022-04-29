@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import app.disney.DTO.SearchPersonajeDTO;
+import app.disney.ports.input.rs.request.SearchPersonajeDTO;
 import app.disney.util.IMapper;
 import app.disney.util.Mapping;
 

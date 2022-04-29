@@ -6,14 +6,14 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import app.disney.DTO.GenderDTO;
-import app.disney.DTO.MovieDTO;
-import app.disney.DTO.PersonajeDTO;
-import app.disney.DTO.SearchMovieDTO;
-import app.disney.DTO.SearchPersonajeDTO;
-import app.disney.entitys.Gender;
-import app.disney.entitys.Movie;
-import app.disney.entitys.Personaje;
+import app.disney.ports.input.rs.request.GenderDTO;
+import app.disney.ports.input.rs.request.MovieDTO;
+import app.disney.ports.input.rs.request.PersonajeDTO;
+import app.disney.ports.input.rs.request.SearchMovieDTO;
+import app.disney.ports.input.rs.request.SearchPersonajeDTO;
+import app.disney.domain.model.Gender;
+import app.disney.domain.model.Movie;
+import app.disney.domain.model.Personaje;
 
 public class Mapping implements IMapper {
 

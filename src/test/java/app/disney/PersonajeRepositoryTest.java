@@ -13,12 +13,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.domain.Specification;
 
-import app.disney.DTO.MovieDTO;
-import app.disney.DTO.SearchPersonajeDTO;
-import app.disney.entitys.Movie;
-import app.disney.entitys.Personaje;
-import app.disney.repository.IPersonajeRepository;
-import app.disney.specification.PersonajeSpecification;
+import app.disney.ports.input.rs.request.MovieDTO;
+import app.disney.ports.input.rs.request.SearchPersonajeDTO;
+import app.disney.domain.model.Movie;
+import app.disney.domain.model.Personaje;
+import app.disney.domain.repository.IPersonajeRepository;
+import app.disney.ports.input.rs.api.specification.PersonajeSpecification;
 import app.disney.util.IMapper;
 
 @SpringBootTest

@@ -2,11 +2,8 @@ package app.disney;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,20 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.web.multipart.MultipartFile;
 
-import app.disney.DTO.MovieDTO;
-import app.disney.DTO.PersonajeDTO;
-import app.disney.entitys.Gender;
-import app.disney.entitys.Movie;
-import app.disney.entitys.Personaje;
-import app.disney.repository.IGenderRepository;
-import app.disney.repository.IMovieRepository;
-import app.disney.repository.IPersonajeRepository;
-import app.disney.service.IMovieService;
-import app.disney.service.IPersonajeService;
-import app.disney.service.implement.PersonajeServiceImplement;
-import app.disney.specification.PersonajeSpecification;
+import app.disney.domain.model.Gender;
+import app.disney.domain.model.Movie;
+import app.disney.domain.model.Personaje;
+import app.disney.domain.repository.IGenderRepository;
+import app.disney.domain.repository.IMovieRepository;
+import app.disney.domain.repository.IPersonajeRepository;
+import app.disney.domain.usercase.IMovieService;
+import app.disney.domain.usercase.IPersonajeService;
+import app.disney.domain.usercase.impl.PersonajeServiceImplement;
+import app.disney.ports.input.rs.api.specification.PersonajeSpecification;
 import app.disney.util.IMapper;
 
 @SpringBootTest

@@ -13,8 +13,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import app.disney.ports.input.rs.request.PersonajeDTO;
-import app.disney.ports.input.rs.request.SearchPersonajeDTO;
 import app.disney.domain.model.Movie;
 import app.disney.domain.model.Personaje;
 import app.disney.common.exceptions.ExistingNameException;

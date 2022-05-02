@@ -1,8 +1,5 @@
 package app.disney.ports.input.rs.controller;
 
-import app.disney.ports.input.rs.request.MovieDTO;
-import app.disney.ports.input.rs.request.PersonajeDTO;
-import app.disney.ports.input.rs.request.SearchPersonajeDTO;
 import app.disney.domain.usercase.IPersonajeService;
 import app.disney.util.IMapper;
 import org.json.JSONObject;

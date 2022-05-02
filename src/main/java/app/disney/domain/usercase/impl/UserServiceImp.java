@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import app.disney.ports.input.rs.request.AppUserDto;
 import app.disney.domain.model.AppRole;
 import app.disney.domain.model.AppUser;
 import app.disney.common.exceptions.ExistingNameException;

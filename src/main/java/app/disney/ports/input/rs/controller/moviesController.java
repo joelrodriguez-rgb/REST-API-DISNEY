@@ -22,9 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import app.disney.ports.input.rs.request.GenderDTO;
-import app.disney.ports.input.rs.request.MovieDTO;
-import app.disney.ports.input.rs.request.SearchMovieDTO;
 import app.disney.domain.usercase.IMovieService;
 import app.disney.util.IMapper;
 import lombok.extern.slf4j.Slf4j;

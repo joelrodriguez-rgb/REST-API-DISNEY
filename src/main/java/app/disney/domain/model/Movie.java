@@ -1,6 +1,7 @@
 package app.disney.domain.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,19 +13,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "movies")
 public class Movie {
 
@@ -61,11 +58,11 @@ public class Movie {
 
 	}
 
-	public Movie(String title, LocalDate date, int qualfication, Gender gender) {
+	public Movie(String title, LocalDate date, int qualification, Gender gender) {
 
 		this.title = title;
 		this.creationDate = date;
-		this.qualification = qualfication;
+		this.qualification = qualification;
 		this.gender = gender;
 
 	}
@@ -78,4 +75,24 @@ public class Movie {
 
 	}
 
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Movie movie = (Movie) o;
+
+		if (!id.equals(movie.id)) return false;
+		if (!imgMovie.equals(movie.imgMovie)) return false;
+		if (!title.equals(movie.title)) return false;
+		if (!creationDate.equals(movie.creationDate)) return false;
+		if (!qualification.equals(movie.qualification)) return false;
+		return gender.equals(movie.gender);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 }

@@ -30,7 +30,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import app.disney.ports.input.rs.request.AppUserDto;
 import app.disney.domain.model.AppRole;
 import app.disney.domain.model.AppUser;
 import app.disney.domain.usercase.IUserService;
@@ -86,7 +85,7 @@ public class UserController {
 				String acces_token = JWT.create().withSubject(user.getUserName())
 						.withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
 						.withIssuer(request.getRequestURI().toString())
-						.withClaim("roles", user.getRoles().stream().map(AppRole::getAuthority)
+						.withClaim("roles", user.getRoles().stream().map(AppRole::getName)
 								.collect(Collectors.toList()))
 						.sign(algorithm);
 

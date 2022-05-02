@@ -3,6 +3,7 @@ package app.disney.domain.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,9 +22,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "personaje")
 @Getter
 @Setter
+@NoArgsConstructor
+@Table(name = "personaje")
 public class Personaje {
 
 	@Id
@@ -49,8 +51,6 @@ public class Personaje {
 			inverseJoinColumns = @JoinColumn(name = "movie_id"))
 	private List<Movie> listMovie;
 
-	public Personaje() {
-	}
 
 	// contructor full parametros
 	public Personaje(String name, String imgPersonaje, Integer year, Integer weight,
@@ -105,6 +105,6 @@ public class Personaje {
 
 	@Override
 	public int hashCode() {
-		return id.hashCode();
+		 return Objects.hash(id);
 	}
 }

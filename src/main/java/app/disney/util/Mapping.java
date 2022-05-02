@@ -6,11 +6,6 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import app.disney.ports.input.rs.request.GenderDTO;
-import app.disney.ports.input.rs.request.MovieDTO;
-import app.disney.ports.input.rs.request.PersonajeDTO;
-import app.disney.ports.input.rs.request.SearchMovieDTO;
-import app.disney.ports.input.rs.request.SearchPersonajeDTO;
 import app.disney.domain.model.Gender;
 import app.disney.domain.model.Movie;
 import app.disney.domain.model.Personaje;

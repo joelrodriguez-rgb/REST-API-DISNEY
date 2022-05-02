@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.multipart.MultipartFile;
 
-import app.disney.ports.input.rs.request.MovieDTO;
-import app.disney.ports.input.rs.request.SearchMovieDTO;
 import app.disney.domain.model.Movie;
 
 public interface IMovieService {

@@ -1,6 +1,7 @@
 package app.disney.domain.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "movies")
 public class Movie {
 
@@ -93,6 +93,6 @@ public class Movie {
 
 	@Override
 	public int hashCode() {
-		return id.hashCode();
+		return Objects.hash(id);
 	}
 }

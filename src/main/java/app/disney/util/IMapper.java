@@ -3,10 +3,6 @@ package app.disney.util;
 import java.beans.JavaBean;
 import java.util.List;
 
-import app.disney.ports.input.rs.request.MovieDTO;
-import app.disney.ports.input.rs.request.PersonajeDTO;
-import app.disney.ports.input.rs.request.SearchMovieDTO;
-import app.disney.ports.input.rs.request.SearchPersonajeDTO;
 import app.disney.domain.model.Movie;
 import app.disney.domain.model.Personaje;
 

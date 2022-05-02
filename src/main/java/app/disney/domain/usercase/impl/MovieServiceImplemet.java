@@ -11,8 +11,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import app.disney.ports.input.rs.request.MovieDTO;
-import app.disney.ports.input.rs.request.SearchMovieDTO;
 import app.disney.domain.model.Movie;
 import app.disney.common.exceptions.ExistingNameException;
 import app.disney.common.exceptions.NotFoundException;

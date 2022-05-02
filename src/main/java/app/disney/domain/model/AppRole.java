@@ -1,9 +1,11 @@
 package app.disney.domain.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
-
-import lombok.*;
-
 import java.util.Objects;
 
 @Entity
@@ -11,33 +13,36 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @Table(name = "role")
-public class AppRole {
+public class AppRole implements GrantedAuthority {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="role_id")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
+    private Integer id;
 
-	@Column(name="name", nullable = false, updatable = false)
-	private String name;
-	
-	public  AppRole (String name) {
-		this.name = name;
-	}
+    @Column(name = "name", nullable = false, updatable = false)
+    private String name;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+    public AppRole(String name) {
+        this.name = name;
+    }
 
-		AppRole appRole = (AppRole) o;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AppRole role = (AppRole) o;
+        return Objects.equals(id, role.id);
+    }
 
-		if (id != null ? !id.equals(appRole.id) : appRole.id != null) return false;
-		return name != null ? name.equals(appRole.name) : appRole.name == null;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+
+    @Override
+    public String getAuthority() {
+        return this.name;
+    }
 }

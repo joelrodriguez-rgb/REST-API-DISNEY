@@ -1,14 +1,17 @@
 package app.disney.domain.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import lombok.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Objects;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
@@ -16,50 +19,114 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "user")
-public class AppUser {
-	
-	@Id()
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_id", updatable = false)
-	private Integer id;
-	
-	@Column(name = "username", nullable = false)
-	private String userName;
+public class AppUser implements UserDetails {
 
-	@Column(name = "password", nullable = false)
-	private String password;
+    @Id()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", updatable = false)
+    private Integer id;
 
-	@Column(name = "email", nullable = false, updatable = false, unique = true)
-	private String email;
+    @Column(name = "username", nullable = false)
+    private String userName;
 
-	@ManyToOne
-	@JoinColumn(name = "role_id")
-	@ToString.Exclude
-	private Collection<AppRole> roles = new ArrayList<>();
-	
-	
-	public AppUser(String userName, String paswsord, String email) {
-		this.userName = userName;
-		this.password = password;
-		this.email = email;
-	}
+    @Column(name = "password", nullable = false)
+    private String password;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+    @Column(name = "email", nullable = false, updatable = false, unique = true)
+    private String email;
 
-		AppUser appUser = (AppUser) o;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    @ToString.Exclude
+    private AppRole role;
 
-		if (id != null ? !id.equals(appUser.id) : appUser.id != null) return false;
-		if (userName != null ? !userName.equals(appUser.userName) : appUser.userName != null) return false;
-		if (password != null ? !password.equals(appUser.password) : appUser.password != null) return false;
-		if (email != null ? !email.equals(appUser.email) : appUser.email != null) return false;
-		return roles != null ? roles.equals(appUser.roles) : appUser.roles == null;
-	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+    public AppUser(String userName, String passwsord, String email) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AppUser user = (AppUser) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    /**
+     * Returns the authorities granted to the user. Cannot return <code>null</code>.
+     *
+     * @return the authorities, sorted by natural key (never <code>null</code>)
+     */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.role != null) {
+            return Collections.singleton(this.role);
+        }
+        return Collections.emptySet();
+    }
+
+    /**
+     * Returns the username used to authenticate the user. Cannot return
+     * <code>null</code>.
+     *
+     * @return the username (never <code>null</code>)
+     */
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    /**
+     * Indicates whether the user's account has expired. An expired account cannot be
+     * authenticated.
+     *
+     * @return <code>true</code> if the user's account is valid (ie non-expired),
+     * <code>false</code> if no longer valid (ie expired)
+     */
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    /**
+     * Indicates whether the user is locked or unlocked. A locked user cannot be
+     * authenticated.
+     *
+     * @return <code>true</code> if the user is not locked, <code>false</code> otherwise
+     */
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    /**
+     * Indicates whether the user's credentials (password) has expired. Expired
+     * credentials prevent authentication.
+     *
+     * @return <code>true</code> if the user's credentials are valid (ie non-expired),
+     * <code>false</code> if no longer valid (ie expired)
+     */
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    /**
+     * Indicates whether the user is enabled or disabled. A disabled user cannot be
+     * authenticated.
+     *
+     * @return <code>true</code> if the user is enabled, <code>false</code> otherwise
+     */
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

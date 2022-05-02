@@ -16,14 +16,19 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "personajes")
-@Data
+@Table(name = "personaje")
+@Getter
+@Setter
 public class Personaje {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "personaje_id")
 	private Integer id;
 
 	@Column(name = "name")
@@ -32,24 +37,24 @@ public class Personaje {
 	@Column(name = "img_personaje")
 	private String imgPersonaje;
 
-	@Column(name = "year")
+	@Column(name = "year_p")
 	private Integer year;
 
 	@Column(name = "weight")
 	private Integer weight;
 
-	@ManyToMany(cascade = { CascadeType.MERGE})
-	@JoinTable(name = "personaje_mov", 
-	           joinColumns = @JoinColumn(name = "personaje_id"), 
-	           inverseJoinColumns = @JoinColumn(name = "movie_id"))
+	@ManyToMany(cascade = {CascadeType.MERGE})
+	@JoinTable(name = "personaje_mov",
+			joinColumns = @JoinColumn(name = "personaje_id"),
+			inverseJoinColumns = @JoinColumn(name = "movie_id"))
 	private List<Movie> listMovie;
 
 	public Personaje() {
 	}
 
 	// contructor full parametros
-	public Personaje( String name, String imgPersonaje, Integer year, Integer weight,
-			List<Movie> listMovie) {
+	public Personaje(String name, String imgPersonaje, Integer year, Integer weight,
+					 List<Movie> listMovie) {
 		super();
 		this.name = name;
 		this.imgPersonaje = imgPersonaje;
@@ -66,20 +71,40 @@ public class Personaje {
 		this.weight = weight;
 		this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
 	}
-	
-	public Personaje(String name,  Integer year, Integer weight, Movie movie) {
+
+	public Personaje(String name, Integer year, Integer weight, Movie movie) {
 		this.name = name;
 		this.year = year;
 		this.weight = weight;
 		this.listMovie = new ArrayList<Movie>(Arrays.asList(movie));
 	}
-	
-	
-	public Personaje(String name,  Integer year, Integer weight, List<Movie> listMovie) {
+
+
+	public Personaje(String name, Integer year, Integer weight, List<Movie> listMovie) {
 		this.name = name;
 		this.year = year;
 		this.weight = weight;
 		this.listMovie = listMovie;
 	}
 
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Personaje personaje = (Personaje) o;
+
+		if (!id.equals(personaje.id)) return false;
+		if (!name.equals(personaje.name)) return false;
+		if (!imgPersonaje.equals(personaje.imgPersonaje)) return false;
+		if (!year.equals(personaje.year)) return false;
+		if (!weight.equals(personaje.weight)) return false;
+		return listMovie != null ? listMovie.equals(personaje.listMovie) : personaje.listMovie == null;
+	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
 }

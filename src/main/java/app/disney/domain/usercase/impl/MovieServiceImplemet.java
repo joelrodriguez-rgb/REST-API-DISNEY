@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import app.disney.domain.model.Movie;
-import app.disney.common.exceptions.ExistingNameException;
-import app.disney.common.exceptions.NotFoundException;
 import app.disney.domain.repository.IMovieRepository;
 import app.disney.domain.usercase.IGenderService;
 import app.disney.domain.usercase.IMovieService;

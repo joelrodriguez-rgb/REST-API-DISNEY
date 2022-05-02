@@ -1,10 +1,11 @@
 package app.disney.domain.repository;
 
+import app.disney.domain.model.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import app.disney.domain.model.AppUser;
+import java.util.Optional;
 
-public interface IUserRepository extends JpaRepository<AppUser, Integer> {
+public interface IUserRepository extends JpaRepository<AppUser, Long> {
 
-	AppUser findByUserName(String name);
+    Optional<AppUser> findUserByEmail(String email);
 }

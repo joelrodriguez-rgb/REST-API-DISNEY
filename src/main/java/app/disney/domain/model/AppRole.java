@@ -18,7 +18,7 @@ public class AppRole implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "name", nullable = false, updatable = false)
     private String name;

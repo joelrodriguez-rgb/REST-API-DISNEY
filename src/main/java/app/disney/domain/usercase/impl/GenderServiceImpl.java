@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.disney.domain.model.Gender;
-import app.disney.common.exceptions.NotFoundException;
 import app.disney.domain.repository.IGenderRepository;
 import app.disney.domain.usercase.IGenderService;
 

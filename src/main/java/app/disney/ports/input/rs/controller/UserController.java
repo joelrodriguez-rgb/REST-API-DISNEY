@@ -32,7 +32,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import app.disney.domain.model.AppRole;
 import app.disney.domain.model.AppUser;
-import app.disney.domain.usercase.IUserService;
 
 @RequestMapping("/auth")
 @RestController

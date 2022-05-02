@@ -1,118 +1,46 @@
-package app.disney.ports.input.rs.controller;
+package com.alkemy.ong.ports.input.rs.controller;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
+import com.alkemy.ong.domain.model.User;
+import com.alkemy.ong.domain.usecase.UserService;
+import com.alkemy.ong.ports.input.rs.mapper.UserControllerMapper;
+import com.alkemy.ong.ports.input.rs.request.UpdateUserRequest;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.alkemy.ong.domain.usecase.UserService;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
-import app.disney.domain.model.AppRole;
-import app.disney.domain.model.AppUser;
+import static com.alkemy.ong.ports.input.rs.api.ApiConstants.USER_URI;
 
-@RequestMapping("/auth")
 @RestController
+@RequestMapping(USER_URI)
+@RequiredArgsConstructor
 public class UserController {
 
-	@Autowired
-	private IUserService userService;
+    private final UserService userService;
 
-	@GetMapping("/createUser")
-	private ResponseEntity<?> createUser() {
 
-		AppUserDto userDto = new AppUserDto();
+    private final UserControllerMapper userControllerMapper;
 
-		return new ResponseEntity<>(userDto, HttpStatus.OK);
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateUser(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateUserRequest updateUserRequest) {
 
-	}
+        User user = userControllerMapper.updateUserRequestToUser(updateUserRequest);
 
-	@PostMapping("/register")
-	private ResponseEntity<?> saveUser(	@RequestBody @Valid AppUserDto newUser,
-										BindingResult result) {
+        userService.updateEntityIfExists(id, user);
+    }
 
-		if (result.hasErrors()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUserById(@Valid @NotNull @PathVariable Long id) {
+        userService.deleteUserById(id);
 
-		return new ResponseEntity<>(userService.saveUser(newUser), HttpStatus.CREATED);
-
-	}
-
-	@GetMapping("/token/refresh")
-	public void refreshToken(	HttpServletRequest request,
-								HttpServletResponse response) throws IOException {
-
-		String authorizationHeader = request.getHeader(AUTHORIZATION);
-
-		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-
-			try {
-
-				String refresh_token = authorizationHeader.substring("Bearer ".length());
-
-				Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
-
-				JWTVerifier jwtVerifier = JWT.require(algorithm).build();
-
-				DecodedJWT decodedJWT = jwtVerifier.verify(refresh_token);
-
-				String username = decodedJWT.getSubject();
-
-				AppUser user = userService.getUser(username);
-
-				String acces_token = JWT.create().withSubject(user.getUserName())
-						.withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
-						.withIssuer(request.getRequestURI().toString())
-						.withClaim("roles", user.getRoles().stream().map(AppRole::getName)
-								.collect(Collectors.toList()))
-						.sign(algorithm);
-
-				Map<String, String> tokens = new HashMap<String, String>();
-				tokens.put("acces_token", acces_token);
-				tokens.put("refresh_token", refresh_token);
-
-				response.setContentType(APPLICATION_JSON_VALUE);
-				new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-
-			} catch (Exception ex) {
-
-				response.setHeader("error", ex.getMessage());
-				response.setStatus(FORBIDDEN.value());
-
-				Map<String, String> error = new HashMap<String, String>();
-				error.put("error_message", ex.getMessage());
-
-				response.setContentType(APPLICATION_JSON_VALUE);
-				new ObjectMapper().writeValue(response.getOutputStream(), error);
-
-			}
-
-		} else {
-			throw new RuntimeException("Refresh token is missing");
-
-		}
-
-	}
-
+    }
 }

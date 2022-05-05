@@ -69,11 +69,6 @@ public class PersonajeServiceImplement implements IPersonajeService {
     }
 
     @Override
-    public Personaje getPersonajeById(Integer id) {
-        return null;
-    }
-
-    @Override
     @Transactional
     public void validateName(String name) {
         if (personajeRepo.findByNameIgnoreCase(name) != null)
@@ -89,7 +84,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 
     }
 
-    @Override
+   /* @Override
     public String saveImg(MultipartFile imagen) {
 
         if (imagen != null) {
@@ -110,7 +105,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
         }
         return null;
 
-    }
+    }*/
 
     @Override
     public List<Movie> getListMoviesByTitle(List<Movie> listMovieTitle) {
@@ -121,10 +116,4 @@ public class PersonajeServiceImplement implements IPersonajeService {
 
         return listMovie;
     }
-
-    @Override
-    public List<String> getAllMoviesByPersonajeId(Integer id) {
-        return personajeRepo.findAllMoviesByPersonajeId(id);
-    }
-
 }

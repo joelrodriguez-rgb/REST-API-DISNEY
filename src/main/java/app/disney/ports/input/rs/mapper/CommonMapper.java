@@ -1,4 +1,4 @@
-package com.alkemy.ong.ports.input.rs.mapper;
+package app.disney.ports.input.rs.mapper;
 
 import org.mapstruct.Named;
 

@@ -1,4 +1,4 @@
-package com.alkemy.ong.ports.input.rs.request;
+package app.disney.ports.input.rs.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

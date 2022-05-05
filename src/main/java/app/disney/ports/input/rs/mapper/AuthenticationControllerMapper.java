@@ -1,14 +1,15 @@
-package com.alkemy.ong.ports.input.rs.mapper;
+package app.disney.ports.input.rs.mapper;
 
-import com.alkemy.ong.domain.model.User;
-import com.alkemy.ong.ports.input.rs.request.CreateUserRequest;
-import com.alkemy.ong.ports.input.rs.response.UserResponse;
+import app.disney.domain.model.AppUser;
+import app.disney.ports.input.rs.request.CreateUserRequest;
+import app.disney.ports.input.rs.response.UserResponse;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface AuthenticationControllerMapper extends CommonMapper{
+public interface AuthenticationControllerMapper extends CommonMapper {
 
 
-     UserResponse userToUserResponse(User user);
-     User createUserRequestToUser(CreateUserRequest user);
+    UserResponse userToUserResponse(AppUser user);
+
+    AppUser createUserRequestToUser(CreateUserRequest user);
 }

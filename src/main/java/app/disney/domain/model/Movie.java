@@ -47,34 +47,14 @@ public class Movie {
 	@JoinColumn
 	private Gender gender;
 
-	public Movie(String imgMovie, String title, LocalDate creationDate, Integer qualification,
-			Gender gender) {
 
+	public Movie(String imgMovie, String title, LocalDate creationDate, Integer qualification, Gender gender) {
 		this.imgMovie = imgMovie;
 		this.title = title;
 		this.creationDate = creationDate;
 		this.qualification = qualification;
 		this.gender = gender;
-
 	}
-
-	public Movie(String title, LocalDate date, int qualification, Gender gender) {
-
-		this.title = title;
-		this.creationDate = date;
-		this.qualification = qualification;
-		this.gender = gender;
-
-	}
-
-	public Movie(String title, LocalDate creationDate, Integer qualification) {
-
-		this.title = title;
-		this.creationDate = creationDate;
-		this.qualification = qualification;
-
-	}
-
 
 	@Override
 	public boolean equals(Object o) {

@@ -1,14 +1,14 @@
-package com.alkemy.ong.ports.input.rs.mapper;
+package app.disney.ports.input.rs.mapper;
 
-import com.alkemy.ong.domain.model.User;
-import com.alkemy.ong.ports.input.rs.request.UpdateUserRequest;
-import com.alkemy.ong.ports.input.rs.response.UserResponse;
+import app.disney.domain.model.AppUser;
+import app.disney.ports.input.rs.request.UpdateUserRequest;
+import app.disney.ports.input.rs.response.UserResponse;
 import org.mapstruct.Mapper;
 
 @Mapper
 public interface UserControllerMapper {
 
-    User updateUserRequestToUser(UpdateUserRequest userRequest);
+    AppUser updateUserRequestToUser(UpdateUserRequest userRequest);
 
-    UserResponse userToUserResponse(User user);
+    UserResponse userToUserResponse(AppUser user);
 }

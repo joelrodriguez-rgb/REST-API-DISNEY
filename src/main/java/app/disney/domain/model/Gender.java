@@ -1,17 +1,10 @@
 package app.disney.domain.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -21,42 +14,38 @@ import java.util.Objects;
 @Table(name = "gender")
 public class Gender {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@Column(name = "gender_name")
-	private String genderName;
+    @Column(name = "gender_name")
+    private String genderName;
 
-	@Column(name = "img_gender")
-	private String imgGender;
+    @Column(name = "img_gender")
+    private String imgGender;
 
 
-	public Gender(String genderName, String imgGender) {
-		super();
-		this.genderName = genderName;
-		this.imgGender = imgGender;
-	}
-	
-	public Gender(String genderName) {
-		super();
-		this.genderName = genderName;
-	}
+    public Gender(String genderName, String imgGender) {
+        super();
+        this.genderName = genderName;
+        this.imgGender = imgGender;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
 
-		Gender gender = (Gender) o;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-		if (id != null ? !id.equals(gender.id) : gender.id != null) return false;
-		if (genderName != null ? !genderName.equals(gender.genderName) : gender.genderName != null) return false;
-		return imgGender != null ? imgGender.equals(gender.imgGender) : gender.imgGender == null;
-	}
+        Gender gender = (Gender) o;
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+        if (id != null ? !id.equals(gender.id) : gender.id != null) return false;
+        if (genderName != null ? !genderName.equals(gender.genderName) : gender.genderName != null) return false;
+        return imgGender != null ? imgGender.equals(gender.imgGender) : gender.imgGender == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

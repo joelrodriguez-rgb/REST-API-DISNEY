@@ -29,11 +29,11 @@ public class Movie {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Column(name = "title", nullable = false, unique = true)
+	private String title;
+
 	@Column(name = "img_mov")
 	private String imgMovie;
-
-	@Column(name = "title")
-	private String title;
 
 	@Column(name = "creation_date")
 	@DateTimeFormat(pattern = "yyyy-M-d")

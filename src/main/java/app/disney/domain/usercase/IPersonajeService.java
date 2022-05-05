@@ -1,49 +1,23 @@
 package app.disney.domain.usercase;
 
-import java.util.List;
-
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.web.multipart.MultipartFile;
-
 import app.disney.domain.model.Movie;
 import app.disney.domain.model.Personaje;
 
-public interface IPersonajeService  {
+import java.util.List;
 
-	/* FUNCIONES CRUD */
+public interface IPersonajeService {
 
-	void savePersonaje(PersonajeDTO newPersonaje, MultipartFile imagen, List<String> listMovieTitle);
-	
-	void upDatePersonaje(PersonajeDTO upPersonaje, Integer id,  MultipartFile imagen, List<String> listMovieTitle);
+    Integer savePersonaje(Personaje personaje);
 
-	Personaje getPersonajeById(Integer id);
+    Personaje updatePersonaje(Integer id, Personaje upPersonaje);
 
-	void deletePersonajeById(Integer id);
+    void deletePersonajeById(Integer id);
 
-	/* BUSQUEDAS */
-	
-	List<Personaje> getAllPersonaje();
-	
-	List<Personaje> getAllPersonaje(Specification<Personaje> spec);
+    List<Movie> getListMoviesByTitle(List<Movie> listMovieTitle);
 
-	Personaje getByNameIgnoreCase(String name);
-	
-	List<String> getAllMoviesByPersonajeId(Integer id);
-	
-	/////////////////////////////////////////////////
-	
-	String saveImg(MultipartFile imagen);
-	
-	List<Movie> getListMoviesByTitle(List<String> listMovieTitle);
-	
-    List<?> getListPersonajes(SearchPersonajeDTO searchPersonajeDTO);
-    
+    List<Personaje> getPersonajes(Personaje request);
+
     void validateName(String name);
-
-	
-
-	
-
 
 
 }

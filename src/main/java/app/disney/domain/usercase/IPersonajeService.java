@@ -13,8 +13,6 @@ public interface IPersonajeService {
 
     void deletePersonajeById(Integer id);
 
-    List<Movie> getListMoviesByTitle(List<Movie> listMovieTitle);
-
     List<Personaje> getPersonajes(Personaje request);
 
     void validateName(String name);

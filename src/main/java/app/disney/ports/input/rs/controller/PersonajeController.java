@@ -56,9 +56,9 @@ public class PersonajeController {
 
     @PutMapping("/editCharacter/{id}")
     public ResponseEntity<PersonajeResponse> updatePersonaje(@Valid @NotNull @PathVariable Integer id,
-                                                             @Valid @RequestBody PersonajeRequest newRequest) {
+                                                             @Valid @RequestBody PersonajeRequest upPersonaje) {
 
-        Personaje personaje = mapper.personajeRequestToPersonaje(newRequest);
+        Personaje personaje = mapper.personajeRequestToPersonaje(upPersonaje);
         PersonajeResponse response = mapper.personajeToPersonajeResponse(personajeService.updatePersonaje(id, personaje));
 
         return ResponseEntity.ok().body(response);

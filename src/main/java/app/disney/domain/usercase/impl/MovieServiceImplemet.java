@@ -1,40 +1,35 @@
 package app.disney.domain.usercase.impl;
 
+import app.disney.common.exceptions.handler.ExistingNameException;
+import app.disney.common.exceptions.handler.NotFoundException;
+import app.disney.domain.model.Movie;
+import app.disney.domain.repository.IGenderRepository;
+import app.disney.domain.repository.IMovieRepository;
+import app.disney.domain.usercase.IMovieService;
+import app.disney.ports.input.rs.api.specification.MovieSpecification;
+import app.disney.ports.input.rs.request.MovieFilterRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import app.disney.domain.model.Movie;
-import app.disney.domain.repository.IMovieRepository;
-import app.disney.domain.usercase.IGenderService;
-import app.disney.domain.usercase.IMovieService;
-import app.disney.ports.input.rs.api.specification.MovieSpecification;
-import app.disney.util.IMapper;
-
 @Service
+@RequiredArgsConstructor
 public class MovieServiceImplemet implements IMovieService {
 
-	@Autowired
-	private IMovieRepository movieRepo;
+    private final IMovieRepository movieRepository;
+    private final IGenderRepository genderRepository;
+    private final MovieSpecification spec;
 
-	@Autowired
-	private IMapper mapping;
-
-	@Autowired
-	private MovieSpecification spec;
-
-	@Autowired
-	private IGenderService genderService;
-
-	@Override
-	public List<?> getListMovies(SearchMovieDTO searchMovieDTO) {
+/*	@Override
+	public List<?> getListMovies(Movie request) {
 
 		if (searchMovieDTO.getTitle() == null && searchMovieDTO.getGender() == null) {
 
@@ -52,125 +47,123 @@ public class MovieServiceImplemet implements IMovieService {
 
 		}
 
-	}
+	}*/
 
-	@Override
-	public void saveMovie(MovieDTO newMovie, MultipartFile imagen, String gender) {
+    @Override
+    @Transactional
+    public Integer saveMovie(Movie movie) {
 
-		Movie movie = mapping.mappingMovieDTOToEntity(newMovie);
-		validateName(movie.getTitle());
-		movie.setImgMovie(saveImg(imagen));
-		movie.setGender(genderService.getByNameGender(gender));
+        validateName(movie.getTitle());
+        movie.setGender(genderRepository.findByGenderName(movie.getGender().getGenderName()));
 
-		movieRepo.save(movie);
+        return movieRepository.save(movie).getId();
+    }
 
-	}
+    @Override
+    @Transactional
+    public void upDateMovie(Integer id, Movie upMovie) {
 
-	@Override
-	public void upDateMovie(MovieDTO upMovie, Integer id, MultipartFile imagen, String gender) {
+        Movie movieExisting = movieRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 
-		Movie movieExisting = getMovieById(id);
+        validateName(upMovie.getTitle());
 
-		if (!movieExisting.getTitle().equalsIgnoreCase(upMovie.getTitle())) {
-			validateName(upMovie.getTitle());
-		}
+        movieExisting.setTitle(upMovie.getTitle());
+        movieExisting.setCreationDate(upMovie.getCreationDate());
+        movieExisting.setQualification(upMovie.getQualification());
+        movieExisting.setImgMovie(upMovie.getImgMovie());
+        movieExisting.setGender(genderRepository.findByGenderName(upMovie.getGender().getGenderName()));
 
-		movieExisting.setId(id);
-		movieExisting.setTitle(upMovie.getTitle());
-		movieExisting.setCreationDate(upMovie.getCreationDate());
-		movieExisting.setQualification(upMovie.getQualification());
-		movieExisting.setImgMovie(saveImg(imagen));
-		movieExisting.setGender(genderService.getByNameGender(gender));
+        movieRepository.save(movieExisting);
+    }
 
-		movieRepo.save(movieExisting);
+    @Override
+    public void validateName(String title) {
 
-	}
+        if (movieRepository.findByTitleIgnoreCase(title) != null)
+            throw new ExistingNameException("TITLE  : " + title);
 
-	@Override
-	public void validateName(String title) {
+    }
 
-		if (movieRepo.findByTitleIgnoreCase(title) != null)
-			throw new ExistingNameException("TITLE  : " + title);
+    @Override
+    public Movie getMovieById(Integer id) {
+        return movieRepository.findById(id).orElseThrow(() -> new NotFoundException("ID : " + id));
+    }
 
-	}
+    @Override
+    @Transactional
+    public void deleteMovieById(Integer id) {
+        if (movieRepository.findById(id).isPresent()) movieRepository.deleteById(id);
+        else throw new NotFoundException("ID : " + id);
+    }
 
-	@Override
-	public Movie getMovieById(Integer id) {
+    @Override
+    public Movie getByTitleIgnoreCase(String title) {
+        return movieRepository.findByTitleIgnoreCase(title);
+    }
 
-		return movieRepo.findById(id).orElseThrow(() -> new NotFoundException("ID : " + id));
+    @Override
+    public String saveImg(MultipartFile imagen) {
 
-	}
+        if (imagen != null) {
 
-	@Override
-	public void deleteMovieById(Integer id) {
+            Path directorioImagenes = Paths.get("src//main//resources//static/imgMovies");
+            String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
 
-		if (movieRepo.findById(id).isPresent()) movieRepo.deleteById(id);
-		else throw new NotFoundException("ID : " + id);
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+                Files.write(rutaCompleta, bytesImg);
 
-	}
+                return imagen.getOriginalFilename();
 
-	@Override
-	public Movie getByTitleIgnoreCase(String title) {
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
 
-		return movieRepo.findByTitleIgnoreCase(title);
+    }
 
-	}
+    @Override
+    @Transactional
+    public List<Movie> getAllMoviesFilter(MovieFilterRequest request) {
 
-	@Override
-	public String saveImg(MultipartFile imagen) {
+        Specification<Movie> movieSpec = spec.getAllBySpec(request);
+        List<Movie> list = movieRepository.findAll(movieSpec);
+        return list;
+    }
 
-		if (imagen != null) {
+    @Override
+    @Transactional
+    public List<Movie> getAllMovies() {
+        return movieRepository.findAll();
+    }
 
-			Path directorioImagenes = Paths.get("src//main//resources//static/imgMovies");
-			String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+/*    @Override
+    public List<?> getAllOrderByCreationDateAsc() {
 
-			try {
-				byte[] bytesImg = imagen.getBytes();
-				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-				Files.write(rutaCompleta, bytesImg);
+        List<?> list = mapping.mappingListMovie(movieRepository.findAllOrderByCreationDateAsc());
 
-				return imagen.getOriginalFilename();
+        return list;
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
+    }*/
 
-	}
+/*    @Override
+    public List<?> getAllOrderByCreationDateDesc() {
 
-	@Override
-	public List<Movie> getAllMovieBySpec(Specification<Movie> spec) {
+        List<?> list = mapping.mappingListMovie(movieRepo.findAllOrderByCreationDateDesc());
 
-		return movieRepo.findAll(spec);
+        return list;
 
-	}
+    }*/
 
-	@Override
-	public List<?> getAllOrderByCreationDateAsc() {
+ /*   @Override
+    public List<String> getAllPersonajesByMovie(Integer id) {
 
-		List<?> list = mapping.mappingListMovie(movieRepo.findAllOrderByCreationDateAsc());
+        List<String> listPersonaje = movieRepo.findAllPersonajesByMovie(id);
 
-		return list;
+        return listPersonaje;
 
-	}
-
-	@Override
-	public List<?> getAllOrderByCreationDateDesc() {
-
-		List<?> list = mapping.mappingListMovie(movieRepo.findAllOrderByCreationDateDesc());
-
-		return list;
-
-	}
-
-	@Override
-	public List<String> getAllPersonajesByMovie(Integer id) {
-
-		List<String> listPersonaje = movieRepo.findAllPersonajesByMovie(id);
-
-		return listPersonaje;
-
-	}
+    }*/
 
 }

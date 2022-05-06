@@ -29,7 +29,7 @@ public class Movie {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "title", nullable = false, unique = true)
+	@Column(name = "title", nullable = false, unique = true, updatable = true)
 	private String title;
 
 	@Column(name = "img_mov")

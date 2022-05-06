@@ -1,44 +1,40 @@
 package app.disney.domain.usercase;
 
-import java.util.List;
-
-import org.springframework.data.jpa.domain.Specification;
+import app.disney.domain.model.Movie;
+import app.disney.ports.input.rs.request.MovieFilterRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-import app.disney.domain.model.Movie;
+import java.util.List;
 
 public interface IMovieService {
 
-	/* FUNCIONES CRUD */
 
-	void saveMovie(MovieDTO newMovie, MultipartFile imagen, String gender);
+    Integer saveMovie(Movie request);
 
-	void upDateMovie(MovieDTO upMovie, Integer id, MultipartFile imagen, String gender);
+    void upDateMovie(Integer id, Movie upMovie);
 
-	Movie getMovieById(Integer id);
+    Movie getMovieById(Integer id);
 
-	void deleteMovieById(Integer id);
+    void deleteMovieById(Integer id);
 
-	List<?> getListMovies(SearchMovieDTO searchMovieDTO);
+    Movie getByTitleIgnoreCase(String title);
 
-	/* BUSQUEDAS */
-	
-	Movie getByTitleIgnoreCase(String title);
+    List<Movie> getAllMoviesFilter(MovieFilterRequest request);
 
-	List<Movie> getAllMovieBySpec(Specification<Movie> spec);
-	
-	List<String> getAllPersonajesByMovie(Integer id);
+    List<Movie> getAllMovies();
 
-	/* FILTROS */
+    List<String> getAllPersonajesByMovie(Integer id);
 
-	List<?> getAllOrderByCreationDateAsc();
+    /* FILTROS */
 
-	List<?> getAllOrderByCreationDateDesc();
+    List<?> getAllOrderByCreationDateAsc();
 
-	/////////////////////////////////////////
+    List<?> getAllOrderByCreationDateDesc();
 
-	String saveImg(MultipartFile imagen);
+    /////////////////////////////////////////
 
-	void validateName(String title);
+    String saveImg(MultipartFile imagen);
+
+    void validateName(String title);
 
 }

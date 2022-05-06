@@ -2,6 +2,7 @@ package app.disney.domain.usercase.impl;
 
 import java.util.List;
 
+import app.disney.common.exceptions.handler.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

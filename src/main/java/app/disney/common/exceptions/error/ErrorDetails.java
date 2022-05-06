@@ -14,7 +14,7 @@ public class ErrorDetails {
     /**
      * The unique and fine-grained application-level error code.
      */
-    @NotNull com.alkemy.ong.common.exception.error.ApplicationErrorCode code;
+    @NotNull app.disney.common.exceptions.error.ApplicationErrorCode code;
 
     /**
      * The human-readable description for an issue. Provide non-standard more granular error message.
@@ -31,10 +31,8 @@ public class ErrorDetails {
      * The value of the field that caused the error.
      */
     Object value;
-
     /**
      * The location of the field that caused the error. Value is `BODY`, `PATH`, `QUERY` or `HEADER`.
      */
-    com.alkemy.ong.common.exception.error.ErrorLocation location;
-
+    app.disney.common.exceptions.error.ErrorLocation location;
 }

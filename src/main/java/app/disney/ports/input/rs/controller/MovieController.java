@@ -30,7 +30,7 @@ public class MovieController {
     public ResponseEntity<List<MovieResponse>> getMovies(MovieFilterRequest request, String order) {
         List<MovieResponse> listResponse;
 
-        if (request.getTitle() == null || request.getIdGender() == null || request.getOrder() == null) {
+        if (request.getTitle() != null || request.getIdGender() != null || request.getOrder() == null) {
             listResponse = mapper.moviesToMoviesResponses(movieService.getAllMovies(order));
         } else {
             listResponse = mapper.moviesToMoviesResponses(movieService.getAllMovies(request, order));

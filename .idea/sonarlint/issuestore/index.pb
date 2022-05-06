@@ -11,8 +11,6 @@ a
 1src/main/java/app/disney/config/CryptoConfig.java,c\e\ce67c6750b4b9842a12d7a35423b7d19a4a942b6
 j
 :src/main/java/app/disney/common/security/util/JwtUtil.java,d\c\dca1b3c80d850e21a5d7e1536728c515b0acdf9f
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 b
 2src/main/java/app/disney/domain/model/AppRole.java,7\0\701ca0b7e90a1b749c322eb370bc2d6e35af7fa7
 b
@@ -29,8 +27,6 @@ y
 Isrc/main/java/app/disney/common/exceptions/handler/ConflictException.java,3\e\3e77ffd86a9cf7d647b043c7d96e6cc671bee86f
 j
 :src/main/java/app/disney/domain/usercase/IUserService.java,6\1\61c8a1effc8dd7bf6888729b680cc57194b506f3
-c
-3src/main/java/app/disney/config/SecurityConfig.java,0\4\04fd01c3726e9c47dee82ce859695b33ab7edbdc
 x
 Hsrc/main/java/app/disney/ports/input/rs/mapper/UserControllerMapper.java,e\5\e55f9ea9a8cef120dbda76e77c95c4956c764678
 ‚
@@ -61,8 +57,6 @@ y
 Isrc/main/java/app/disney/common/exceptions/handler/NotFoundException.java,9\c\9c99438c31bba43651296e6d0394be3634ae658d
 }
 Msrc/main/java/app/disney/ports/input/rs/mapper/PersonajeControllerMapper.java,1\6\168d6224fc48df57dfd2503cab2d51fe527d917e
-d
-4src/main/java/app/disney/domain/model/Personaje.java,f\b\fb43755b23c4b8586199ddb9b6611ce39963c22b
 p
 @src/main/java/app/disney/domain/repository/IMovieRepository.java,c\a\cadee19bbd1bdda7ece35e20ee79c55de3149235
 u
@@ -73,13 +67,9 @@ q
 Asrc/main/java/app/disney/ports/input/rs/request/MovieRequest.java,f\3\f3f50bd2eb7d0ea7b9c22bb4167ed109d88d2d22
 q
 Asrc/main/java/app/disney/domain/repository/IGenderRepository.java,9\f\9f13150f34a4da06245d21c7ea558b3c91bf8c1a
-`
-0src/main/java/app/disney/domain/model/Movie.java,c\e\cef8cdc44c6138b4193b3a946820228db5a5e320
 o
 ?src/main/java/app/disney/domain/usercase/IPersonajeService.java,b\9\b9e982cd82223273006c551d232b71a7df4643c0
 …
 Usrc/main/java/app/disney/ports/input/rs/api/specification/PersonajeSpecification.java,4\e\4ef17ea0bec0b9ed69d66b9a16863ebe7a503e03
 |
 Lsrc/main/java/app/disney/domain/usercase/impl/PersonajeServiceImplement.java,d\e\de938176b87fbddc596391649a5a6f14b66245f6
-a
-1src/main/java/app/disney/domain/model/Gender.java,2\9\29b20c99d86f836cb75d73079d11b80504369017

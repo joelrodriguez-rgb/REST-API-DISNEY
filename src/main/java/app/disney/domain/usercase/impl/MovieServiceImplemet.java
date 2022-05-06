@@ -9,6 +9,7 @@ import app.disney.domain.usercase.IMovieService;
 import app.disney.ports.input.rs.api.specification.MovieSpecification;
 import app.disney.ports.input.rs.request.MovieFilterRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -133,13 +134,12 @@ public class MovieServiceImplemet implements IMovieService {
         Specification<Movie> movieSpec = spec.getAllBySpec(request);
         List<Movie> list = movieRepository.findAll(movieSpec);
 
-        /*list.sort(Comparator.comparing(o -> o.getCreationDate()));
-        Collections.sort(list, Collections.reverseOrder());*/
-
         if (order == "ASC")
-            Collections.sort(list, Comparator.comparing(Movie::getCreationDate));
+            list = movieRepository.findAll(Sort.by("creation_date"));
+           // Collections.sort(list, Comparator.comparing(Movie::getCreationDate));
         else
-            Collections.sort(list, Comparator.comparing(Movie::getCreationDate).reversed());
+            list = movieRepository.findAll(Sort.by("creation_date").descending());
+            //Collections.sort(list, Comparator.comparing(Movie::getCreationDate).reversed());
 
         return list;
     }
@@ -151,9 +151,11 @@ public class MovieServiceImplemet implements IMovieService {
         List<Movie> list = movieRepository.findAll();
 
         if (order == "ASC")
-            Collections.sort(list, Comparator.comparing(Movie::getCreationDate));
+            list = movieRepository.findAll(Sort.by("creation_date"));
+            // Collections.sort(list, Comparator.comparing(Movie::getCreationDate));
         else
-            Collections.sort(list, Comparator.comparing(Movie::getCreationDate).reversed());
+            list = movieRepository.findAll(Sort.by("creation_date").descending());
+        //Collections.sort(list, Comparator.comparing(Movie::getCreationDate).reversed());
 
         return list;
     }

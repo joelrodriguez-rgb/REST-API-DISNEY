@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "movies")
+@Table(name = "movie")
 public class Movie {
 
 	@Id
@@ -32,7 +32,7 @@ public class Movie {
 	@Column(name = "title", nullable = false, unique = true, updatable = true)
 	private String title;
 
-	@Column(name = "img_mov")
+	@Column(name = "img_movie")
 	private String imgMovie;
 
 	@Column(name = "creation_date")

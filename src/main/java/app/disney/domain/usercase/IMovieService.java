@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface IMovieService {
 
-
     Integer saveMovie(Movie request);
 
     void upDateMovie(Integer id, Movie upMovie);
@@ -17,21 +16,14 @@ public interface IMovieService {
 
     void deleteMovieById(Integer id);
 
-    Movie getByTitleIgnoreCase(String title);
+    //Filtro
+    List<Movie> getAllMovies(MovieFilterRequest request,String order);
 
-    List<Movie> getAllMoviesFilter(MovieFilterRequest request);
-
-    List<Movie> getAllMovies();
+    List<Movie> getAllMovies(String order);
 
     List<String> getAllPersonajesByMovie(Integer id);
 
-    /* FILTROS */
-
-    List<?> getAllOrderByCreationDateAsc();
-
-    List<?> getAllOrderByCreationDateDesc();
-
-    /////////////////////////////////////////
+    Movie getByTitleIgnoreCase(String title);
 
     String saveImg(MultipartFile imagen);
 

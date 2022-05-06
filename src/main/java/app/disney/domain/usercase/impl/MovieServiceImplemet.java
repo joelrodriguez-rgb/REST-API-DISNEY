@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -125,45 +127,45 @@ public class MovieServiceImplemet implements IMovieService {
     }
 
     @Override
-    @Transactional
-    public List<Movie> getAllMoviesFilter(MovieFilterRequest request) {
+    @Transactional(readOnly = true)
+    public List<Movie> getAllMovies(MovieFilterRequest request, String order) {
 
         Specification<Movie> movieSpec = spec.getAllBySpec(request);
         List<Movie> list = movieRepository.findAll(movieSpec);
+
+        /*list.sort(Comparator.comparing(o -> o.getCreationDate()));
+        Collections.sort(list, Collections.reverseOrder());*/
+
+        if (order == "ASC")
+            Collections.sort(list, Comparator.comparing(Movie::getCreationDate));
+        else
+            Collections.sort(list, Comparator.comparing(Movie::getCreationDate).reversed());
+
         return list;
     }
 
     @Override
-    @Transactional
-    public List<Movie> getAllMovies() {
-        return movieRepository.findAll();
+    @Transactional(readOnly = true)
+    public List<Movie> getAllMovies(String order) {
+
+        List<Movie> list = movieRepository.findAll();
+
+        if (order == "ASC")
+            Collections.sort(list, Comparator.comparing(Movie::getCreationDate));
+        else
+            Collections.sort(list, Comparator.comparing(Movie::getCreationDate).reversed());
+
+        return list;
     }
 
-/*    @Override
-    public List<?> getAllOrderByCreationDateAsc() {
 
-        List<?> list = mapping.mappingListMovie(movieRepository.findAllOrderByCreationDateAsc());
-
-        return list;
-
-    }*/
-
-/*    @Override
-    public List<?> getAllOrderByCreationDateDesc() {
-
-        List<?> list = mapping.mappingListMovie(movieRepo.findAllOrderByCreationDateDesc());
-
-        return list;
-
-    }*/
-
- /*   @Override
+    @Override
     public List<String> getAllPersonajesByMovie(Integer id) {
 
-        List<String> listPersonaje = movieRepo.findAllPersonajesByMovie(id);
+        List<String> listPersonaje = movieRepository.findAllPersonajesByMovie(id);
 
         return listPersonaje;
 
-    }*/
+    }
 
 }

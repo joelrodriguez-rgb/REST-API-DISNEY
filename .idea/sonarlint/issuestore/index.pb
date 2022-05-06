@@ -49,7 +49,5 @@ Esrc/main/java/app/disney/ports/input/rs/request/PersonajeRequest.java,8\d\8d50
 Msrc/main/java/app/disney/common/exceptions/handler/ExistingNameException.java,0\7\077ccce7b07bcf3f0fe5c76b8038f11a8087e991
 q
 Asrc/main/java/app/disney/ports/input/rs/request/MovieRequest.java,f\3\f3f50bd2eb7d0ea7b9c22bb4167ed109d88d2d22
-q
-Asrc/main/java/app/disney/domain/repository/IGenderRepository.java,9\f\9f13150f34a4da06245d21c7ea558b3c91bf8c1a
 …
 Usrc/main/java/app/disney/ports/input/rs/api/specification/PersonajeSpecification.java,4\e\4ef17ea0bec0b9ed69d66b9a16863ebe7a503e03

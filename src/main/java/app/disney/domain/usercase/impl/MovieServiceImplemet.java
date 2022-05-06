@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -30,27 +28,6 @@ public class MovieServiceImplemet implements IMovieService {
     private final IMovieRepository movieRepository;
     private final IGenderRepository genderRepository;
     private final MovieSpecification spec;
-
-/*	@Override
-	public List<?> getListMovies(Movie request) {
-
-		if (searchMovieDTO.getTitle() == null && searchMovieDTO.getGender() == null) {
-
-			List<?> listMovieDTO = mapping.mappingListMovie(movieRepo.findAll());
-			return listMovieDTO;
-
-		} else {
-
-			Movie movie = mapping.mappingSearchMovieToEntity(searchMovieDTO);
-			Specification<Movie> movieSpec = spec.getAllBySpec(movie);
-			List<Movie> listMovieBySpec = movieRepo.findAll(movieSpec);
-			List<?> list = mapping.mappingListMovie(listMovieBySpec);
-
-			return list;
-
-		}
-
-	}*/
 
     @Override
     @Transactional
@@ -136,10 +113,10 @@ public class MovieServiceImplemet implements IMovieService {
 
         if (order == "ASC")
             list = movieRepository.findAll(Sort.by("creation_date"));
-           // Collections.sort(list, Comparator.comparing(Movie::getCreationDate));
+            // Collections.sort(list, Comparator.comparing(Movie::getCreationDate));
         else
             list = movieRepository.findAll(Sort.by("creation_date").descending());
-            //Collections.sort(list, Comparator.comparing(Movie::getCreationDate).reversed());
+        //Collections.sort(list, Comparator.comparing(Movie::getCreationDate).reversed());
 
         return list;
     }
@@ -167,7 +144,6 @@ public class MovieServiceImplemet implements IMovieService {
         List<String> listPersonaje = movieRepository.findAllPersonajesByMovie(id);
 
         return listPersonaje;
-
     }
 
 }

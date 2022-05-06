@@ -18,15 +18,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity
+@Entity(name = "movie")
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "movie")
 public class Movie {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "movie_id")
 	private Integer id;
 
 	@Column(name = "title", nullable = false, unique = true, updatable = true)
@@ -44,17 +45,8 @@ public class Movie {
 	private Integer qualification;
 
 	@ManyToOne(cascade = { CascadeType.MERGE })
-	@JoinColumn
+	@JoinColumn(name = "gender")
 	private Gender gender;
-
-
-	public Movie(String imgMovie, String title, LocalDate creationDate, Integer qualification, Gender gender) {
-		this.imgMovie = imgMovie;
-		this.title = title;
-		this.creationDate = creationDate;
-		this.qualification = qualification;
-		this.gender = gender;
-	}
 
 	@Override
 	public boolean equals(Object o) {

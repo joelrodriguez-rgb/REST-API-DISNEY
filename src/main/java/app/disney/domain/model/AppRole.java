@@ -1,5 +1,6 @@
 package app.disney.domain.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,11 +9,11 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "role")
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "role")
+@AllArgsConstructor
 public class AppRole implements GrantedAuthority {
 
     @Id
@@ -22,10 +23,6 @@ public class AppRole implements GrantedAuthority {
 
     @Column(name = "name", nullable = false, updatable = false)
     private String name;
-
-    public AppRole(String name) {
-        this.name = name;
-    }
 
     @Override
     public boolean equals(Object o) {

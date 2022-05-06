@@ -1,5 +1,6 @@
 package app.disney.domain.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,11 +9,11 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "personaje")
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "personaje")
 public class Personaje {
 
     @Id
@@ -37,17 +38,6 @@ public class Personaje {
             joinColumns = @JoinColumn(name = "personaje_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private List<Movie> listMovie;
-
-
-    public Personaje(String name, String imgPersonaje, Integer year, Integer weight,
-                     List<Movie> listMovie) {
-        super();
-        this.name = name;
-        this.imgPersonaje = imgPersonaje;
-        this.year = year;
-        this.weight = weight;
-        this.listMovie = listMovie;
-    }
 
     @Override
     public boolean equals(Object o) {

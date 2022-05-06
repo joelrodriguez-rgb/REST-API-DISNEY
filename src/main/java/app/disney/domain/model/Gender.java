@@ -1,5 +1,6 @@
 package app.disney.domain.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,15 +8,16 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "gender")
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "gender")
 public class Gender {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "gender_id")
     private Integer id;
 
     @Column(name = "gender_name")
@@ -23,14 +25,6 @@ public class Gender {
 
     @Column(name = "img_gender")
     private String imgGender;
-
-
-    public Gender(String genderName, String imgGender) {
-        super();
-        this.genderName = genderName;
-        this.imgGender = imgGender;
-    }
-
 
     @Override
     public boolean equals(Object o) {

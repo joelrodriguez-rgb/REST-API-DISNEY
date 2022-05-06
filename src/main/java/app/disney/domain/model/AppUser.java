@@ -14,11 +14,10 @@ import java.util.Collections;
 import java.util.Objects;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
-@Entity
+@Entity(name = "user")
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "user")
 public class AppUser implements UserDetails {
 
     @Id()

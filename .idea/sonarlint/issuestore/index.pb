@@ -3,20 +3,12 @@ A
 src/main/main.iml,6\1\61b68408d9be329695c36f5e4e3ba9efeb3d663d
 b
 2src/main/java/app/disney/config/OpenApiConfig.java,5\8\58172bbcd572854668f8421cfc271a1416117db8
-{
-Ksrc/main/java/app/disney/common/security/service/AuthenticationService.java,2\7\27b66e6fb6e8152d11c05c0791587e89d9e00285
 a
 1src/main/java/app/disney/config/CryptoConfig.java,c\e\ce67c6750b4b9842a12d7a35423b7d19a4a942b6
-b
-2src/main/java/app/disney/domain/model/AppRole.java,7\0\701ca0b7e90a1b749c322eb370bc2d6e35af7fa7
-b
-2src/main/java/app/disney/domain/model/AppUser.java,3\3\333384c06dfc43beda4a78eea7a76f0dbe67d096
 z
 Jsrc/main/java/app/disney/common/exceptions/error/ApplicationErrorCode.java,d\2\d260cd11c4f7606ce63231a6b9a43e13e0deb649
 s
 Csrc/main/java/app/disney/common/exceptions/error/ErrorLocation.java,5\b\5bfa4bc4b3ec02d1faa0c46511cbde7efb4361a1
-r
-Bsrc/main/java/app/disney/domain/usercase/impl/UserServiceImpl.java,c\1\c150d403f9260ff0e55610b03ce6ea52d0c4750c
 y
 Isrc/main/java/app/disney/common/exceptions/handler/ConflictException.java,3\e\3e77ffd86a9cf7d647b043c7d96e6cc671bee86f
 j
@@ -61,5 +53,3 @@ q
 Asrc/main/java/app/disney/domain/repository/IGenderRepository.java,9\f\9f13150f34a4da06245d21c7ea558b3c91bf8c1a
 …
 Usrc/main/java/app/disney/ports/input/rs/api/specification/PersonajeSpecification.java,4\e\4ef17ea0bec0b9ed69d66b9a16863ebe7a503e03
-|
-Lsrc/main/java/app/disney/domain/usercase/impl/PersonajeServiceImplement.java,d\e\de938176b87fbddc596391649a5a6f14b66245f6

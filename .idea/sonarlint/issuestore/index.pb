@@ -61,8 +61,6 @@ Csrc/main/java/app/disney/ports/input/rs/response/MovieResponse.java,f\f\ffe50e
 Ksrc/main/java/app/disney/ports/input/rs/controller/PersonajeController.java,4\8\482e92b290ed3e8e27db49dce7dfebef95e446f3
 y
 Isrc/main/java/app/disney/ports/input/rs/mapper/MovieControllerMapper.java,b\3\b3412c0a0dd3cd9cee32cb438189a1b1b2d8d678
-c
-3src/main/java/app/disney/config/SecurityConfig.java,0\4\04fd01c3726e9c47dee82ce859695b33ab7edbdc
 k
 ;src/main/java/app/disney/domain/usercase/IMovieService.java,3\a\3a21d0f436fc409733a5e92cdc349bea174beeec
 j
@@ -89,10 +87,6 @@ d
 4src/main/java/app/disney/domain/model/Personaje.java,f\b\fb43755b23c4b8586199ddb9b6611ce39963c22b
 b
 2src/main/java/app/disney/domain/model/AppUser.java,3\3\333384c06dfc43beda4a78eea7a76f0dbe67d096
-`
-0src/main/java/app/disney/domain/model/Movie.java,c\e\cef8cdc44c6138b4193b3a946820228db5a5e320
-b
-2src/main/java/app/disney/domain/model/AppRole.java,7\0\701ca0b7e90a1b749c322eb370bc2d6e35af7fa7
 j
 :src/main/resources/db/migration/v1.3__schema_personaje.sql,4\9\49bb4819db36da53af7605ab863656fa192bcc88
 q

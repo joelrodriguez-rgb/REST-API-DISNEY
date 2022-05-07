@@ -1,3 +1,3 @@
 insert into role (role_id, name)
-values (1, "ADMIN");
-values (2, "USER");
+values (1, "ROLE_ADMIN");
+values (2, "ROLE_USER");

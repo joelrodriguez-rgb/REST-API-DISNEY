@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class UpdateUserRequest {
 
-
     @JsonProperty("first_name")
     private String firstName;
 

@@ -1,8 +1,8 @@
 package app.disney.ports.input.rs.controller;
 
 
-import app.disney.domain.model.AppUser;
-import app.disney.domain.usercase.IUserService;
+import app.disney.domain.model.User;
+import app.disney.domain.usercase.UserService;
 import app.disney.ports.input.rs.mapper.UserControllerMapper;
 import app.disney.ports.input.rs.request.UpdateUserRequest;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final IUserService userService;
+    private final UserService userService;
 
 
     private final UserControllerMapper userControllerMapper;
@@ -26,7 +26,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateUser(@Valid @NotNull @PathVariable Long id, @Valid @RequestBody UpdateUserRequest updateUserRequest) {
 
-        AppUser user = userControllerMapper.updateUserRequestToUser(updateUserRequest);
+        User user = userControllerMapper.updateUserRequestToUser(updateUserRequest);
 
         userService.updateEntityIfExists(id, user);
     }

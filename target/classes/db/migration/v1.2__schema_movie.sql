@@ -10,5 +10,6 @@ qualification int not null,
 gender_id bigint not null,
 primary key (movie_id),
 key gender_id (gender_id),
-constraint fk_gender foreign key (gender_id) references gender (gender_id)
+constraint fk_gender
+foreign key (gender_id) references gender (gender_id)
 ) engine = InnoDB;

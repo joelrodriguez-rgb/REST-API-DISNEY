@@ -14,21 +14,21 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class CreateUserRequest {
 
-	@NotNull
-	@JsonProperty("first_name")
-	private String firstName;
+    @NotNull
+    @JsonProperty("first_name")
+    private String firstName;
 
-	@NotNull
-	@JsonProperty("last_name")
-	private String lastName;
+    @NotNull
+    @JsonProperty("last_name")
+    private String lastName;
 
-	@Email
-	@NotNull
-	@JsonProperty("email")
-	private String email;
+    @Email
+    @NotNull
+    @JsonProperty("email")
+    private String email;
 
-	@NotNull
-	@JsonProperty("password")
-	@Size(min = 8, max = 12)
-	private String password;
+    @NotNull
+    @JsonProperty("password")
+    @Size(min = 8, max = 12)
+    private String password;
 }

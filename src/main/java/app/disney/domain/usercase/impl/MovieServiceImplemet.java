@@ -2,6 +2,7 @@ package app.disney.domain.usercase.impl;
 
 import app.disney.common.exceptions.handler.ExistingNameException;
 import app.disney.common.exceptions.handler.NotFoundException;
+import app.disney.domain.model.Gender;
 import app.disney.domain.model.Movie;
 import app.disney.domain.repository.IGenderRepository;
 import app.disney.domain.repository.IMovieRepository;
@@ -9,21 +10,26 @@ import app.disney.domain.usercase.IMovieService;
 import app.disney.ports.input.rs.api.specification.MovieSpecification;
 import app.disney.ports.input.rs.request.MovieFilterRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.ILoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.logging.LogManager;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MovieServiceImplemet implements IMovieService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(MovieServiceImplemet.class);
 
     private final IMovieRepository movieRepository;
     private final IGenderRepository genderRepository;
@@ -34,7 +40,8 @@ public class MovieServiceImplemet implements IMovieService {
     public Integer saveMovie(Movie movie) {
 
         validateName(movie.getTitle());
-        movie.setGender(genderRepository.findByGenderName(movie.getGender().getGenderName()));
+        Gender gender = genderRepository.findByGenderName(movie.getGender().getGenderName());
+        movie.setGender(gender);
 
         return movieRepository.save(movie).getId();
     }
@@ -65,44 +72,12 @@ public class MovieServiceImplemet implements IMovieService {
     }
 
     @Override
-    public Movie getMovieById(Integer id) {
-        return movieRepository.findById(id).orElseThrow(() -> new NotFoundException("ID : " + id));
-    }
-
-    @Override
     @Transactional
     public void deleteMovieById(Integer id) {
         if (movieRepository.findById(id).isPresent()) movieRepository.deleteById(id);
         else throw new NotFoundException("ID : " + id);
     }
 
-    @Override
-    public Movie getByTitleIgnoreCase(String title) {
-        return movieRepository.findByTitleIgnoreCase(title);
-    }
-
-    @Override
-    public String saveImg(MultipartFile imagen) {
-
-        if (imagen != null) {
-
-            Path directorioImagenes = Paths.get("src//main//resources//static/imgMovies");
-            String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-
-            try {
-                byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta, bytesImg);
-
-                return imagen.getOriginalFilename();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-
-    }
 
     @Override
     @Transactional(readOnly = true)
@@ -113,9 +88,9 @@ public class MovieServiceImplemet implements IMovieService {
 
         if (order == "ASC")
             list = movieRepository.findAll(Sort.by("creation_date"));
-            // Collections.sort(list, Comparator.comparing(Movie::getCreationDate));
-        else
-            list = movieRepository.findAll(Sort.by("creation_date").descending());
+        // Collections.sort(list, Comparator.comparing(Movie::getCreationDate));
+        else if (order == "DESC")
+        list = movieRepository.findAll(Sort.by("creation_date").descending());
         //Collections.sort(list, Comparator.comparing(Movie::getCreationDate).reversed());
 
         return list;
@@ -127,23 +102,11 @@ public class MovieServiceImplemet implements IMovieService {
 
         List<Movie> list = movieRepository.findAll();
 
-        if (order == "ASC")
+        if (order == "ASC") {
             list = movieRepository.findAll(Sort.by("creation_date"));
-            // Collections.sort(list, Comparator.comparing(Movie::getCreationDate));
-        else
-            list = movieRepository.findAll(Sort.by("creation_date").descending());
-        //Collections.sort(list, Comparator.comparing(Movie::getCreationDate).reversed());
-
+        } else if (order == "DESC") {
+           list = movieRepository.findAll(Sort.by("creation_date").descending());
+        }
         return list;
     }
-
-
-    @Override
-    public List<String> getAllPersonajesByMovie(Integer id) {
-
-        List<String> listPersonaje = movieRepository.findAllPersonajesByMovie(id);
-
-        return listPersonaje;
-    }
-
 }

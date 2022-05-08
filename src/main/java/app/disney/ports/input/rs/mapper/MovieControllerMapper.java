@@ -10,9 +10,9 @@ import java.util.List;
 @Mapper
 public interface MovieControllerMapper extends CommonMapper {
 
-    Movie movieRequestToMovie (MovieRequest request);
+    Movie movieRequestToMovie(MovieRequest request);
 
-    MovieResponse movieToMovieResponse (Movie movie);
+    MovieResponse movieToMovieResponse(Movie movie);
 
     List<MovieResponse> moviesToMoviesResponses(List<Movie> list);
 

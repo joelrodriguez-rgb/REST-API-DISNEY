@@ -1,6 +1,6 @@
 package app.disney.ports.input.rs.mapper;
 
-import app.disney.domain.model.AppUser;
+import app.disney.domain.model.User;
 import app.disney.ports.input.rs.request.UpdateUserRequest;
 import app.disney.ports.input.rs.response.UserResponse;
 import javax.annotation.processing.Generated;
@@ -14,20 +14,23 @@ import org.springframework.stereotype.Component;
 public class UserControllerMapperImpl implements UserControllerMapper {
 
     @Override
-    public AppUser updateUserRequestToUser(UpdateUserRequest userRequest) {
+    public User updateUserRequestToUser(UpdateUserRequest userRequest) {
         if ( userRequest == null ) {
             return null;
         }
 
-        AppUser appUser = new AppUser();
+        User user = new User();
 
-        appUser.setPassword( userRequest.getPassword() );
+        user.setFirstName( userRequest.getFirstName() );
+        user.setLastName( userRequest.getLastName() );
+        user.setPassword( userRequest.getPassword() );
+        user.setPhoto( userRequest.getPhoto() );
 
-        return appUser;
+        return user;
     }
 
     @Override
-    public UserResponse userToUserResponse(AppUser user) {
+    public UserResponse userToUserResponse(User user) {
         if ( user == null ) {
             return null;
         }
@@ -35,7 +38,10 @@ public class UserControllerMapperImpl implements UserControllerMapper {
         UserResponse userResponse = new UserResponse();
 
         userResponse.setId( user.getId() );
+        userResponse.setFirstName( user.getFirstName() );
+        userResponse.setLastName( user.getLastName() );
         userResponse.setEmail( user.getEmail() );
+        userResponse.setPhoto( user.getPhoto() );
 
         return userResponse;
     }

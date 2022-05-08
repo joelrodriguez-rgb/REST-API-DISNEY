@@ -1,6 +1,6 @@
 package app.disney.ports.input.rs.mapper;
 
-import app.disney.domain.model.AppUser;
+import app.disney.domain.model.User;
 import app.disney.ports.input.rs.request.CreateUserRequest;
 import app.disney.ports.input.rs.response.UserResponse;
 import javax.annotation.processing.Generated;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class AuthenticationControllerMapperImpl implements AuthenticationControllerMapper {
 
     @Override
-    public UserResponse userToUserResponse(AppUser user) {
+    public UserResponse userToUserResponse(User user) {
         if ( user == null ) {
             return null;
         }
@@ -22,22 +22,27 @@ public class AuthenticationControllerMapperImpl implements AuthenticationControl
         UserResponse userResponse = new UserResponse();
 
         userResponse.setId( user.getId() );
+        userResponse.setFirstName( user.getFirstName() );
+        userResponse.setLastName( user.getLastName() );
         userResponse.setEmail( user.getEmail() );
+        userResponse.setPhoto( user.getPhoto() );
 
         return userResponse;
     }
 
     @Override
-    public AppUser createUserRequestToUser(CreateUserRequest user) {
+    public User createUserRequestToUser(CreateUserRequest user) {
         if ( user == null ) {
             return null;
         }
 
-        AppUser appUser = new AppUser();
+        User user1 = new User();
 
-        appUser.setPassword( user.getPassword() );
-        appUser.setEmail( user.getEmail() );
+        user1.setFirstName( user.getFirstName() );
+        user1.setLastName( user.getLastName() );
+        user1.setEmail( user.getEmail() );
+        user1.setPassword( user.getPassword() );
 
-        return appUser;
+        return user1;
     }
 }

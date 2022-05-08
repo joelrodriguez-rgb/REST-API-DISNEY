@@ -1,34 +1,43 @@
 package app.disney.domain.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity(name = "role")
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class AppRole implements GrantedAuthority {
+@Table(name="role")
+public class Role implements GrantedAuthority{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
+    @Column(name="role_id")
     private Long id;
 
-    @Column(name = "name", nullable = false, updatable = false)
+    @Column(name="name", nullable = false, updatable = false)
     private String name;
+
+    @Column(name="description", nullable = false, updatable = false)
+    private String description;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createdAt;
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AppRole role = (AppRole) o;
+        Role role = (Role) o;
         return Objects.equals(id, role.id);
     }
 
@@ -36,7 +45,6 @@ public class AppRole implements GrantedAuthority {
     public int hashCode() {
         return Objects.hash(id);
     }
-
 
     @Override
     public String getAuthority() {

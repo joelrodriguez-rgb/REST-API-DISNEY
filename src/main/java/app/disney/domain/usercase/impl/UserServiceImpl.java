@@ -2,11 +2,11 @@ package app.disney.domain.usercase.impl;
 
 import app.disney.common.exceptions.handler.ConflictException;
 import app.disney.common.exceptions.handler.NotFoundException;
-import app.disney.domain.model.AppRole;
-import app.disney.domain.model.AppUser;
-import app.disney.domain.repository.IRoleRepository;
-import app.disney.domain.repository.IUserRepository;
-import app.disney.domain.usercase.IUserService;
+import app.disney.domain.model.Role;
+import app.disney.domain.model.User;
+import app.disney.domain.repository.RoleRepository;
+import app.disney.domain.repository.UserRepository;
+import app.disney.domain.usercase.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,11 +19,11 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class UserServiceImpl implements UserDetailsService, IUserService {
+public class UserServiceImpl implements UserDetailsService, UserService {
 
-    private final IUserRepository userJpaRepository;
+    private final UserRepository userJpaRepository;
 
-    private final IRoleRepository roleJpaRepository;
+    private final RoleRepository roleJpaRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -41,11 +41,11 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 
     @Override
     @Transactional
-    public AppUser createUser(AppUser user) {
+    public User createUser(User user) {
         if (existsByEmail(user.getEmail())) {
             throw new ConflictException("Email address '%s' already exists".formatted(user.getEmail()));
         }
-        AppRole role = roleJpaRepository.findById(ROLE_USER_ID).orElseThrow(() -> new NotFoundException(ROLE_USER_ID));
+        Role role = roleJpaRepository.findById(ROLE_USER_ID).orElseThrow(() -> new NotFoundException(ROLE_USER_ID));
         user.setRole(role);
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
@@ -55,9 +55,11 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 
     @Override
     @Transactional
-    public void updateEntityIfExists(Long id, AppUser user) {
+    public void updateEntityIfExists(Long id, app.disney.domain.model.User user) {
         userJpaRepository.findById(id).map(userJpa -> {
-            Optional.ofNullable(user.getUsername()).ifPresent(userJpa::setUserName);
+            Optional.ofNullable(user.getFirstName()).ifPresent(userJpa::setFirstName);
+            Optional.ofNullable(user.getLastName()).ifPresent(userJpa::setLastName);
+            Optional.ofNullable(user.getPhoto()).ifPresent(userJpa::setPhoto);
             Optional.ofNullable(user.getRole()).ifPresent(userJpa::setRole);
 
             if (user.getPassword() != null) {

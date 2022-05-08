@@ -1,6 +1,6 @@
 package app.disney.ports.input.rs.mapper;
 
-import app.disney.domain.model.AppUser;
+import app.disney.domain.model.User;
 import app.disney.ports.input.rs.request.CreateUserRequest;
 import app.disney.ports.input.rs.response.UserResponse;
 import org.mapstruct.Mapper;
@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 public interface AuthenticationControllerMapper extends CommonMapper {
 
 
-    UserResponse userToUserResponse(AppUser user);
+    UserResponse userToUserResponse(User user);
 
-    AppUser createUserRequestToUser(CreateUserRequest user);
+    User createUserRequestToUser(CreateUserRequest user);
 }

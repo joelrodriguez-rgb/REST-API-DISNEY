@@ -11,10 +11,8 @@ import app.disney.ports.input.rs.api.specification.MovieSpecification;
 import app.disney.ports.input.rs.request.MovieFilterRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.LogManager;
 
 @Slf4j
 @Service
@@ -78,35 +75,21 @@ public class MovieServiceImplemet implements IMovieService {
         else throw new NotFoundException("ID : " + id);
     }
 
-
     @Override
     @Transactional(readOnly = true)
-    public List<Movie> getAllMovies(MovieFilterRequest request, String order) {
+    public List<Movie> getAllMovies(MovieFilterRequest request) {
 
         Specification<Movie> movieSpec = spec.getAllBySpec(request);
         List<Movie> list = movieRepository.findAll(movieSpec);
 
-        if (order == "ASC")
-            list = movieRepository.findAll(Sort.by("creation_date"));
-        // Collections.sort(list, Comparator.comparing(Movie::getCreationDate));
-        else if (order == "DESC")
-        list = movieRepository.findAll(Sort.by("creation_date").descending());
-        //Collections.sort(list, Comparator.comparing(Movie::getCreationDate).reversed());
 
-        return list;
-    }
+        if (request.getOrder().equals("ASC"))
+            //  list = movieRepository.findAll(Sort.by("creation_date"));
+            list.sort(Comparator.comparing(Movie::getCreationDate));
+        else if (request.getOrder().equals("DESC"))
+            //list = movieRepository.findAll(Sort.by("creation_date").descending());
+            list.sort(Comparator.comparing(Movie::getCreationDate).reversed());
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Movie> getAllMovies(String order) {
-
-        List<Movie> list = movieRepository.findAll();
-
-        if (order == "ASC") {
-            list = movieRepository.findAll(Sort.by("creation_date"));
-        } else if (order == "DESC") {
-           list = movieRepository.findAll(Sort.by("creation_date").descending());
-        }
         return list;
     }
 }

@@ -14,9 +14,7 @@ public interface IMovieService {
 
     void deleteMovieById(Integer id);
 
-    List<Movie> getAllMovies(MovieFilterRequest request,String order);
-
-    List<Movie> getAllMovies(String order);
+    List<Movie> getAllMovies(MovieFilterRequest request);
 
     void validateName(String title);
 }

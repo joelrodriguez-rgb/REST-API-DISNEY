@@ -22,7 +22,7 @@ public class MovieSpecification {
 
             } else if (movie.getIdGender() != null) {
 
-                predicates.add(criteriaBuilder.equal(root.get("gender").get("gender_id"), movie.getIdGender()));
+                predicates.add(criteriaBuilder.equal(root.get("gender").get("id"), movie.getIdGender()));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };

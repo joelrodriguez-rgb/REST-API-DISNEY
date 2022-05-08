@@ -59,8 +59,6 @@ h
 8src/main/java/app/disney/ChallengeDisneyApplication.java,4\e\4eabe504406b9a051d0a6928f7afa9c42747b344
 u
 Esrc/main/java/app/disney/common/security/filter/JwtRequestFilter.java,8\6\86c02f72812c10e79bd64e0dbf560de46424708f
-c
-3src/main/java/app/disney/config/SecurityConfig.java,0\4\04fd01c3726e9c47dee82ce859695b33ab7edbdc
 _
 /src/main/java/app/disney/domain/model/Role.java,c\4\c4face631f4024d75d5d2c8b74943d590d60bf5f
 _
@@ -89,13 +87,9 @@ x
 Hsrc/main/java/app/disney/ports/input/rs/mapper/UserControllerMapper.java,e\5\e55f9ea9a8cef120dbda76e77c95c4956c764678
 v
 Fsrc/main/java/app/disney/ports/input/rs/request/UpdateUserRequest.java,1\5\1558330089cb9378b66b6968126a736b87bd09e4
-v
-Fsrc/main/java/app/disney/ports/input/rs/request/CreateUserRequest.java,4\e\4e27f78880629043ba7b7281bd57205a9cd5a4cf
 z
 Jsrc/main/java/app/disney/ports/input/rs/request/AuthenticationRequest.java,8\9\8941103d32e254a948601f3d27b90ee0358adfb7
 €
 Psrc/main/java/app/disney/ports/input/rs/controller/AuthenticationController.java,c\7\c70e5b37ecbc6e38fb58c8d8d43b01667ff5d065
-`
-0src/main/java/app/disney/domain/model/Movie.java,c\e\cef8cdc44c6138b4193b3a946820228db5a5e320
-a
-1src/main/java/app/disney/domain/model/Gender.java,2\9\29b20c99d86f836cb75d73079d11b80504369017
+z
+Jsrc/main/java/app/disney/ports/input/rs/mapper/GenderControllerMapper.java,6\b\6b99dc3771158a33998d92396bd70677ded17798

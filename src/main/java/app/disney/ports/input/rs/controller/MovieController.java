@@ -27,14 +27,10 @@ public class MovieController {
     private final MovieControllerMapper mapper;
 
     @GetMapping()
-    public ResponseEntity<List<MovieResponse>> getMovies(MovieFilterRequest request, String order) {
+    public ResponseEntity<List<MovieResponse>> getMovies(@RequestBody(required = false) MovieFilterRequest request) {
         List<MovieResponse> listResponse;
 
-        if (request.getTitle() != null || request.getIdGender() != null || request.getOrder() == null) {
-            listResponse = mapper.moviesToMoviesResponses(movieService.getAllMovies(order));
-        } else {
-            listResponse = mapper.moviesToMoviesResponses(movieService.getAllMovies(request, order));
-        }
+        listResponse = mapper.moviesToMoviesResponses(movieService.getAllMovies(request));
 
         return ResponseEntity.ok().body(listResponse);
     }

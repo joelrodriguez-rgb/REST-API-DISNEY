@@ -1,6 +1,7 @@
 package app.disney.ports.input.rs.mapper;
 
 import app.disney.domain.model.Movie;
+import app.disney.ports.input.rs.request.MovieFilterRequest;
 import app.disney.ports.input.rs.request.MovieRequest;
 import app.disney.ports.input.rs.response.MovieResponse;
 import org.mapstruct.Mapper;
@@ -11,6 +12,8 @@ import java.util.List;
 public interface MovieControllerMapper extends CommonMapper {
 
     Movie movieRequestToMovie(MovieRequest request);
+
+    Movie movieFilterRequestToMovie (MovieFilterRequest filter);
 
     MovieResponse movieToMovieResponse(Movie movie);
 

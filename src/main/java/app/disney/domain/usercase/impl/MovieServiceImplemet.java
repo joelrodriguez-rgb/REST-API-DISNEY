@@ -65,7 +65,6 @@ public class MovieServiceImplemet implements IMovieService {
 
         if (movieRepository.findByTitleIgnoreCase(title) != null)
             throw new ExistingNameException("TITLE  : " + title);
-
     }
 
     @Override
@@ -77,19 +76,42 @@ public class MovieServiceImplemet implements IMovieService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Movie> getAllMovies(MovieFilterRequest request) {
+    public List<Movie> getAllMoviesByFilter(MovieFilterRequest request) {
 
         Specification<Movie> movieSpec = spec.getAllBySpec(request);
         List<Movie> list = movieRepository.findAll(movieSpec);
 
+        if (request.getOrder() != null) {
+            if (request.getOrder().equals("ASC"))
+                list.sort(Comparator.comparing(Movie::getCreationDate));
+            else if (request.getOrder().equals("DESC"))
+                list.sort(Comparator.comparing(Movie::getCreationDate).reversed());
+        }
 
-        if (request.getOrder().equals("ASC"))
-            //  list = movieRepository.findAll(Sort.by("creation_date"));
+        return list;
+    }
+
+    @Override
+    public List<Movie> getAllMovies(MovieFilterRequest request) {
+
+
+        List<Movie> list = movieRepository.findAll();
+
+        if (request.getOrder() != null)
+            list = sortList(list,request.getOrder());
+
+        return list;
+    }
+
+    private List<Movie> sortList(List<Movie> list, String order){
+
+        if (order.equals("ASC"))
             list.sort(Comparator.comparing(Movie::getCreationDate));
-        else if (request.getOrder().equals("DESC"))
-            //list = movieRepository.findAll(Sort.by("creation_date").descending());
+        else if (order.equals("DESC"))
             list.sort(Comparator.comparing(Movie::getCreationDate).reversed());
 
         return list;
     }
+
+
 }

@@ -31,8 +31,6 @@ Esrc/main/java/app/disney/ports/input/rs/request/PersonajeRequest.java,8\d\8d50
 Msrc/main/java/app/disney/common/exceptions/handler/ExistingNameException.java,0\7\077ccce7b07bcf3f0fe5c76b8038f11a8087e991
 Ö
 Usrc/main/java/app/disney/ports/input/rs/api/specification/PersonajeSpecification.java,4\e\4ef17ea0bec0b9ed69d66b9a16863ebe7a503e03
-s
-Csrc/main/java/app/disney/ports/input/rs/response/MovieResponse.java,f\f\ffe50edd6b908179638a0dd19643e3aae50d86cb
 {
 Ksrc/main/java/app/disney/ports/input/rs/controller/PersonajeController.java,4\8\482e92b290ed3e8e27db49dce7dfebef95e446f3
 j
@@ -93,3 +91,15 @@ Jsrc/main/java/app/disney/ports/input/rs/request/AuthenticationRequest.java,8\9
 Psrc/main/java/app/disney/ports/input/rs/controller/AuthenticationController.java,c\7\c70e5b37ecbc6e38fb58c8d8d43b01667ff5d065
 z
 Jsrc/main/java/app/disney/ports/input/rs/mapper/GenderControllerMapper.java,6\b\6b99dc3771158a33998d92396bd70677ded17798
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+c
+3src/main/java/app/disney/config/SecurityConfig.java,0\4\04fd01c3726e9c47dee82ce859695b33ab7edbdc
+p
+@src/main/java/app/disney/domain/repository/IMovieRepository.java,c\a\cadee19bbd1bdda7ece35e20ee79c55de3149235
+v
+Fsrc/main/java/app/disney/ports/input/rs/request/CreateUserRequest.java,4\e\4e27f78880629043ba7b7281bd57205a9cd5a4cf
+a
+1src/main/java/app/disney/domain/model/Gender.java,2\9\29b20c99d86f836cb75d73079d11b80504369017
+Å
+Qsrc/main/java/app/disney/ports/input/rs/api/specification/MovieSpecification.java,0\a\0a2f51798d4f07329fb2dbe76403cfbce5201833

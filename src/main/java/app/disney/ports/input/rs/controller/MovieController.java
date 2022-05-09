@@ -30,7 +30,11 @@ public class MovieController {
     public ResponseEntity<List<MovieResponse>> getMovies(@RequestBody(required = false) MovieFilterRequest request) {
         List<MovieResponse> listResponse;
 
-        listResponse = mapper.moviesToMoviesResponses(movieService.getAllMovies(request));
+
+        if ( request.getTitle() != null || request.getIdGender() != null)
+            listResponse = mapper.moviesToMoviesResponses(movieService.getAllMoviesByFilter(request));
+        else
+            listResponse = mapper.moviesToMoviesResponses(movieService.getAllMovies(request));
 
         return ResponseEntity.ok().body(listResponse);
     }

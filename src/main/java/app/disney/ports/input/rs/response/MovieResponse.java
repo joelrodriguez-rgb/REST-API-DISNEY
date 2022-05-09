@@ -1,5 +1,6 @@
 package app.disney.ports.input.rs.response;
 
+import app.disney.domain.model.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ public class MovieResponse {
 
     private  Integer qualification;
 
-    private String genderName;
+    private Gender gender;
 
     private List<String> personajes;
 }

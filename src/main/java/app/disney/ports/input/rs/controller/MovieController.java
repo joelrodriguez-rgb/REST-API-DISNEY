@@ -2,9 +2,12 @@ package app.disney.ports.input.rs.controller;
 
 import app.disney.domain.model.Movie;
 import app.disney.domain.usercase.IMovieService;
+import app.disney.domain.usercase.IPersonajeService;
 import app.disney.ports.input.rs.mapper.MovieControllerMapper;
+import app.disney.ports.input.rs.mapper.PersonajeControllerMapper;
 import app.disney.ports.input.rs.request.MovieFilterRequest;
 import app.disney.ports.input.rs.request.MovieRequest;
+import app.disney.ports.input.rs.response.MovieDetailResponse;
 import app.disney.ports.input.rs.response.MovieResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +27,10 @@ import java.util.List;
 public class MovieController {
 
     private final IMovieService movieService;
+
     private final MovieControllerMapper mapper;
+
+    private final PersonajeControllerMapper mapperPerson;
 
     @GetMapping()
     public ResponseEntity<List<MovieResponse>> getMovies(@RequestBody(required = false) MovieFilterRequest request) {
@@ -39,10 +45,22 @@ public class MovieController {
         return ResponseEntity.ok().body(listResponse);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<MovieDetailResponse> getMovie (@Valid @NotNull @PathVariable Long id){
+
+        MovieDetailResponse response = mapper.movieToMovieDetailResponse(movieService.getMovie(id));
+
+        List<String> listPersonajes = movieService.getPersonajesByMovie(id);
+
+        response.setPersonajes(listPersonajes);
+
+        return ResponseEntity.ok().body(response);
+    }
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteMovie(@PathVariable Integer id) {
+    public void deleteMovie(@PathVariable Long id) {
         movieService.deleteMovieById(id);
     }
 
@@ -50,7 +68,7 @@ public class MovieController {
     public ResponseEntity<Void> saveMovie(@Valid @RequestBody MovieRequest request) {
 
         Movie movie = mapper.movieRequestToMovie(request);
-        final int id = movieService.saveMovie(movie);
+        final long id = movieService.saveMovie(movie);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand()
@@ -61,7 +79,7 @@ public class MovieController {
 
     @PutMapping("/editMovie/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void editMovie(@Valid @NotNull @PathVariable Integer id,
+    public void editMovie(@Valid @NotNull @PathVariable Long id,
                           @Valid @RequestBody MovieRequest request) {
 
         Movie upMovie = mapper.movieRequestToMovie(request);

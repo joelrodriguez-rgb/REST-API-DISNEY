@@ -2,8 +2,7 @@ drop table if exists personaje;
 
 create table personaje
 (
-
- personaje_id bigint not null auto_increment,
+ personaje_id bigint  not null auto_increment,
  name varchar(255) not null,
  img_personaje varchar(255) null,
  year_p int not null,

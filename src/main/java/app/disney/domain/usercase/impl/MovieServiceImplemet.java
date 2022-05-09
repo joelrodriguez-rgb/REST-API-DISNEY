@@ -17,7 +17,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class MovieServiceImplemet implements IMovieService {
 
     @Override
     @Transactional
-    public Integer saveMovie(Movie movie) {
+    public Long saveMovie(Movie movie) {
 
         validateName(movie.getTitle());
         Gender gender = genderRepository.findByGenderName(movie.getGender().getGenderName());
@@ -45,7 +44,7 @@ public class MovieServiceImplemet implements IMovieService {
 
     @Override
     @Transactional
-    public void upDateMovie(Integer id, Movie upMovie) {
+    public void upDateMovie(Long id, Movie upMovie) {
 
         Movie movieExisting = movieRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 
@@ -60,16 +59,15 @@ public class MovieServiceImplemet implements IMovieService {
         movieRepository.save(movieExisting);
     }
 
-    @Override
-    public void validateName(String title) {
 
+    private void validateName(String title) {
         if (movieRepository.findByTitleIgnoreCase(title) != null)
             throw new ExistingNameException("TITLE  : " + title);
     }
 
     @Override
     @Transactional
-    public void deleteMovieById(Integer id) {
+    public void deleteMovieById(Long id) {
         if (movieRepository.findById(id).isPresent()) movieRepository.deleteById(id);
         else throw new NotFoundException("ID : " + id);
     }
@@ -81,29 +79,37 @@ public class MovieServiceImplemet implements IMovieService {
         Specification<Movie> movieSpec = spec.getAllBySpec(request);
         List<Movie> list = movieRepository.findAll(movieSpec);
 
-        if (request.getOrder() != null) {
-            if (request.getOrder().equals("ASC"))
-                list.sort(Comparator.comparing(Movie::getCreationDate));
-            else if (request.getOrder().equals("DESC"))
-                list.sort(Comparator.comparing(Movie::getCreationDate).reversed());
-        }
+        if (request.getOrder() != null)
+            list = sortList(list, request.getOrder());
 
         return list;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Movie> getAllMovies(MovieFilterRequest request) {
 
 
         List<Movie> list = movieRepository.findAll();
 
         if (request.getOrder() != null)
-            list = sortList(list,request.getOrder());
+            list = sortList(list, request.getOrder());
 
         return list;
     }
 
-    private List<Movie> sortList(List<Movie> list, String order){
+    @Override
+    public Movie getMovie(Long id) {
+
+        return movieRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+
+    @Override
+    public List<String> getPersonajesByMovie(Long id) {
+        return movieRepository.findAllPersonajesByMovie(id);
+    }
+
+    private List<Movie> sortList(List<Movie> list, String order) {
 
         if (order.equals("ASC"))
             list.sort(Comparator.comparing(Movie::getCreationDate));

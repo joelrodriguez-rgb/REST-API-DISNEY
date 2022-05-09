@@ -1,16 +1,0 @@
-
-
-java:S1488'"kImmediately return this expression instead of assigning it to the temporary variable "listPersonajeBySpec".(‘ÃªŠ
-7
-java:S11163"Remove this empty statement.(Åñ­õşÿÿÿÿ
-X	java:S125X"<This block of commented-out lines of code should be removed.(—ÆŠÎ8İÏñ­‰0
-n
-java:S1128"LRemove this unused import 'org.springframework.web.multipart.MultipartFile'.(ôŸœÿÿÿÿÿ8À»Õ‰0
-R
-java:S1128"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ8Á»Õ‰0
-M
-java:S1128"0Remove this unused import 'java.nio.file.Files'.(‚ƒü8Â»Õ‰0
-L
-java:S1128"/Remove this unused import 'java.nio.file.Path'.(×²êÂ8Â»Õ‰0
-M
-java:S1128"0Remove this unused import 'java.nio.file.Paths'.(áè°¯8Ä»Õ‰0

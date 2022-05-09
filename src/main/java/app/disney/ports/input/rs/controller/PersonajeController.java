@@ -38,7 +38,7 @@ public class PersonajeController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePersonaje(@Valid @NotBlank @PathVariable Integer id) {
+    public void deletePersonaje(@Valid @NotBlank @PathVariable Long id) {
         personajeService.deletePersonajeById(id);
     }
 
@@ -46,7 +46,7 @@ public class PersonajeController {
     public ResponseEntity<Void> saveStudent(@Valid @RequestBody PersonajeRequest request) {
 
         Personaje personaje = mapper.personajeRequestToPersonaje(request);
-        final int id = personajeService.savePersonaje(personaje);
+        final long id = personajeService.savePersonaje(personaje);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(id)
@@ -55,7 +55,7 @@ public class PersonajeController {
     }
 
     @PutMapping("/editCharacter/{id}")
-    public ResponseEntity<PersonajeResponse> updatePersonaje(@Valid @NotNull @PathVariable Integer id,
+    public ResponseEntity<PersonajeResponse> updatePersonaje(@Valid @NotNull @PathVariable Long id,
                                                              @Valid @RequestBody PersonajeRequest upPersonaje) {
 
         Personaje personaje = mapper.personajeRequestToPersonaje(upPersonaje);

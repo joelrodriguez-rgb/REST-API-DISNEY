@@ -21,7 +21,7 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "movie_id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "title", nullable = false, unique = true, updatable = true)
     private String title;

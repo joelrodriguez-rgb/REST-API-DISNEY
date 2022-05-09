@@ -18,7 +18,7 @@ public class Gender {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "gender_id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "gender_name")
     private String genderName;

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IPersonajeRepository extends JpaRepository<Personaje, Integer>,
+public interface IPersonajeRepository extends JpaRepository<Personaje, Long>,
         JpaSpecificationExecutor<Personaje> {
 
     List<Personaje> findAll(Specification<Personaje> spec);
@@ -22,12 +22,10 @@ public interface IPersonajeRepository extends JpaRepository<Personaje, Integer>,
      * Consulta auxiliar para traer para traer las peliculas
      * relacionados a un personaje
      */
-    @Query(value = "SELECT title FROM personaje_mov pm "
-            + "INNER JOIN personajes p "
-            + "ON pm.personaje_id = p.id "
+    @Query(value = "SELECT title FROM personaje p "
             + "INNER JOIN movies m "
-            + "ON pm.movie_id = m.id "
-            + "WHERE pm.personaje_id = ?1", nativeQuery = true)
-    List<String> findAllMoviesByPersonajeId(Integer id);
+            + "ON p.movie_id = m.movie_id "
+            + "WHERE p.personaje_id = ?1", nativeQuery = true)
+    List<String> findAllMoviesByPersonajeId(Long id);
 
 }

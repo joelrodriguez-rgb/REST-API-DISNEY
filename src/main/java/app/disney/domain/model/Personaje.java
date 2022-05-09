@@ -19,7 +19,7 @@ public class Personaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "personaje_id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "name", nullable = false, unique = true, updatable = false)
     private String name;
@@ -34,7 +34,7 @@ public class Personaje {
     private Integer weight;
 
     @ManyToMany(cascade = {CascadeType.MERGE})
-    @JoinTable(name = "personaje_mov",
+    @JoinTable(name = "personaje_movie",
             joinColumns = @JoinColumn(name = "personaje_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private List<Movie> listMovie;

@@ -43,7 +43,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 
     @Override
     @Transactional
-    public Integer savePersonaje(Personaje personaje) {
+    public Long savePersonaje(Personaje personaje) {
 
         validateName(personaje.getName());
 
@@ -55,7 +55,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
 
     @Override
     @Transactional
-    public Personaje updatePersonaje(Integer id, Personaje upPersonaje) {
+    public Personaje updatePersonaje(Long id, Personaje upPersonaje) {
 
         Personaje personaje = personajeRepo.findById(id).orElseThrow(() -> new NotFoundException(id));
 
@@ -77,35 +77,12 @@ public class PersonajeServiceImplement implements IPersonajeService {
 
 
     @Override
-    public void deletePersonajeById(Integer id) {
+    public void deletePersonajeById(Long id) {
 
         if (personajeRepo.findById(id).isPresent()) personajeRepo.deleteById(id);
         else throw new NotFoundException("ID : " + id);
 
     }
-
-   /* @Override
-    public String saveImg(MultipartFile imagen) {
-
-        if (imagen != null) {
-
-            Path directorioImagenes = Paths.get("src//main//resources//static/imgCharacters");
-            String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-
-            try {
-                byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-                Files.write(rutaCompleta, bytesImg);
-
-                return imagen.getOriginalFilename();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-
-    }*/
 
     public List<Movie> getListMoviesByTitle(List<Movie> listMovieTitle) {
 

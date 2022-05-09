@@ -1,17 +1,16 @@
 package app.disney.domain.usercase;
 
-import app.disney.domain.model.Movie;
 import app.disney.domain.model.Personaje;
 
 import java.util.List;
 
 public interface IPersonajeService {
 
-    Integer savePersonaje(Personaje personaje);
+    Long savePersonaje(Personaje personaje);
 
-    Personaje updatePersonaje(Integer id, Personaje upPersonaje);
+    Personaje updatePersonaje(Long id, Personaje upPersonaje);
 
-    void deletePersonajeById(Integer id);
+    void deletePersonajeById(Long id);
 
     List<Personaje> getPersonajes(Personaje request);
 

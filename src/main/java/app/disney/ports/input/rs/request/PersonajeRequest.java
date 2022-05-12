@@ -1,5 +1,6 @@
 package app.disney.ports.input.rs.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,6 @@ public class PersonajeRequest {
 
     private Integer weight;
 
+    @JsonProperty("list_movies")
     private List<String> moviesTitle;
 }

@@ -31,4 +31,5 @@ public class CreateUserRequest {
     @JsonProperty("password")
     @Size(min = 8, max = 12)
     private String password;
+
 }

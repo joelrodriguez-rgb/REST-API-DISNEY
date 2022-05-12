@@ -2,8 +2,10 @@ package app.disney.ports.input.rs.controller;
 
 import app.disney.domain.model.Personaje;
 import app.disney.domain.usercase.IPersonajeService;
+import app.disney.ports.api.ApiConstants;
 import app.disney.ports.input.rs.mapper.PersonajeControllerMapper;
 import app.disney.ports.input.rs.request.PersonajeRequest;
+import app.disney.ports.input.rs.request.PersonajeRequestFilter;
 import app.disney.ports.input.rs.response.PersonajeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/characters")
+@RequestMapping(ApiConstants.PERSONAJES_URI)
 @RequiredArgsConstructor
 public class PersonajeController {
 
@@ -27,12 +29,24 @@ public class PersonajeController {
     private final PersonajeControllerMapper mapper;
 
     @GetMapping()
-    public ResponseEntity<List<PersonajeResponse>> getPersonajes(@Valid @RequestBody PersonajeRequest request) {
+    public ResponseEntity<List<PersonajeResponse>> getPersonajes(@RequestParam(required = false) String name,
+                                                                 @RequestParam(required = false) Integer age,
+                                                                 @RequestParam(required = false) Integer weight,
+                                                                 @RequestParam(required = false) Long idMovie) {
 
-        Personaje personaje = mapper.personajeRequestToPersonaje(request);
+        PersonajeRequestFilter request = new PersonajeRequestFilter(name, age, weight, idMovie);
 
-        List<PersonajeResponse> list = mapper.personajeToListPersonajeResponse(personajeService.getPersonajes(personaje));
+        List<PersonajeResponse> list;
 
+        {
+            if (request.getName() != null ||
+                    request.getAge() != null ||
+                    request.getWeight() != null ||
+                    request.getIdMovie() != null)
+                list = mapper.personajeToListPersonajeResponse(personajeService.getAllPersonajesByFilter(request));
+            else
+                list = mapper.personajeToListPersonajeResponse(personajeService.getAllPersonajes());
+        }
         return ResponseEntity.ok().body(list);
     }
 
@@ -42,8 +56,8 @@ public class PersonajeController {
         personajeService.deletePersonajeById(id);
     }
 
-    @PostMapping("/saveCharacter")
-    public ResponseEntity<Void> saveStudent(@Valid @RequestBody PersonajeRequest request) {
+    @PostMapping("/savePersonaje")
+    public ResponseEntity<Void> savePersonaje(@Valid @RequestBody PersonajeRequest request) {
 
         Personaje personaje = mapper.personajeRequestToPersonaje(request);
         final long id = personajeService.savePersonaje(personaje);

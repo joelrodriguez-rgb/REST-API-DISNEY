@@ -2,7 +2,7 @@ package app.disney.ports.input.rs.controller;
 
 import app.disney.domain.model.Movie;
 import app.disney.domain.usercase.IMovieService;
-import app.disney.domain.usercase.IPersonajeService;
+import app.disney.ports.api.ApiConstants;
 import app.disney.ports.input.rs.mapper.MovieControllerMapper;
 import app.disney.ports.input.rs.mapper.PersonajeControllerMapper;
 import app.disney.ports.input.rs.request.MovieFilterRequest;
@@ -22,7 +22,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/movies")
+@RequestMapping(ApiConstants.MOVIES_URI)
 @RequiredArgsConstructor
 public class MovieController {
 
@@ -33,25 +33,29 @@ public class MovieController {
     private final PersonajeControllerMapper mapperPerson;
 
     @GetMapping()
-    public ResponseEntity<List<MovieResponse>> getMovies(@RequestBody(required = false) MovieFilterRequest request) {
+    public ResponseEntity<List<MovieResponse>> getMovies(@RequestParam(required = false) String title,
+                                                         @RequestParam(required = false) Long idGender,
+                                                         @RequestParam(required = false) String order) {
+
+        MovieFilterRequest request = new MovieFilterRequest(title, idGender, order);
         List<MovieResponse> listResponse;
 
-
-        if ( request.getTitle() != null || request.getIdGender() != null)
-            listResponse = mapper.moviesToMoviesResponses(movieService.getAllMoviesByFilter(request));
-        else
-            listResponse = mapper.moviesToMoviesResponses(movieService.getAllMovies(request));
+        {
+            if (request.getTitle() != null || request.getIdGender() != null)
+                listResponse = mapper.moviesToMoviesResponses(movieService.getAllMoviesByFilter(request));
+            else
+                listResponse = mapper.moviesToMoviesResponses(movieService.getAllMovies(request));
+        }
 
         return ResponseEntity.ok().body(listResponse);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovieDetailResponse> getMovie (@Valid @NotNull @PathVariable Long id){
+    public ResponseEntity<MovieDetailResponse> getMovie(@Valid @NotNull @PathVariable Long id) {
 
         MovieDetailResponse response = mapper.movieToMovieDetailResponse(movieService.getMovie(id));
 
         List<String> listPersonajes = movieService.getPersonajesByMovie(id);
-
         response.setPersonajes(listPersonajes);
 
         return ResponseEntity.ok().body(response);

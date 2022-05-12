@@ -79,8 +79,7 @@ public class MovieServiceImplemet implements IMovieService {
         Specification<Movie> movieSpec = spec.getAllBySpec(request);
         List<Movie> list = movieRepository.findAll(movieSpec);
 
-        if (request.getOrder() != null)
-            list = sortList(list, request.getOrder());
+        if (request.getOrder() != null) sortList(list, request.getOrder());
 
         return list;
     }
@@ -89,11 +88,9 @@ public class MovieServiceImplemet implements IMovieService {
     @Transactional(readOnly = true)
     public List<Movie> getAllMovies(MovieFilterRequest request) {
 
-
         List<Movie> list = movieRepository.findAll();
 
-        if (request.getOrder() != null)
-            list = sortList(list, request.getOrder());
+        if (request.getOrder() != null) sortList(list, request.getOrder());
 
         return list;
     }

@@ -8,16 +8,12 @@ import app.disney.domain.repository.IMovieRepository;
 import app.disney.domain.repository.IPersonajeRepository;
 import app.disney.domain.usercase.IPersonajeService;
 import app.disney.ports.input.rs.api.specification.PersonajeSpecification;
+import app.disney.ports.input.rs.request.PersonajeRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,12 +29,16 @@ public class PersonajeServiceImplement implements IPersonajeService {
 
     @Override
     @Transactional
-    public List<Personaje> getPersonajes(Personaje request) {
+    public List<Personaje> getAllPersonajesByFilter(PersonajeRequestFilter request) {
 
         Specification<Personaje> personajeSpec = spec.getAllBySpec(request);
-        List<Personaje> listPersonajeBySpec = personajeRepo.findAll(personajeSpec);
+        return personajeRepo.findAll(personajeSpec);
+    }
 
-        return listPersonajeBySpec;
+    @Override
+    @Transactional(readOnly = true)
+    public List<Personaje> getAllPersonajes() {
+        return personajeRepo.findAll();
     }
 
     @Override
@@ -46,9 +46,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
     public Long savePersonaje(Personaje personaje) {
 
         validateName(personaje.getName());
-
         personaje.setListMovie(getListMoviesByTitle(personaje.getListMovie()));
-        ;
 
         return personajeRepo.save(personaje).getId();
     }
@@ -83,6 +81,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
         else throw new NotFoundException("ID : " + id);
 
     }
+
 
     public List<Movie> getListMoviesByTitle(List<Movie> listMovieTitle) {
 

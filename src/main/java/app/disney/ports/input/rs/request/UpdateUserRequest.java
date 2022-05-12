@@ -21,10 +21,10 @@ public class UpdateUserRequest {
     @JsonProperty("last_name")
     private String lastName;
 
-
     @JsonProperty("password")
     @Size(min = 8, max = 12)
     private String password;
 
+    @JsonProperty("photo")
     private String photo;
 }

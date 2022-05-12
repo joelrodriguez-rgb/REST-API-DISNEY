@@ -1,5 +1,6 @@
 package app.disney.ports.input.rs.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,13 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PersonajeResponse {
 
-    private Integer id;
-
     private String name;
 
+    @JsonProperty("img_personaje")
     private String imgPersonaje;
 
-    private Integer year;
-
-    private Integer weight;
 }

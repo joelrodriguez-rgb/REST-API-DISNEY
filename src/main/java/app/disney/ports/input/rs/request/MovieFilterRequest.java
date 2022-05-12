@@ -13,7 +13,7 @@ public class MovieFilterRequest {
     private String title;
 
     @JsonProperty("gender_id")
-    private Integer idGender;
+    private Long idGender;
 
     private String order;
 }

@@ -12,14 +12,18 @@ import java.util.List;
 @AllArgsConstructor
 public class PersonajeRequest {
 
+    @JsonProperty("name")
     private String name;
 
+    @JsonProperty("img_personaje")
     private String imgPersonaje;
 
-    private Integer year;
+    @JsonProperty("age")
+    private Integer age;
 
+    @JsonProperty("list_movies")
     private Integer weight;
 
     @JsonProperty("list_movies")
-    private List<String> moviesTitle;
+    private List<String> movies;
 }

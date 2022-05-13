@@ -10,10 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PersonajeRequestFilter {
 
+    @JsonProperty("name")
     private String name;
 
+    @JsonProperty("age")
     private Integer age;
 
+    @JsonProperty("weight")
     private Integer weight;
 
     @JsonProperty("id_movie")

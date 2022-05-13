@@ -61,13 +61,6 @@ public class MovieController {
         return ResponseEntity.ok().body(response);
     }
 
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteMovie(@PathVariable Long id) {
-        movieService.deleteMovieById(id);
-    }
-
     @PostMapping(value = "/saveMovie")
     public ResponseEntity<Void> saveMovie(@Valid @RequestBody MovieRequest request) {
 
@@ -75,7 +68,7 @@ public class MovieController {
         final long id = movieService.saveMovie(movie);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand()
+                .path("/{id}").buildAndExpand(id)
                 .toUri();
 
         return ResponseEntity.created(location).build();
@@ -89,5 +82,13 @@ public class MovieController {
         Movie upMovie = mapper.movieRequestToMovie(request);
         movieService.upDateMovie(id, upMovie);
     }
+
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteMovie(@PathVariable Long id) {
+        movieService.deleteMovieById(id);
+    }
+
 
 }

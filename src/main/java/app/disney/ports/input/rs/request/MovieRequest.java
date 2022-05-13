@@ -34,6 +34,6 @@ public class MovieRequest {
     private LocalDate creationDate;
 
     @NotNull
-    @JsonProperty("gender_id")
-    private Integer idGender;
+    @JsonProperty("idGender")
+    private String idGender;
 }

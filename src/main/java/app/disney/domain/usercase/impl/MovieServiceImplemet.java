@@ -10,9 +10,6 @@ import app.disney.domain.usercase.IMovieService;
 import app.disney.ports.input.rs.api.specification.MovieSpecification;
 import app.disney.ports.input.rs.request.MovieFilterRequest;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Comparator;
 import java.util.List;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MovieServiceImplemet implements IMovieService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(MovieServiceImplemet.class);
 
     private final IMovieRepository movieRepository;
     private final IGenderRepository genderRepository;
@@ -36,7 +30,8 @@ public class MovieServiceImplemet implements IMovieService {
     public Long saveMovie(Movie movie) {
 
         validateName(movie.getTitle());
-        Gender gender = genderRepository.findByGenderName(movie.getGender().getGenderName());
+        Long idGender = movie.getGender().getId();
+        Gender gender = genderRepository.findById(idGender).orElseThrow(()-> new NotFoundException(idGender));
         movie.setGender(gender);
 
         return movieRepository.save(movie).getId();

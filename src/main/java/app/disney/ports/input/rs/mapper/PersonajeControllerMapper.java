@@ -20,5 +20,4 @@ public interface PersonajeControllerMapper extends CommonMapper {
 
     List<PersonajeResponse> personajeToListPersonajeResponse (List<Personaje> listPersonajes);
 
-    Personaje personajeRequestFilterToPersonaje (PersonajeRequestFilter requestFilter);
 }

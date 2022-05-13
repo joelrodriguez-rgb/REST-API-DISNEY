@@ -27,8 +27,8 @@ public class Personaje {
     @Column(name = "img_personaje")
     private String imgPersonaje;
 
-    @Column(name = "year_p")
-    private Integer year;
+    @Column(name = "age")
+    private Integer age;
 
     @Column(name = "weight")
     private Integer weight;
@@ -49,7 +49,7 @@ public class Personaje {
         if (!id.equals(personaje.id)) return false;
         if (!name.equals(personaje.name)) return false;
         if (!imgPersonaje.equals(personaje.imgPersonaje)) return false;
-        if (!year.equals(personaje.year)) return false;
+        if (!age.equals(personaje.age)) return false;
         if (!weight.equals(personaje.weight)) return false;
         return listMovie != null ? listMovie.equals(personaje.listMovie) : personaje.listMovie == null;
     }

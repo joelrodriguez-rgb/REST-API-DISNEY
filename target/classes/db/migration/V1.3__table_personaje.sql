@@ -5,7 +5,7 @@ create table personaje
  personaje_id bigint  not null auto_increment,
  name varchar(255) not null,
  img_personaje varchar(255) null,
- year_p int not null,
+ age int not null,
  weight int not null,
  movie_id bigint not null,
  primary key (personaje_id),

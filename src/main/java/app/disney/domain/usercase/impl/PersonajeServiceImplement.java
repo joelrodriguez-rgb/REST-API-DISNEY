@@ -44,10 +44,7 @@ public class PersonajeServiceImplement implements IPersonajeService {
     @Override
     @Transactional
     public Long savePersonaje(Personaje personaje) {
-
         validateName(personaje.getName());
-        personaje.setListMovie(getListMoviesByTitle(personaje.getListMovie()));
-
         return personajeRepo.save(personaje).getId();
     }
 
@@ -58,10 +55,9 @@ public class PersonajeServiceImplement implements IPersonajeService {
         Personaje personaje = personajeRepo.findById(id).orElseThrow(() -> new NotFoundException(id));
 
         personaje.setName(upPersonaje.getName());
-        personaje.setYear(upPersonaje.getYear());
+        personaje.setAge(upPersonaje.getAge());
         personaje.setWeight(upPersonaje.getWeight());
         personaje.setImgPersonaje(upPersonaje.getImgPersonaje());
-        personaje.setListMovie(getListMoviesByTitle(upPersonaje.getListMovie()));
 
         return personajeRepo.save(personaje);
     }
@@ -82,12 +78,10 @@ public class PersonajeServiceImplement implements IPersonajeService {
 
     }
 
-
-    public List<Movie> getListMoviesByTitle(List<Movie> listMovieTitle) {
+    public List<Movie> getMovies(List<String> movies) {
 
         List<Movie> listMovie = new ArrayList<>();
-
-        listMovieTitle.forEach(mov -> listMovie.add(movieRepository.findByTitleIgnoreCase(mov.getTitle())));
+        movies.forEach(mov -> listMovie.add(movieRepository.findByTitleIgnoreCase(mov)));
 
         return listMovie;
     }

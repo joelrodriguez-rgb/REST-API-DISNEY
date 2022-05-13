@@ -12,7 +12,6 @@ public class MovieFilterRequest {
 
     private String title;
 
-    @JsonProperty("gender_id")
     private Long idGender;
 
     private String order;

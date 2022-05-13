@@ -1,5 +1,6 @@
 package app.disney.ports.input.rs.controller;
 
+import app.disney.domain.model.Movie;
 import app.disney.domain.model.Personaje;
 import app.disney.domain.usercase.IPersonajeService;
 import app.disney.ports.api.ApiConstants;
@@ -18,6 +19,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(ApiConstants.PERSONAJES_URI)
@@ -59,7 +61,11 @@ public class PersonajeController {
     @PostMapping("/savePersonaje")
     public ResponseEntity<Void> savePersonaje(@Valid @RequestBody PersonajeRequest request) {
 
+        List<Movie> movies = personajeService.getMovies(request.getMovies());
+
         Personaje personaje = mapper.personajeRequestToPersonaje(request);
+        personaje.setListMovie(movies);
+
         final long id = personajeService.savePersonaje(personaje);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()

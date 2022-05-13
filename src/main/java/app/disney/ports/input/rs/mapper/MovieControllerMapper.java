@@ -1,7 +1,6 @@
 package app.disney.ports.input.rs.mapper;
 
 import app.disney.domain.model.Movie;
-import app.disney.ports.input.rs.request.MovieFilterRequest;
 import app.disney.ports.input.rs.request.MovieRequest;
 import app.disney.ports.input.rs.response.MovieDetailResponse;
 import app.disney.ports.input.rs.response.MovieResponse;
@@ -14,12 +13,8 @@ public interface MovieControllerMapper extends CommonMapper {
 
     Movie movieRequestToMovie(MovieRequest request);
 
-    Movie movieFilterRequestToMovie (MovieFilterRequest filter);
-
-    MovieResponse movieToMovieResponse(Movie movie);
-
     List<MovieResponse> moviesToMoviesResponses(List<Movie> list);
 
-    MovieDetailResponse movieToMovieDetailResponse (Movie movie);
+    MovieDetailResponse movieToMovieDetailResponse(Movie movie);
 
 }

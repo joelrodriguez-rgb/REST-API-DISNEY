@@ -35,5 +35,5 @@ public class MovieRequest {
 
     @NotNull
     @JsonProperty("idGender")
-    private String idGender;
+    private Long idGender;
 }

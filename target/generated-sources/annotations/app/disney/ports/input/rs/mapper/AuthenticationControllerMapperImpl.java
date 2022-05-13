@@ -4,12 +4,13 @@ import app.disney.domain.model.User;
 import app.disney.ports.input.rs.request.CreateUserRequest;
 import app.disney.ports.input.rs.response.UserResponse;
 import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-05-12T23:21:37-0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Amazon.com Inc.)"
 )
+@Component
 public class AuthenticationControllerMapperImpl implements AuthenticationControllerMapper {
 
     @Override

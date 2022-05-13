@@ -3,8 +3,6 @@ A
 src/main/main.iml,6\1\61b68408d9be329695c36f5e4e3ba9efeb3d663d
 4
 mvnw,5\d\5d837c4ed85ecaaf932c506e80ff5d7b9f3d590d
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 8
 mvnw.cmd,1\f\1f1763f358c257ea3515417352b82b0165647ad1
 :
@@ -45,8 +43,6 @@ n
 >.metadata/.plugins/org.eclipse.m2e.core.ui/dialog_settings.xml,f\a\fad124d6fb8f8bccf6e373a38c407dac98bf4ec1
 i
 9.metadata/.plugins/org.eclipse.jdt.ui/OpenTypeHistory.xml,6\b\6b56f370af84df9a87d815d91a5f05558896633f
-î
-dtarget/generated-sources/annotations/app/disney/ports/input/rs/mapper/MovieControllerMapperImpl.java,7\f\7f576d06803b929208db9cd8801f7530b7bdb201
 i
 9.metadata/.plugins/org.eclipse.jdt.ui/dialog_settings.xml,4\f\4f935254d7124d2db9f06dafafd579c8fda9b892
 r
@@ -103,8 +99,6 @@ j
 :src/main/java/app/disney/domain/usercase/IRoleService.java,c\d\cdd62d706abf815bb8a9fce57c87686ccc074585
 q
 Asrc/main/java/app/disney/domain/usercase/impl/RoleServiceImp.java,8\4\84f804d18807c6484b6e249180d0028f34d453a9
-ò
-htarget/generated-sources/annotations/app/disney/ports/input/rs/mapper/PersonajeControllerMapperImpl.java,a\4\a465b0e4019569bd3983d46a77f85e48168245a7
 s
 Csrc/main/java/app/disney/ports/input/rs/response/MovieResponse.java,f\f\ffe50edd6b908179638a0dd19643e3aae50d86cb
 Å
@@ -113,8 +107,6 @@ Y
 )src/main/resources/application.properties,0\6\06f65155ec73600b9fc5c4dc2883d4bb84d8e284
 d
 4src/main/resources/db/migration/V1.7__add_movies.sql,d\a\daf0b9076cdd30206ec10d33d75cad927090ba9b
-y
-Isrc/main/java/app/disney/ports/input/rs/mapper/MovieControllerMapper.java,b\3\b3412c0a0dd3cd9cee32cb438189a1b1b2d8d678
 }
 Msrc/main/java/app/disney/common/exceptions/handler/ExistingNameException.java,0\7\077ccce7b07bcf3f0fe5c76b8038f11a8087e991
 p
@@ -125,8 +117,6 @@ Gsrc/main/java/app/disney/ports/input/rs/response/PersonajeResponse.java,8\3\83
 Msrc/main/java/app/disney/ports/input/rs/mapper/PersonajeControllerMapper.java,1\6\168d6224fc48df57dfd2503cab2d51fe527d917e
 t
 Dsrc/main/java/app/disney/domain/repository/IPersonajeRepository.java,4\1\410235216259cf6bdc04014c2e13c502acc26bf8
-e
-5src/main/resources/db/migration/V1.2__table_movie.sql,8\e\8ea717099c4cecd25af48f05d1e4369eebae28bf
 u
 Esrc/main/java/app/disney/ports/input/rs/request/PersonajeRequest.java,8\d\8d50177153d9a53324cc708c345f4df1a4ed1f3c
 e
@@ -137,8 +127,6 @@ Usrc/main/java/app/disney/ports/input/rs/api/specification/PersonajeSpecificatio
 Ksrc/main/java/app/disney/ports/input/rs/request/PersonajeRequestFilter.java,c\9\c9b2f9a63a1567d00abeb209b30bbe2306b65dc4
 d
 4src/main/resources/db/migration/V1.4__table_role.sql,2\d\2d4c32f2ced8ebbcc0ba4c9490c9acc3e60491cd
-ï
-etarget/generated-sources/annotations/app/disney/ports/input/rs/mapper/GenderControllerMapperImpl.java,6\9\69986f6e6fa61461ad191ebf0cacaf90aa1b56eb
 b
 2src/main/java/app/disney/config/OpenApiConfig.java,5\8\58172bbcd572854668f8421cfc271a1416117db8
 j
@@ -179,10 +167,6 @@ u
 Esrc/main/java/app/disney/common/security/filter/JwtRequestFilter.java,8\6\86c02f72812c10e79bd64e0dbf560de46424708f
 a
 1src/main/java/app/disney/config/CryptoConfig.java,c\e\ce67c6750b4b9842a12d7a35423b7d19a4a942b6
-Ç
-Rsrc/main/java/app/disney/ports/input/rs/mapper/AuthenticationControllerMapper.java,c\2\c272efe2df00450a59f5a61ec851894bc5fd28be
-Ä
-Psrc/main/java/app/disney/ports/input/rs/controller/AuthenticationController.java,c\7\c70e5b37ecbc6e38fb58c8d8d43b01667ff5d065
 v
 Fsrc/main/java/app/disney/ports/input/rs/response/RegisterResponse.java,8\3\83f031c1877738850d108f60084718d4e55a5d54
 v
@@ -191,10 +175,6 @@ c
 3src/main/resources/db/migration/V1.8__add_roles.sql,4\c\4c4af3638f9b1bf4b10ad5d72b38c921ecc324a8
 s
 Csrc/main/java/app/disney/common/exceptions/error/ErrorLocation.java,5\b\5bfa4bc4b3ec02d1faa0c46511cbde7efb4361a1
-z
-Jsrc/main/java/app/disney/common/exceptions/error/ApplicationErrorCode.java,d\2\d260cd11c4f7606ce63231a6b9a43e13e0deb649
-r
-Bsrc/main/java/app/disney/common/exceptions/error/ErrorDetails.java,6\5\658ca28da7fcb428553f94dd72856b98bfb2f5c5
 y
 Isrc/main/java/app/disney/common/exceptions/handler/ConflictException.java,3\e\3e77ffd86a9cf7d647b043c7d96e6cc671bee86f
 c
@@ -209,8 +189,6 @@ v
 Fsrc/main/java/app/disney/ports/input/rs/controller/UserController.java,0\2\025cfc061e2c4ab623803c2ba417964530574a23
 x
 Hsrc/main/java/app/disney/ports/input/rs/mapper/UserControllerMapper.java,e\5\e55f9ea9a8cef120dbda76e77c95c4956c764678
-p
-@src/main/java/app/disney/ports/input/rs/mapper/CommonMapper.java,f\3\f3bf82a5d778180468c60b9e89095c552f885e1d
 |
 Lsrc/main/java/app/disney/ports/input/rs/response/AuthenticationResponse.java,0\c\0c490bbfaa32b4d2bec6c9a93650bdd02d543907
 r
@@ -223,3 +201,21 @@ d
 4src/main/java/app/disney/domain/model/Personaje.java,f\b\fb43755b23c4b8586199ddb9b6611ce39963c22b
 |
 Lsrc/main/java/app/disney/domain/usercase/impl/PersonajeServiceImplement.java,d\e\de938176b87fbddc596391649a5a6f14b66245f6
+d
+4src/main/java/app/disney/ports/api/ApiConstants.java,4\3\4311e4c1452fd1ac15fbb3c2ac7423fac804b83f
+c
+3src/main/java/app/disney/config/SecurityConfig.java,0\4\04fd01c3726e9c47dee82ce859695b33ab7edbdc
+w
+Gsrc/main/java/app/disney/ports/input/rs/request/MovieFilterRequest.java,b\2\b25a0fee5c99376a7dfda62c5c834da851b9f3f9
+a
+1src/main/java/app/disney/domain/model/Gender.java,2\9\29b20c99d86f836cb75d73079d11b80504369017
+q
+Asrc/main/java/app/disney/domain/repository/IGenderRepository.java,9\f\9f13150f34a4da06245d21c7ea558b3c91bf8c1a
+k
+;src/main/java/app/disney/domain/usercase/IMovieService.java,3\a\3a21d0f436fc409733a5e92cdc349bea174beeec
+`
+0src/main/java/app/disney/domain/model/Movie.java,c\e\cef8cdc44c6138b4193b3a946820228db5a5e320
+q
+Asrc/main/java/app/disney/ports/input/rs/request/MovieRequest.java,f\3\f3f50bd2eb7d0ea7b9c22bb4167ed109d88d2d22
+r
+Bsrc/main/java/app/disney/common/exceptions/error/ErrorDetails.java,6\5\658ca28da7fcb428553f94dd72856b98bfb2f5c5

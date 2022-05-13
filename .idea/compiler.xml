@@ -25,7 +25,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="REST-API-DISNEY" options="-parameters -Amapstruct.defaultComponentModel=spring -Amapstruct.suppressGeneratorTimestamp=true" />
+      <module name="REST-API-DISNEY" options="-parameters" />
       <module name="challenge-disney" options="-parameters" />
     </option>
   </component>

@@ -7,8 +7,6 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface AuthenticationControllerMapper extends CommonMapper {
-
-
     UserResponse userToUserResponse(User user);
 
     User createUserRequestToUser(CreateUserRequest user);

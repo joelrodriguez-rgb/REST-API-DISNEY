@@ -30,6 +30,7 @@ public class MovieServiceImplemet implements IMovieService {
     public Long saveMovie(Movie movie) {
 
         validateName(movie.getTitle());
+
         Long idGender = movie.getGender().getId();
         Gender gender = genderRepository.findById(idGender).orElseThrow(()-> new NotFoundException(idGender));
         movie.setGender(gender);

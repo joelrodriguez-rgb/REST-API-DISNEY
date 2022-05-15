@@ -21,7 +21,7 @@ public interface IPersonajeService {
 
     void validateName(String name);
 
-    List <Movie> getMovies(List<String> movies);
+    List <Movie> getMovies(List<Long> movies);
 
 
 }

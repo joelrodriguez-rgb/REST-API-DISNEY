@@ -1,5 +1,6 @@
 package app.disney.ports.input.rs.mapper;
 
+import app.disney.domain.model.Gender;
 import app.disney.domain.model.Movie;
 import app.disney.ports.input.rs.request.MovieRequest;
 import app.disney.ports.input.rs.response.MovieDetailResponse;
@@ -24,6 +25,7 @@ public class MovieControllerMapperImpl implements MovieControllerMapper {
 
         Movie movie = new Movie();
 
+        movie.setGender( movieRequestToGender( request ) );
         movie.setTitle( request.getTitle() );
         movie.setImgMovie( request.getImgMovie() );
         movie.setCreationDate( request.getCreationDate() );
@@ -61,6 +63,18 @@ public class MovieControllerMapperImpl implements MovieControllerMapper {
         movieDetailResponse.setGender( movie.getGender() );
 
         return movieDetailResponse;
+    }
+
+    protected Gender movieRequestToGender(MovieRequest movieRequest) {
+        if ( movieRequest == null ) {
+            return null;
+        }
+
+        Gender gender = new Gender();
+
+        gender.setId( movieRequest.getIdGender() );
+
+        return gender;
     }
 
     protected MovieResponse movieToMovieResponse(Movie movie) {

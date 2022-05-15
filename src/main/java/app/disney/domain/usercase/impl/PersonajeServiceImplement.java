@@ -77,11 +77,11 @@ public class PersonajeServiceImplement implements IPersonajeService {
         else throw new NotFoundException("ID : " + id);
 
     }
-
-    public List<Movie> getMovies(List<String> movies) {
+    @Override
+    public List<Movie> getMovies(List<Long> movies) {
 
         List<Movie> listMovie = new ArrayList<>();
-        movies.forEach(mov -> listMovie.add(movieRepository.findByTitleIgnoreCase(mov)));
+        movies.forEach(mov -> listMovie.add(movieRepository.findById(mov).orElseThrow(()->new NotFoundException(mov))));
 
         return listMovie;
     }

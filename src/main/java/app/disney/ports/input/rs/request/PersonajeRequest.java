@@ -24,6 +24,6 @@ public class PersonajeRequest {
     @JsonProperty("list_movies")
     private Integer weight;
 
-    @JsonProperty("list_movies")
-    private List<String> movies;
+    @JsonProperty("movies")
+    private List<Long> movies;
 }

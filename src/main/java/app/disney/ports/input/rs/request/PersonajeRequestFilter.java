@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.mapstruct.Mapping;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class PersonajeRequestFilter {
     @JsonProperty("weight")
     private Integer weight;
 
-    @JsonProperty("id_movie")
+    @JsonProperty("idMovie")
     private Long idMovie;
 
 }

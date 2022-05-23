@@ -10,9 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MovieFilterRequest {
 
+    @JsonProperty("title")
     private String title;
 
+    @JsonProperty("idGender")
     private Long idGender;
 
+    @JsonProperty("order")
     private String order;
 }

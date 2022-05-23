@@ -1,5 +1,6 @@
 package app.disney.ports.input.rs.mapper;
 
+import app.disney.domain.model.Movie;
 import app.disney.domain.model.Personaje;
 import app.disney.ports.input.rs.request.PersonajeRequest;
 import app.disney.ports.input.rs.response.PersonajeResponse;
@@ -57,5 +58,18 @@ public class PersonajeControllerMapperImpl implements PersonajeControllerMapper 
         }
 
         return list;
+    }
+
+    @Override
+    public Movie movieIdToMovie(Long id) {
+        if ( id == null ) {
+            return null;
+        }
+
+        Movie movie = new Movie();
+
+        movie.setId( id );
+
+        return movie;
     }
 }

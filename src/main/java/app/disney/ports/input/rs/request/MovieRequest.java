@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.mapstruct.Mapping;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
@@ -33,6 +34,7 @@ public class MovieRequest {
     @JsonFormat(pattern = "yyyy-M-d", shape = JsonFormat.Shape.STRING)
     private LocalDate creationDate;
 
+    
     @NotNull
     @JsonProperty("idGender")
     private Long idGender;

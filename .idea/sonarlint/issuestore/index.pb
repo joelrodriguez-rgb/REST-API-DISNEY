@@ -149,8 +149,6 @@ a
 1src/main/java/app/disney/config/CryptoConfig.java,c\e\ce67c6750b4b9842a12d7a35423b7d19a4a942b6
 v
 Fsrc/main/java/app/disney/ports/input/rs/response/RegisterResponse.java,8\3\83f031c1877738850d108f60084718d4e55a5d54
-v
-Fsrc/main/java/app/disney/ports/input/rs/request/CreateUserRequest.java,4\e\4e27f78880629043ba7b7281bd57205a9cd5a4cf
 c
 3src/main/resources/db/migration/V1.8__add_roles.sql,4\c\4c4af3638f9b1bf4b10ad5d72b38c921ecc324a8
 s
@@ -163,8 +161,6 @@ v
 Fsrc/main/java/app/disney/ports/input/rs/request/UpdateUserRequest.java,1\5\1558330089cb9378b66b6968126a736b87bd09e4
 y
 Isrc/main/java/app/disney/common/exceptions/handler/NotFoundException.java,9\c\9c99438c31bba43651296e6d0394be3634ae658d
-v
-Fsrc/main/java/app/disney/ports/input/rs/controller/UserController.java,0\2\025cfc061e2c4ab623803c2ba417964530574a23
 x
 Hsrc/main/java/app/disney/ports/input/rs/mapper/UserControllerMapper.java,e\5\e55f9ea9a8cef120dbda76e77c95c4956c764678
 |

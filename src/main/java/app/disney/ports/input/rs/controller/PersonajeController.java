@@ -59,9 +59,10 @@ public class PersonajeController {
     }
 
     @PostMapping("/savePersonaje")
-    public ResponseEntity<Void> savePersonaje(@Valid @RequestBody PersonajeRequest request) {
+    public ResponseEntity<Void> createPersonaje(@Valid @RequestBody PersonajeRequest request,
+                                              @RequestParam List<Long> idMovies) {
 
-        List<Movie> movies = personajeService.getMovies(request.getMovies());
+        List<Movie> movies = personajeService.getMovies(idMovies);
 
         Personaje personaje = mapper.personajeRequestToPersonaje(request);
         personaje.setListMovie(movies);

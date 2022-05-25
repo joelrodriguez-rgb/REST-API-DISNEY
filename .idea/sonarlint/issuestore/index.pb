@@ -137,8 +137,6 @@ M
 src/test/java/test.properties,e\f\ef8cc9bd957ffa81e0f0eab777536fc9762430d6
 n
 >src/main/java/app/disney/domain/model/audit/AuditListener.java,0\b\0b13f2473fc3758badd6d2e4b99a52d07f80fc38
-e
-5src/main/resources/db/migration/V1.6__add_genders.sql,3\5\3500c635e62f81b7c550fb23b4cf052a3cb270d5
 >
 .gitignore.txt,2\f\2fec9aef0e3f00490b19ac15f648af576a3dcd0e
 u
@@ -217,5 +215,3 @@ v
 Fsrc/main/java/app/disney/ports/input/rs/request/CreateUserRequest.java,4\e\4e27f78880629043ba7b7281bd57205a9cd5a4cf
 v
 Fsrc/main/java/app/disney/ports/input/rs/controller/UserController.java,0\2\025cfc061e2c4ab623803c2ba417964530574a23
-q
-Asrc/main/java/app/disney/ports/input/rs/request/MovieRequest.java,f\3\f3f50bd2eb7d0ea7b9c22bb4167ed109d88d2d22

@@ -19,7 +19,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(ApiConstants.PERSONAJES_URI)
@@ -60,7 +59,7 @@ public class PersonajeController {
 
     @PostMapping("/savePersonaje")
     public ResponseEntity<Void> createPersonaje(@Valid @RequestBody PersonajeRequest request,
-                                              @RequestParam List<Long> idMovies) {
+                                                @RequestParam List<Long> idMovies) {
 
         List<Movie> movies = personajeService.getMovies(idMovies);
 

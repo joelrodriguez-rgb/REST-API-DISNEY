@@ -99,8 +99,6 @@ s
 Csrc/main/java/app/disney/ports/input/rs/response/MovieResponse.java,f\f\ffe50edd6b908179638a0dd19643e3aae50d86cb
 Å
 Qsrc/main/java/app/disney/ports/input/rs/api/specification/MovieSpecification.java,0\a\0a2f51798d4f07329fb2dbe76403cfbce5201833
-d
-4src/main/resources/db/migration/V1.7__add_movies.sql,d\a\daf0b9076cdd30206ec10d33d75cad927090ba9b
 }
 Msrc/main/java/app/disney/common/exceptions/handler/ExistingNameException.java,0\7\077ccce7b07bcf3f0fe5c76b8038f11a8087e991
 p

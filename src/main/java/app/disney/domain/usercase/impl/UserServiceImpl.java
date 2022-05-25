@@ -36,14 +36,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         return userJpaRepository.findUserByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User name: %s not found".formatted(email)));
+                .orElseThrow(() -> new UsernameNotFoundException("User name: %s not found" + (email)));
     }
 
     @Override
     @Transactional
     public User createUser(User user) {
         if (existsByEmail(user.getEmail())) {
-            throw new ConflictException("Email address '%s' already exists".formatted(user.getEmail()));
+            throw new ConflictException("Email address '%s' already exists" + user.getEmail());
         }
         Role role = roleJpaRepository.findById(ROLE_USER_ID).orElseThrow(() -> new NotFoundException(ROLE_USER_ID));
         user.setRole(role);

@@ -181,8 +181,6 @@ p
 @src/main/java/app/disney/ports/input/rs/mapper/CommonMapper.java,f\3\f3bf82a5d778180468c60b9e89095c552f885e1d
 z
 Jsrc/main/java/app/disney/common/exceptions/error/ApplicationErrorCode.java,d\2\d260cd11c4f7606ce63231a6b9a43e13e0deb649
-r
-Bsrc/main/java/app/disney/domain/usercase/impl/UserServiceImpl.java,c\1\c150d403f9260ff0e55610b03ce6ea52d0c4750c
 y
 Isrc/main/java/app/disney/ports/input/rs/response/MovieDetailResponse.java,8\8\88ad380a71ee4d1fa38624ab1634a342d19d0979
 `

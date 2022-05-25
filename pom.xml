@@ -58,11 +58,13 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.28</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
+			<version>8.0.0</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -193,8 +195,8 @@
 						<compilerArg>-Amapstruct.defaultComponentModel=spring</compilerArg>
 						<compilerArg>-Amapstruct.suppressGeneratorTimestamp=true</compilerArg>
 					</compilerArgs>
-					<source>15</source>
-					<target>15</target>
+					<source>11</source>
+					<target>11</target>
 				</configuration>
 			</plugin>
 

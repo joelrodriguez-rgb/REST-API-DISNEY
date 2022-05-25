@@ -165,8 +165,6 @@ r
 Bsrc/main/java/app/disney/ports/input/rs/response/UserResponse.java,e\1\e1679eed5f870e928779b9119816f6f71b720516
 i
 9src/main/resources/db/migration/V1.3__table_personaje.sql,1\b\1bde838511118fe39173e47bc57401fd9fa82f0f
-d
-4src/main/java/app/disney/ports/api/ApiConstants.java,4\3\4311e4c1452fd1ac15fbb3c2ac7423fac804b83f
 a
 1src/main/java/app/disney/domain/model/Gender.java,2\9\29b20c99d86f836cb75d73079d11b80504369017
 q
@@ -213,5 +211,3 @@ Jsrc/main/java/app/disney/ports/input/rs/request/AuthenticationRequest.java,8\9
 Psrc/main/java/app/disney/ports/input/rs/controller/AuthenticationController.java,c\7\c70e5b37ecbc6e38fb58c8d8d43b01667ff5d065
 v
 Fsrc/main/java/app/disney/ports/input/rs/request/CreateUserRequest.java,4\e\4e27f78880629043ba7b7281bd57205a9cd5a4cf
-v
-Fsrc/main/java/app/disney/ports/input/rs/controller/UserController.java,0\2\025cfc061e2c4ab623803c2ba417964530574a23

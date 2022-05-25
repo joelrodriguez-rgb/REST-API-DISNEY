@@ -7,7 +7,7 @@ import app.disney.ports.input.rs.response.MovieDetailResponse;
 import app.disney.ports.input.rs.response.MovieResponse;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.processing.Generated;
+import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(

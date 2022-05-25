@@ -6,7 +6,7 @@ import app.disney.ports.input.rs.request.PersonajeRequest;
 import app.disney.ports.input.rs.response.PersonajeResponse;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.processing.Generated;
+import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(

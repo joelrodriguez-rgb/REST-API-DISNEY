@@ -223,11 +223,3 @@ v
 Fsrc/main/java/app/disney/ports/input/rs/controller/UserController.java,0\2\025cfc061e2c4ab623803c2ba417964530574a23
 q
 Asrc/main/java/app/disney/ports/input/rs/request/MovieRequest.java,f\3\f3f50bd2eb7d0ea7b9c22bb4167ed109d88d2d22
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-u
-Esrc/main/java/app/disney/ports/input/rs/request/PersonajeRequest.java,8\d\8d50177153d9a53324cc708c345f4df1a4ed1f3c
-{
-Ksrc/main/java/app/disney/ports/input/rs/controller/PersonajeController.java,4\8\482e92b290ed3e8e27db49dce7dfebef95e446f3
-w
-Gsrc/main/java/app/disney/ports/input/rs/controller/MovieController.java,a\c\ac7b3afbebb9f40890facf5a6de9a591e6512cea
